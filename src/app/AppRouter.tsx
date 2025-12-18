@@ -5,7 +5,7 @@ import { PrivateRoute } from "@/app/PrivateRoute.tsx"
 import { PublicRoute } from "@/app/PublicRoute.tsx"
 import { RegisterPage } from "@/modules/auth/pages/RegisterPage.tsx"
 import { NotFound } from "@/components/layout/NotFound"
-import { RecoverPassword } from "@/components/layout/RecoverPassword"
+import { RecoverPassword } from "@/modules/auth/pages/RecoverPassword"
 
 export const AppRouter = () => {
     return (
