@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useAuthContext } from "@/context/useAuthContext"
 import { Button } from "@/components/ui/button"
-import { v } from '@/styles/Icons.tsx';
+import { Icons } from '@/styles/Icons.ts';
 
 import { useEffect, useState } from "react"
 
@@ -57,7 +57,7 @@ export const NotFound = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl animate-pulse"></div>
               <div className="relative p-6 bg-primary/10 rounded-full">
-                <v.iconFileQuestion size="80px" className="text-primary" />
+                <Icons.FileQuestion size={80} className="text-primary" />
               </div>
             </div>
           </div>
@@ -88,14 +88,14 @@ export const NotFound = () => {
               variant="outline"
               className="w-full sm:w-auto"
             >
-              <v.iconArrowLeft size="16px" className="mr-2" />
+              <Icons.ArrowLeft size={16} className="mr-2" />
               Volver atrás
             </Button>
             <Button
               onClick={handleGoHome}
               className="w-full sm:w-auto"
             >
-              <v.iconHome size="16px" className="mr-2" />
+              <Icons.Home size={16} className="mr-2" />
               Ir a {redirectText}
             </Button>
           </div>
