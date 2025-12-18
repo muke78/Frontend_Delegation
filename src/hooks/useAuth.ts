@@ -18,26 +18,19 @@ export function useAuth() {
         setLoading(true)
 
         try {
-            const res = await getProfile()
-
-            if (!isMountedRef.current) return
-
-
-            if (res.data && res.data.length > 0) {
-                setUser(res.data[0])
-            } else {
-                setUser(null)
+            const res = await getProfile();
+            if (isMountedRef.current) {
+                setUser(res.data?.[0] || null);
             }
-
         } catch (error) {
-            if (!isMountedRef.current) return
-            setUser(null)
+            if (isMountedRef.current) {
+                setUser(null);
+            }
         } finally {
             if (isMountedRef.current) {
-                setLoading(false)
-                isLoadingRef.current = false
+                setLoading(false);
             }
-
+            isLoadingRef.current = false;
         }
     }, [])
 

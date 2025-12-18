@@ -37,7 +37,7 @@ export async function apiFetch<T>(
     ...options,
   })
 
-  const data: unknown = await res.json().catch(() => null)
+  const data: unknown = await res.json().catch((err) => err)
 
   if (!res.ok) {
     const validation = data as BackendValidationError

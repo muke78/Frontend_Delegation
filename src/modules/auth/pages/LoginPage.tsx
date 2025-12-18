@@ -114,8 +114,8 @@ export const LoginPage = () => {
             </Field>
             <div className="flex justify-between">
               <div className="flex justify-center items-center gap-2">
-                <Checkbox onClick={() => setShowPassword(!showPassword)} />
-                <Label htmlFor="show password">Mostrar constraseña</Label>
+                <Checkbox id="show-password" onClick={() => setShowPassword(!showPassword)} />
+                <Label htmlFor="show-password">Mostrar constraseña</Label>
               </div>
               <div>
                 <Link to="/recovery">
