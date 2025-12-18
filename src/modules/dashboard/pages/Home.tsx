@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { Header } from '@/components/layout/Header'
-import { Sidebar } from '@/components/layout/Sidebar'
+import { Header } from '@/components/layout/Header/Header'
 import { useAuthContext } from '@/context/useAuthContext'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+import { Layout } from '@/components/layout/Layout'
 
-export const Dashboard = () => {
+export const Home = () => {
     const { user, logout } = useAuthContext()
     const navigate = useNavigate()
     const [loggingOut, setLoggingOut] = useState(false)
@@ -15,7 +15,7 @@ export const Dashboard = () => {
         if (loggingOut) return // ✅ Prevenir múltiples clicks
 
         setLoggingOut(true)
-        
+
         try {
             const message = await logout()
             toast.success(message || 'Sesión cerrada correctamente')
@@ -35,8 +35,6 @@ export const Dashboard = () => {
 
     return (
         <>
-            <Header />
-            <Sidebar />
             <div className="p-8">
                 <h1 className="text-2xl font-bold mb-4">Bienvenido usuario logeado</h1>
 
@@ -48,8 +46,8 @@ export const Dashboard = () => {
                     <p><strong>Último login:</strong> {new Date(user.last_login).toLocaleString()}</p>
                 </div>
 
-                <Button 
-                    onClick={handleLogout} 
+                <Button
+                    onClick={handleLogout}
                     variant="destructive"
                     disabled={loggingOut}
                 >
@@ -57,5 +55,6 @@ export const Dashboard = () => {
                 </Button>
             </div>
         </>
+
     )
 }

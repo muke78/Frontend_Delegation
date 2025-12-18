@@ -11,8 +11,8 @@ export const NotFound = () => {
   const [countdown, setCountdown] = useState(10)
 
 
-  const redirectPath = isAuthenticated ? "/dashboard" : "/login"
-  const redirectText = isAuthenticated ? "Dashboard" : "Inicio de sesión"
+  const redirectPath = isAuthenticated ? "/home" : "/login"
+  const redirectText = isAuthenticated ? "Home" : "Inicio de sesión"
 
   useEffect(() => {
     if (loading) return

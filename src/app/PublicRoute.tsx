@@ -15,7 +15,7 @@ export const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 
     if (isAuthenticated) {
 
-        const from = (location.state)?.from?.pathname || '/dashboard'
+        const from = (location.state)?.from?.pathname || '/home'
         return <Navigate to={from} replace />
     }
 
