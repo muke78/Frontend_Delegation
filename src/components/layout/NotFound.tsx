@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router-dom"
 import { useAuthContext } from "@/context/useAuthContext"
 import { Button } from "@/components/ui/button"
-import { Home, FileQuestion, ArrowLeft } from "lucide-react"
+import { v } from '@/styles/Icons.tsx';
+
 import { useEffect, useState } from "react"
 
 export const NotFound = () => {
   const navigate = useNavigate()
   const { isAuthenticated, loading } = useAuthContext()
-  const [countdown, setCountdown] = useState(5)
+  const [countdown, setCountdown] = useState(10)
 
-  // ✅ Determinar a dónde redirigir según autenticación
+
   const redirectPath = isAuthenticated ? "/dashboard" : "/login"
   const redirectText = isAuthenticated ? "Dashboard" : "Inicio de sesión"
 
@@ -48,7 +49,7 @@ export const NotFound = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 px-4">
       <div className="absolute inset-0 bg-grid-slate-200/50 dark:bg-grid-slate-700/25 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
-      
+
       <div className="relative max-w-2xl w-full">
         <div className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border rounded-2xl shadow-2xl p-12 text-center space-y-8">
           {/* Icono animado */}
@@ -56,7 +57,7 @@ export const NotFound = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl animate-pulse"></div>
               <div className="relative p-6 bg-primary/10 rounded-full">
-                <FileQuestion className="h-20 w-20 text-primary" />
+                <v.iconFileQuestion size="80px" className="text-primary" />
               </div>
             </div>
           </div>
@@ -87,19 +88,19 @@ export const NotFound = () => {
               variant="outline"
               className="w-full sm:w-auto"
             >
-              <ArrowLeft className="mr-2 h-4 w-4" />
+              <v.iconArrowLeft size="16px" className="mr-2" />
               Volver atrás
             </Button>
             <Button
               onClick={handleGoHome}
               className="w-full sm:w-auto"
             >
-              <Home className="mr-2 h-4 w-4" />
+              <v.iconHome size="16px" className="mr-2" />
               Ir a {redirectText}
             </Button>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }

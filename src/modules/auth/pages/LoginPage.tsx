@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from '@/components/ui/label';
-import { Mail, Lock, Loader2, FileText } from 'lucide-react';
+import { v } from '@/styles/Icons.tsx';
 import {
   Field,
   FieldDescription,
@@ -62,7 +62,7 @@ export const LoginPage = () => {
           {/* Header con icono */}
           <div className="flex flex-col items-center text-center space-y-2">
             <div className="p-3 bg-primary/10 rounded-full">
-              <FileText className="h-8 w-8 text-primary" />
+              <v.iconFileText size="32px" className="text-primary" />
             </div>
             <FieldSet>
               <FieldLegend className="text-2xl font-bold tracking-tight">
@@ -81,7 +81,7 @@ export const LoginPage = () => {
                 Correo electrónico
               </FieldLabel>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <v.iconMail size="16px" className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   type="email"
                   value={email}
@@ -100,7 +100,7 @@ export const LoginPage = () => {
                 Contraseña
               </FieldLabel>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <v.iconLock size="16px" className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   type={showPassword ? "text" : "password"}
                   value={password}
@@ -134,7 +134,7 @@ export const LoginPage = () => {
             >
               {loading ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <v.iconLoader size="16px" className="mr-2 animate-spin" />
                   Iniciando sesión...
                 </>
               ) : (
