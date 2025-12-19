@@ -1,4 +1,4 @@
-import { Mail, Lock, Loader2, FileText, Home, FileQuestion, ArrowLeft } from 'lucide-react';
+import { Mail, Lock, Loader2, FileText, Home, FileQuestion, ArrowLeft, Archive, Settings, PackageOpen, User, ChevronUp, LogOut, User2 } from 'lucide-react';
 
 export const Icons = {
     Mail,
@@ -7,6 +7,13 @@ export const Icons = {
     FileText,
     Home,
     FileQuestion,
-    ArrowLeft
+    ArrowLeft,
+    Archive,
+    Settings, 
+    User,
+    User2,
+    PackageOpen,
+    ChevronUp,
+    LogOut
 };
 

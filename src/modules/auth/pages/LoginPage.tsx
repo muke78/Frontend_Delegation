@@ -36,7 +36,7 @@ export const LoginPage = () => {
       const res = await login({ email, password })
       await refreshUser();
       toast.success(res.message)
-      navigate("/dashboard", { replace: true })
+      navigate("/home", { replace: true })
     } catch (error) {
       const err = error as ApiError
 
