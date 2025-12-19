@@ -4,13 +4,13 @@ import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import './index.css'
 import { AuthProvider } from '@/context/AuthProvider.tsx'
-import { Container } from './modules/Container.tsx'
+import { AppRouter } from '@/app/AppRouter.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <Container />
+        <AppRouter />
         <Toaster closeButton expand richColors position="bottom-right" />
       </AuthProvider>
     </BrowserRouter>

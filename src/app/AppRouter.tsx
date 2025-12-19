@@ -11,78 +11,31 @@ import { RelatedEntries } from "@/modules/related-entries/pages/RelatedEntries"
 
 import { Config } from "@/modules/config/pages/Config"
 import { Users } from "@/modules/users/pages/Users"
+import { Layout } from "@/components/layout/Layout"
 
 export const AppRouter = () => {
     return (
         <Routes>
-            <Route
-                path="/login"
-                element={
-                    <PublicRoute>
-                        <LoginPage />
-                    </PublicRoute>
-                }
-            />
-            <Route
-                path="/register"
-                element={
-                    <PublicRoute>
-                        <RegisterPage />
-                    </PublicRoute>
-                }
-            />
-
-            <Route path="/recovery" element={
-                <PublicRoute>
-                    <RecoverPassword />
-                </PublicRoute>
-            } />
-
-            <Route
-                path="/home"
-                element={
-                    <PrivateRoute>
-                        <Home />
-                    </PrivateRoute>
-                }
-            />
-
-            <Route
-                path="/archives"
-                element={
-                    <PrivateRoute>
-                        <Archives />
-                    </PrivateRoute>
-                }
-            />
-
-            <Route
-                path="/related-entries"
-                element={
-                    <PrivateRoute>
-                        <RelatedEntries />
-                    </PrivateRoute>
-                }
-            />
-
-            <Route
-                path="/users"
-                element={
-                    <PrivateRoute>
-                        <Users />
-                    </PrivateRoute>
-                }
-            />
+            {/* Rutas publicas */}
+            <Route element={<PublicRoute />}>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/recovery" element={<RecoverPassword />} />
+            </Route>
 
 
-            <Route
-                path="/config"
-                element={
-                    <PrivateRoute>
-                        <Config />
-                    </PrivateRoute>
-                }
-            />
+
+            {/* Rutas Privadas */}
+            <Route element={<PrivateRoute />}>
+                <Route element={<Layout />}>
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/archives" element={<Archives />} />
+                    <Route path="/related-entries" element={<RelatedEntries />} />
+                    <Route path="/users" element={<Users />} />
+                    <Route path="/config" element={<Config />} />
+                </Route>
+            </Route>
+
 
             <Route path="/" element={<Navigate to="/login" replace={true} />} />
             <Route path="*" element={<NotFound />} />
