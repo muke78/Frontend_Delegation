@@ -1,32 +1,7 @@
-import { useState } from 'react'
-import { Header } from '@/components/layout/Header/Header'
 import { useAuthContext } from '@/context/useAuthContext'
-import { Button } from '@/components/ui/button'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'sonner'
-import { Layout } from '@/components/layout/Layout'
 
 export const Home = () => {
-    const { user, logout } = useAuthContext()
-    const navigate = useNavigate()
-    const [loggingOut, setLoggingOut] = useState(false)
-
-    const handleLogout = async () => {
-        if (loggingOut) return // ✅ Prevenir múltiples clicks
-
-        setLoggingOut(true)
-
-        try {
-            const message = await logout()
-            toast.success(message || 'Sesión cerrada correctamente')
-        } catch (error) {
-            toast.error("Error al cerrar sesión, pero se limpiará la sesión local")
-        } finally {
-            // ✅ SIEMPRE redirigir, incluso si hay error
-            setLoggingOut(false)
-            navigate("/login", { replace: true })
-        }
-    }
+    const { user } = useAuthContext()
 
     // ✅ Protección extra: si no hay usuario, no renderizar nada
     if (!user) {
@@ -45,14 +20,6 @@ export const Home = () => {
                     <p><strong>Rol:</strong> {user.role}</p>
                     <p><strong>Último login:</strong> {new Date(user.last_login).toLocaleString()}</p>
                 </div>
-
-                <Button
-                    onClick={handleLogout}
-                    variant="destructive"
-                    disabled={loggingOut}
-                >
-                    {loggingOut ? 'Cerrando sesión...' : 'Cerrar sesión'}
-                </Button>
             </div>
         </>
 

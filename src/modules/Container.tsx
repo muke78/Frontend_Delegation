@@ -9,12 +9,11 @@ export const Container = () => {
     const { isAuthenticated } = useAuthContext()
     return (
         <>
-            {isAuthenticated && (
+            {isAuthenticated ? (
                 <Layout>
                     <AppRouter />
                 </Layout>
-            )}
-            <AppRouter />
+            ) : <AppRouter />}
         </>
 
     )

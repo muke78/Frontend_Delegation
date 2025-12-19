@@ -9,7 +9,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     })
 
     return (
-        <SidebarProvider defaultOpen={defaultOpen}>
+        <SidebarProvider defaultOpen={defaultOpen} >
             <AppSidebar />
             <main>
                 <SidebarTrigger />

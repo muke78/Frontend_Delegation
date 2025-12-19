@@ -20,10 +20,5 @@ export const MenuItems = [
         title: "Usuarios",
         url: "/users",
         icon: <Icons.User />
-    },
-    {
-        title: "Config",
-        url: "/config",
-        icon: <Icons.Settings />
-    },
+    }
 ]
