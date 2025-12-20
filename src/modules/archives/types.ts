@@ -1,12 +1,15 @@
 export type ArchiveBase = {
+    archives_id?: string
     identifier: string
     base_folio: string
+    folio: string
     name: string
     doc_type?: string
     year?: string
     storage_path?: string
     source_sheet?: string
     created_by: string
+    created_by_name?: string
 }
 
 export type CreateArchivePayload = ArchiveBase
