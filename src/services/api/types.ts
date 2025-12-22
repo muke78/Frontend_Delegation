@@ -25,7 +25,7 @@ export interface ApiSuccessResponse<
     T = unknown,
     A = unknown,
     R = unknown> {
-    success: true
+    success: true | false
     data?: ApiData<T, A, R>
     message: string
     metadata: {

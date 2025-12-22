@@ -1,5 +1,5 @@
 export type ArchiveBase = {
-    archives_id?: string
+    archives_id: string
     identifier: string
     base_folio: string
     folio: string
@@ -29,3 +29,18 @@ export type ArchiveFilters = {
 }
 
 export type UUID = string
+
+export type ColumnVisibility = {
+    id: boolean
+    identifier: boolean
+    base: boolean
+    folio: boolean
+    name: boolean
+    type: boolean
+    year: boolean
+    path: boolean
+    sheet: boolean
+    creator: boolean
+    actions: boolean
+}
+

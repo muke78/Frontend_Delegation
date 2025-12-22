@@ -18,7 +18,7 @@ interface PaginationAppProps {
 const getPaginationRange = (
     current: number,
     total: number,
-    delta = 2
+    delta = 5
 ) => {
     const range: (number | "...")[] = []
 
