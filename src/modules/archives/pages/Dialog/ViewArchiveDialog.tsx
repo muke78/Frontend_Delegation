@@ -24,13 +24,10 @@ export const ViewArchiveDialog = ({ open, archiveId, archiveName, onClose }: Pro
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline" onClick={onClose} className="cursor-pointer">
-              Cancelar
+            <Button variant={"default"} onClick={onClose} className="cursor-pointer">
+              Aceptar
             </Button>
           </DialogClose>
-          <Button variant={"default"}>
-            Aceptar
-          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

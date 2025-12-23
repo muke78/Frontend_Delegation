@@ -44,6 +44,7 @@ export const useArchive = () => {
         } catch (error) {
             console.error(error)
             setArchive([])
+            setPaginationArchive(undefined)
         } finally {
             setLoading(false)
         }

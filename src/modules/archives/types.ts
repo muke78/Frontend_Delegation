@@ -12,7 +12,7 @@ export type ArchiveBase = {
     created_by_name?: string
 }
 
-export type CreateArchivePayload = ArchiveBase
+export type CreateArchivePayload = Omit<ArchiveBase, 'archives_id' | 'folio' | 'created_by_name'>
 
 export type UpdateArchivePayload = Partial<ArchiveBase>
 

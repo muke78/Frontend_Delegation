@@ -20,6 +20,11 @@ const getPaginationRange = (
     total: number,
     delta = 5
 ) => {
+    
+    if (total <= 1) {
+        return total === 1 ? [1] : [];
+    }
+
     const range: (number | "...")[] = []
 
     const left = Math.max(2, current - delta)
@@ -63,6 +68,7 @@ export const PagintationApp = ({ pagination, onPageChange }: PaginationAppProps)
                             !hasPrevPage && "pointer-events-none opacity-50"
                         )}
                     >
+                        Anterior
                     </PaginationPrevious>
                 </PaginationItem>
 
