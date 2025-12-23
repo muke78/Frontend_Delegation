@@ -65,7 +65,7 @@ export const Footer = ({ open }: { open: boolean }) => {
                                     : "w-auto"
                             )}
                         >
-                            <DropdownMenuItem asChild>
+                            <DropdownMenuItem asChild className="cursor-pointer">
                                 <Link
                                     to="/config"
                                     className="flex items-center gap-2 w-full"
@@ -82,7 +82,7 @@ export const Footer = ({ open }: { open: boolean }) => {
                                 onClick={handleLogout}
                                 disabled={loggingOut}
                                 aria-busy={loggingOut}
-                                className="w-full flex gap-2"
+                                className="w-full flex gap-2 cursor-pointer"
                             >
                                 <Icons.LogOut />
                                 {loggingOut

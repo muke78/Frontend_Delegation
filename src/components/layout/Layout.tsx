@@ -17,7 +17,7 @@ export const Layout = () => {
                 <Tooltip delayDuration={100}>
                     <TooltipTrigger asChild>
                         <SidebarTrigger
-                            className="m-2 size-9 [&_svg]:size-5"
+                            className="m-2 size-9 [&_svg]:size-5 cursor-e-resize"
                             aria-label="Abrir o cerrar sidebar"
                         />
                     </TooltipTrigger>

@@ -20,7 +20,7 @@ export function useAuth() {
         try {
             const res = await getProfile();
             if (isMountedRef.current) {
-                setUser(res.data?.[0] || null);
+                setUser(Array.isArray(res.data) ? res.data[0] || null : null);
             }
         } catch (error) {
             if (isMountedRef.current) {
@@ -34,7 +34,6 @@ export function useAuth() {
         }
     }, [])
 
-    // ✅ Solo cargar UNA vez al montar
     useEffect(() => {
         isMountedRef.current = true
         loadUser()

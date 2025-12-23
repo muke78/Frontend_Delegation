@@ -1,26 +1,6 @@
+import type { BackendGenericError, BackendValidationError, ApiError} from "./types";
+
 const BASE_URL = import.meta.env.VITE_API_URL
-
-export interface ApiValidationError {
-  type: "validation"
-  messages: string[]
-}
-
-export interface ApiGenericError {
-  type: "error"
-  message: string
-}
-
-export type ApiError = ApiValidationError | ApiGenericError
-
-interface BackendValidationError {
-  code: "VALIDATION"
-  errores: { field: string; message: string }[]
-}
-
-interface BackendGenericError {
-  error?: { message?: string }
-  message?: string
-}
 
 export async function apiFetch<T>(
   endpoint: string,
@@ -47,7 +27,7 @@ export async function apiFetch<T>(
       throw {
         type: "validation",
         messages: validation.errores.map(e => e.message),
-      } satisfies ApiValidationError
+      } satisfies ApiError
     }
 
     throw {
@@ -56,7 +36,7 @@ export async function apiFetch<T>(
         generic?.error?.message ??
         generic?.message ??
         "Error inesperado",
-    } satisfies ApiGenericError
+    } satisfies ApiError
   }
 
   return data as T

@@ -13,11 +13,11 @@ import {
 } from "@/components/ui/field"
 
 import { toast } from "sonner"
-import type { ApiError } from "@/services/api/api.ts"
 import { login } from "@/modules/auth/services/auth.services.ts"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuthContext } from "@/context/useAuthContext"
 import { Checkbox } from "@/components/ui/checkbox";
+import type { ApiError } from "@/services/api/types.ts";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -119,7 +119,7 @@ export const LoginPage = () => {
               </div>
               <div>
                 <Link to="/recovery">
-                  <Button variant={"link"}>¿Olvidaste tu contraseña?</Button>
+                  <Button variant={"link"} className="cursor-pointer">¿Olvidaste tu contraseña?</Button>
                 </Link>
               </div>
 
@@ -130,7 +130,7 @@ export const LoginPage = () => {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full h-11 text-base font-medium"
+              className="w-full h-11 text-base font-medium cursor-pointer"
             >
               {loading ? (
                 <>
@@ -146,7 +146,7 @@ export const LoginPage = () => {
           <div className="flex justify-center items-center">
             <span>No tengo una cuenta.</span>
             <Link to="/register">
-              <Button variant={"link"}>Registrate</Button>
+              <Button variant={"link"} className="cursor-pointer">Registrate</Button>
             </Link>
           </div>
         </div>
