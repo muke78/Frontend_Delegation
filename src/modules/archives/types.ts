@@ -18,12 +18,12 @@ export interface RelatedEntry {
     reference_number: number
     reference_folio: string
     description: string
-    event_date: string 
+    event_date: string
     responsible_person: string
     responsible_role: string
     notas: string
-    created: string 
-    updated: string 
+    created: string
+    updated: string
 }
 
 
@@ -43,8 +43,8 @@ type ArchiveFilterFields =
 
 
 export type ArchiveFilters = Partial<Pick<ArchiveBase, ArchiveFilterFields>> & {
-    limit?: number
-    page?: number
+    limit?: string
+    page?: string
 }
 
 export type UUID = string
