@@ -21,7 +21,7 @@ export const FiltersApp = () => {
                     <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                     <Input
                         placeholder="ABC"
-                        className="pl-10 h-10"
+                        className="pl-10"
                     />
                 </div>
             </Field>
@@ -33,7 +33,7 @@ export const FiltersApp = () => {
                     <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                     <Input
                         placeholder="DYCCDC2528"
-                        className="pl-10 h-10"
+                        className="pl-10"
                     />
                 </div>
             </Field>
@@ -45,7 +45,7 @@ export const FiltersApp = () => {
                     <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                     <Input
                         placeholder="Nombre del archivo"
-                        className="pl-10 h-10"
+                        className="pl-10"
                     />
                 </div>
             </Field>
@@ -58,15 +58,14 @@ export const FiltersApp = () => {
                     placeholder="YYYY"
                     min="1900"
                     max="2099"
-                    className="h-10"
                 />
             </Field>
 
             {/* Tipo de Archivo */}
             <Field>
-                <FieldLabel className="text-sm font-medium mb-2">Tipo</FieldLabel>
+                <FieldLabel className="text-sm font-medium mb-2" id="file-type-label">Tipo</FieldLabel>
                 <Select>
-                    <SelectTrigger className="cursor-pointer h-10">
+                    <SelectTrigger className="cursor-pointer h-10" aria-labelledby="file-type-label">
                         <SelectValue placeholder="Selecciona tipo" />
                     </SelectTrigger>
                     <SelectContent>
@@ -82,9 +81,9 @@ export const FiltersApp = () => {
 
             {/* Usuario */}
             <Field >
-                <FieldLabel className="text-sm font-medium mb-2">Creado por</FieldLabel>
+                <FieldLabel className="text-sm font-medium mb-2" id="created-by-label">Creado por</FieldLabel>
                 <Select>
-                    <SelectTrigger className="cursor-pointer h-10">
+                    <SelectTrigger className="cursor-pointer h-10" aria-labelledby="created-by-label">
                         <SelectValue placeholder="Seleccionar usuario" />
                     </SelectTrigger>
                     <SelectContent>

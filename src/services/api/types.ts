@@ -36,9 +36,14 @@ export interface ApiSuccessResponse<
     }
 }
 
+export interface BackendFieldError {
+  field: string
+  message: string
+}
+
 export interface ApiValidationError {
     type: "validation"
-    messages: string[]
+    errors: BackendFieldError[]
 }
 
 export interface ApiGenericError {

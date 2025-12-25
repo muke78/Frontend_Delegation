@@ -64,7 +64,7 @@ export const useArchive = () => {
             const err = error as ApiError
 
             if (err.type === "validation") {
-                err.messages.forEach(msg => toast.error(msg))
+                err.errors.forEach(msg => toast.error(msg.message))
             } else {
                 toast.error(err.message)
             }
@@ -85,12 +85,13 @@ export const useArchive = () => {
         } catch (error) {
             const err = error as ApiError
 
-            if (err.type === "error") {
-                toast.info(err.message)
+            if (err.type === "validation") {
+                err.errors.forEach(msg => toast.info(msg.message))
                 return false
+            } else {
+                toast.info(err.message)
             }
 
-            toast.error(err.messages)
             return false
         }
     }

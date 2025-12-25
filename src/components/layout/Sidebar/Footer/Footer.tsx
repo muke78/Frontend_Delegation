@@ -40,12 +40,13 @@ export const Footer = ({ open }: { open: boolean }) => {
                                     <SidebarMenuButton
                                         aria-haspopup="menu"
                                         aria-expanded={open}
+                                        aria-label={`Usuario ${user?.username ?? ''}`}
                                     >
-                                        <Icons.User2 />
+                                        <Icons.User2 aria-hidden="true" />
 
                                         {open && <span>{user?.username}</span>}
 
-                                        <Icons.ChevronUp className="ml-auto" />
+                                        <Icons.ChevronUp aria-hidden="true" className="ml-auto" />
                                     </SidebarMenuButton>
                                 </DropdownMenuTrigger>
                             </TooltipTrigger>
