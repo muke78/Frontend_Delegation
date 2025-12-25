@@ -11,20 +11,7 @@ export const listArchiveDuplex = (archiveId: UUID) => {
 
 // List archives query params
 export const listArchives = (params?: ArchiveFilters) => {
-    const searchParams = new URLSearchParams()
-
-    Object.entries(params ?? {}).forEach(([key, value]) => {
-        if (value !== undefined && value !== "") {
-            searchParams.append(key, String(value))
-        }
-    })
-
-    const query = searchParams.toString()
-
-    return apiFetch<ApiSuccessResponse<ArchiveBase>>(
-        `/archives${query ? `?${query}` : ""}`,
-        { method: "GET" }
-    )
+    return apiFetch<ApiSuccessResponse<ArchiveBase>>(`/archives?${params ? params : ""}`, { method: "GET" })
 }
 
 // List archives from uuid

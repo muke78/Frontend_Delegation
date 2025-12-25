@@ -20,7 +20,7 @@ const getPaginationRange = (
     total: number,
     delta = 5
 ) => {
-    
+
     if (total <= 1) {
         return total === 1 ? [1] : [];
     }
@@ -45,8 +45,6 @@ const getPaginationRange = (
     return range
 }
 
-
-
 export const PagintationApp = ({ pagination, onPageChange }: PaginationAppProps) => {
     const {
         currentPage,
@@ -65,6 +63,7 @@ export const PagintationApp = ({ pagination, onPageChange }: PaginationAppProps)
                         aria-disabled={!hasPrevPage}
                         onClick={() => hasPrevPage && onPageChange?.(currentPage - 1)}
                         className={clsx(
+                            "cursor-pointer",
                             !hasPrevPage && "pointer-events-none opacity-50"
                         )}
                     >
@@ -77,7 +76,7 @@ export const PagintationApp = ({ pagination, onPageChange }: PaginationAppProps)
                         {page === "..." ? (
                             <PaginationEllipsis />
                         ) : (
-                            <PaginationLink
+                            <PaginationLink className="cursor-pointer"
                                 isActive={page === currentPage}
                                 onClick={() => onPageChange?.(page)}
                             >
@@ -92,6 +91,7 @@ export const PagintationApp = ({ pagination, onPageChange }: PaginationAppProps)
                         aria-disabled={!hasNextPage}
                         onClick={() => hasNextPage && onPageChange?.(currentPage + 1)}
                         className={clsx(
+                            "cursor-pointer",
                             !hasNextPage && "pointer-events-none opacity-50"
                         )}
                     >

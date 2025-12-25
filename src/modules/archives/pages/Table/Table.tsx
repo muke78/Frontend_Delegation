@@ -14,15 +14,24 @@ import { Badge } from "@/components/ui/badge";
 import { ArchiveActions } from "../components/ArchiveActions";
 import { useArchiveContext } from "../../context/useArchiveContext";
 
+import { CountLimit } from "../Filters/CountLimit";
+
 
 
 export const TableApp = () => {
-    const { archive, loading, paginationArchive, columnVisibility } = useArchiveContext()
+    const {
+        archive,
+        loading,
+        paginationArchive,
+        columnVisibility,
+        handlePageChange,
+    } = useArchiveContext()
 
     if (loading) return <FullScreenLoader message="Cargando..." />
 
     return (
         <div className="w-full space-y-4">
+            <CountLimit />
             <div className="rounded-lg border overflow-hidden">
                 <div className="overflow-x-auto">
                     <Table>
@@ -153,10 +162,9 @@ export const TableApp = () => {
                     </Table>
                 </div>
             </div>
-
             {paginationArchive && (
                 <div className="flex justify-center">
-                    <PagintationApp pagination={paginationArchive} />
+                    <PagintationApp pagination={paginationArchive} onPageChange={handlePageChange} />
                 </div>
             )}
         </div>
