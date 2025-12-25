@@ -94,6 +94,7 @@ export const CreateArchiveDialog = () => {
                                     Identificador <span className="text-destructive">*</span>
                                 </Label>
                                 <Input
+                                    id="identifier"
                                     type="text"
                                     value={form.identifier}
                                     onChange={(e) => setForm(prev => ({ ...prev, identifier: e.target.value.toUpperCase() }))}
@@ -108,6 +109,7 @@ export const CreateArchiveDialog = () => {
                                     Base <span className="text-destructive">*</span>
                                 </Label>
                                 <Input
+                                    id="base"
                                     type="text"
                                     value={form.base}
                                     onChange={(e) => setForm(prev => ({ ...prev, base: e.target.value.toUpperCase() }))}
@@ -122,6 +124,7 @@ export const CreateArchiveDialog = () => {
                                     Nombre del archivo <span className="text-destructive">*</span>
                                 </Label>
                                 <Input
+                                    id="name"
                                     type="text"
                                     value={form.name}
                                     onChange={(e) =>
@@ -138,7 +141,7 @@ export const CreateArchiveDialog = () => {
                                     Tipo de documento
                                 </Label>
                                 <Select value={form.docType} onValueChange={(value) => setForm(prev => ({ ...prev, docType: value }))}>
-                                    <SelectTrigger className="w-full" value={form.docType}>
+                                    <SelectTrigger id="docType" className="w-full">
                                         <SelectValue placeholder="Seleccionar tipo de documento" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -154,6 +157,7 @@ export const CreateArchiveDialog = () => {
                                     Año
                                 </Label>
                                 <Input
+                                    id="year"
                                     type="number"
                                     value={form.year}
                                     onChange={(e) =>
@@ -172,6 +176,7 @@ export const CreateArchiveDialog = () => {
                                     Ruta de almacenamiento
                                 </Label>
                                 <Input
+                                    id="storagePath"
                                     type="text"
                                     value={form.storagePath}
                                     onChange={(e) =>
@@ -187,6 +192,7 @@ export const CreateArchiveDialog = () => {
                                     Hoja fuente
                                 </Label>
                                 <Input
+                                    id="sourceSheet"
                                     type="text"
                                     value={form.sourceSheet}
                                     onChange={(e) =>

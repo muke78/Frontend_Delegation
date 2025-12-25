@@ -63,9 +63,9 @@ export const FiltersApp = () => {
 
             {/* Tipo de Archivo */}
             <Field>
-                <FieldLabel className="text-sm font-medium mb-2">Tipo</FieldLabel>
+                <FieldLabel className="text-sm font-medium mb-2" id="file-type-label">Tipo</FieldLabel>
                 <Select>
-                    <SelectTrigger className="cursor-pointer h-10">
+                    <SelectTrigger className="cursor-pointer h-10" aria-labelledby="file-type-label">
                         <SelectValue placeholder="Selecciona tipo" />
                     </SelectTrigger>
                     <SelectContent>
@@ -81,9 +81,9 @@ export const FiltersApp = () => {
 
             {/* Usuario */}
             <Field >
-                <FieldLabel className="text-sm font-medium mb-2">Creado por</FieldLabel>
+                <FieldLabel className="text-sm font-medium mb-2" id="created-by-label">Creado por</FieldLabel>
                 <Select>
-                    <SelectTrigger className="cursor-pointer h-10">
+                    <SelectTrigger className="cursor-pointer h-10" aria-labelledby="created-by-label">
                         <SelectValue placeholder="Seleccionar usuario" />
                     </SelectTrigger>
                     <SelectContent>
