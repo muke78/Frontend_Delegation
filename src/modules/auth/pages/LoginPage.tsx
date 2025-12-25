@@ -41,7 +41,9 @@ export const LoginPage = () => {
       const err = error as ApiError
 
       if (err.type === "validation") {
-        err.messages.forEach(msg => toast.error(msg))
+        err.errors.forEach(e => {
+          toast.error(`${e.field}: ${e.message}`)
+        })
       } else {
         toast.error(err.message)
       }

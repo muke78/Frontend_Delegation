@@ -1,10 +1,10 @@
 import { apiFetch } from '@/services/api/api.ts';
 import type { ApiSuccessResponse } from '@/services/api/types.ts';
-import type { CreateArchivePayload, UpdateArchivePayload, ArchiveFilters, UUID, ArchiveBase } from '../types.ts';
+import type { CreateArchivePayload, UpdateArchivePayload, ArchiveFilters, UUID, ArchiveBase, RelatedEntry } from '../types.ts';
 
 
 export const listArchiveDuplex = (archiveId: UUID) => {
-    return apiFetch<ApiSuccessResponse<never, ArchiveBase>>(`/archives/${archiveId}/duplex`, {
+    return apiFetch<ApiSuccessResponse<never, ArchiveBase, RelatedEntry>>(`/archives/${archiveId}/duplex`, {
         method: "GET"
     })
 }

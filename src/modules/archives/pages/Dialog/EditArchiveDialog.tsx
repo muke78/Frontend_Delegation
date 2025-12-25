@@ -20,7 +20,7 @@ export const EditArchiveDialog = ({ open,
             {/* Dialog para editar archivo */}
             <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
                 <DialogOverlay />
-                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="text-2xl">Editar el archivo {archiveId}</DialogTitle>
                         <DialogDescription>

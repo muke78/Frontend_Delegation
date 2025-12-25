@@ -26,7 +26,7 @@ export async function apiFetch<T>(
     if (validation?.code === "VALIDATION" && Array.isArray(validation.errores)) {
       throw {
         type: "validation",
-        messages: validation.errores.map(e => e.message),
+        errors: validation.errores,
       } satisfies ApiError
     }
 

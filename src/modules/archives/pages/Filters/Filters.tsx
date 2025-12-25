@@ -21,7 +21,7 @@ export const FiltersApp = () => {
                     <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                     <Input
                         placeholder="ABC"
-                        className="pl-10 h-10"
+                        className="pl-10"
                     />
                 </div>
             </Field>
@@ -33,7 +33,7 @@ export const FiltersApp = () => {
                     <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                     <Input
                         placeholder="DYCCDC2528"
-                        className="pl-10 h-10"
+                        className="pl-10"
                     />
                 </div>
             </Field>
@@ -45,7 +45,7 @@ export const FiltersApp = () => {
                     <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                     <Input
                         placeholder="Nombre del archivo"
-                        className="pl-10 h-10"
+                        className="pl-10"
                     />
                 </div>
             </Field>
@@ -58,7 +58,6 @@ export const FiltersApp = () => {
                     placeholder="YYYY"
                     min="1900"
                     max="2099"
-                    className="h-10"
                 />
             </Field>
 
