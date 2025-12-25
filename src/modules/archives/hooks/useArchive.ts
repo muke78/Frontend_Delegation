@@ -16,7 +16,11 @@ export const useArchive = () => {
         const stored = localStorage.getItem("archive_columns_visibility")
 
         if (stored) {
-            return JSON.parse(stored) as ColumnVisibility
+            try {
+                return JSON.parse(stored) as ColumnVisibility
+            } catch (error) {
+                console.error("Error al parsear la visibilidad de las columnas desde localStorage", error)
+            }
         }
 
         return {
@@ -86,7 +90,7 @@ export const useArchive = () => {
             setOpenDialog(false)
             setForm({
                 identifier: "",
-                base_folio: "DYCCDC2528",
+                base_folio: "",
                 name: "",
                 doc_type: "",
                 year: "",

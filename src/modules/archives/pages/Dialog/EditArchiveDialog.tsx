@@ -55,15 +55,21 @@ export const EditArchiveDialog = ({ open, archiveId, archiveName, onClose }: Arc
                 const res = await listArchivesById(archiveId)
                 toast.success(res.message)
                 const archive = res.data[0]
-                setForm({
-                    identifier: archive.identifier,
-                    base_folio: archive.base_folio,
-                    name: archive.name,
-                    doc_type: archive.doc_type,
-                    year: archive.year,
-                    storage_path: archive.storage_path,
-                    source_sheet: archive.source_sheet
-                })
+
+                if (archive) {
+                    setForm({
+                        identifier: archive.identifier,
+                        base_folio: archive.base_folio,
+                        name: archive.name,
+                        doc_type: archive.doc_type,
+                        year: archive.year,
+                        storage_path: archive.storage_path,
+                        source_sheet: archive.source_sheet
+                    })
+                } else {
+                    toast.error(`No se encontró el archivo con ID ${archiveId}`)
+                    onClose()
+                }
             } catch (error) {
 
                 const err = error as ApiError
@@ -82,7 +88,7 @@ export const EditArchiveDialog = ({ open, archiveId, archiveName, onClose }: Arc
         }
 
         getArchiveById()
-    }, [open, archiveId, setForm])
+    }, [open, archiveId, setForm, onClose])
 
 
     return (
