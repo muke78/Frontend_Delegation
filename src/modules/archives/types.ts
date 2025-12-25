@@ -4,10 +4,10 @@ export type ArchiveBase = {
     base_folio: string
     folio: string
     name: string
-    doc_type?: string
+    doc_type: string
     year: string
-    storage_path?: string
-    source_sheet?: string
+    storage_path: string
+    source_sheet: string
     created_by?: string
     created_by_name?: string
 }
@@ -18,12 +18,12 @@ export interface RelatedEntry {
     reference_number: number
     reference_folio: string
     description: string
-    event_date: string // viene como ISO string
+    event_date: string 
     responsible_person: string
     responsible_role: string
     notas: string
-    created: string // ISO string
-    updated: string // ISO string
+    created: string 
+    updated: string 
 }
 
 
@@ -31,14 +31,18 @@ export type CreateArchivePayload = Omit<ArchiveBase, 'archives_id' | 'folio' | '
 
 export type UpdateArchivePayload = Partial<ArchiveBase>
 
+export type FormState = Omit<ArchiveBase, 'archives_id' | 'folio' | 'created_by' | 'created_by_name'>
 
-export type ArchiveFilters = {
-    identifier?: string
-    base_folio?: string
-    name?: string
-    doc_type?: string
-    year?: string
-    created_by?: string
+type ArchiveFilterFields =
+    | 'identifier'
+    | 'base_folio'
+    | 'name'
+    | 'doc_type'
+    | 'year'
+    | 'created_by'
+
+
+export type ArchiveFilters = Partial<Pick<ArchiveBase, ArchiveFilterFields>> & {
     limit?: number
     page?: number
 }
@@ -58,4 +62,12 @@ export type ColumnVisibility = {
     creator: boolean
     actions: boolean
 }
+
+export type ArchiveActions = {
+    open: boolean
+    archiveId: UUID
+    archiveName: string
+    onClose: () => void
+}
+
 

@@ -79,6 +79,12 @@ export const ColumnsApp = () => {
                 >
                     Creado por
                 </DropdownMenuCheckboxItem>
+                 <DropdownMenuCheckboxItem
+                    checked={columnVisibility.actions}
+                    onCheckedChange={() => toggleColumn('actions')}
+                >
+                    Acciones
+                </DropdownMenuCheckboxItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )

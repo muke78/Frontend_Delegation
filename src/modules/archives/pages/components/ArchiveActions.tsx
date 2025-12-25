@@ -71,6 +71,7 @@ export const ArchiveActions = ({ archive }: { archive: ArchiveBase }) => {
             <EditArchiveDialog
                 open={action === "edit"}
                 archiveId={archive.archives_id}
+                archiveName={archive.name}
                 onClose={() => setAction(null)}
             />
 

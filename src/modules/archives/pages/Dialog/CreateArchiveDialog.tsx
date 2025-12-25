@@ -3,69 +3,15 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useAuthContext } from "@/context/useAuthContext"
-import type { ApiError } from "@/services/api/types"
 import { Icons } from "@/styles/Icons"
-import { useState } from "react"
-import { toast } from "sonner"
-import { createArchive } from "../../services/archive.services"
 import { useArchiveContext } from "../../context/useArchiveContext"
 
-
 export const CreateArchiveDialog = () => {
-    const { user } = useAuthContext();
-    const { refresh } = useArchiveContext()
+    const { form, setForm, openDialog, setOpenDialog, handleSubmitCreate } = useArchiveContext()
 
-    const [form, setForm] = useState({
-        identifier: "",
-        base: "DYCCDC2528",
-        name: "",
-        docType: "",
-        year: "",
-        storagePath: "",
-        sourceSheet: "",
-    })
-
-    const [openDialog, setOpenDialog] = useState(false)
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmitCreate = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        try {
-            const res = await createArchive({
-                identifier: form.identifier,
-                base_folio: form.base,
-                name: form.name,
-                doc_type: form.docType,
-                year: form.year,
-                source_sheet: form.sourceSheet,
-                storage_path: form.storagePath,
-                created_by: user?.user_id,
-            })
-            await refresh();
-            toast.success(res.message)
-            setOpenDialog(false)
-            setForm({
-                identifier: "",
-                base: "DYCCDC2528",
-                name: "",
-                docType: "",
-                year: "",
-                storagePath: "",
-                sourceSheet: "",
-            })
-        } catch (error) {
-            const err = error as ApiError
-
-            if (err.type === "validation") {
-                err.errors.forEach(e => {
-                    toast.error(`${e.field}: ${e.message}`, {
-                        duration: 10000,
-                    })
-                })
-            } else {
-                toast.error(err.message, { duration: 7000 })
-            }
-        }
+        handleSubmitCreate()
     };
 
     return (
@@ -87,7 +33,7 @@ export const CreateArchiveDialog = () => {
                         </DialogDescription>
                     </DialogHeader>
 
-                    <form onSubmit={handleSubmit} className="space-y-6 py-4">
+                    <form onSubmit={onSubmitCreate} className="space-y-6 py-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label htmlFor="identifier" className="text-sm font-medium">
@@ -105,14 +51,14 @@ export const CreateArchiveDialog = () => {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="base" className="text-sm font-medium">
+                                <Label htmlFor="base_folio" className="text-sm font-medium">
                                     Base <span className="text-destructive">*</span>
                                 </Label>
                                 <Input
-                                    id="base"
+                                    id="base_folio"
                                     type="text"
-                                    value={form.base}
-                                    onChange={(e) => setForm(prev => ({ ...prev, base: e.target.value.toUpperCase() }))}
+                                    value={form.base_folio}
+                                    onChange={(e) => setForm(prev => ({ ...prev, base_folio: e.target.value.toUpperCase() }))}
                                     placeholder="DYCCDC2528"
                                     required
 
@@ -137,11 +83,11 @@ export const CreateArchiveDialog = () => {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="docType" className="text-sm font-medium">
+                                <Label htmlFor="doc_type" className="text-sm font-medium">
                                     Tipo de documento
                                 </Label>
-                                <Select value={form.docType} onValueChange={(value) => setForm(prev => ({ ...prev, docType: value }))}>
-                                    <SelectTrigger id="docType" className="w-full">
+                                <Select value={form.doc_type} onValueChange={(value) => setForm(prev => ({ ...prev, doc_type: value }))}>
+                                    <SelectTrigger id="doc_type" className="w-full">
                                         <SelectValue placeholder="Seleccionar tipo de documento" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -172,15 +118,15 @@ export const CreateArchiveDialog = () => {
                             </div>
 
                             <div className="space-y-2 md:col-span-2">
-                                <Label htmlFor="storagePath" className="text-sm font-medium">
+                                <Label htmlFor="storage_path" className="text-sm font-medium">
                                     Ruta de almacenamiento
                                 </Label>
                                 <Input
-                                    id="storagePath"
+                                    id="storage_path"
                                     type="text"
-                                    value={form.storagePath}
+                                    value={form.storage_path}
                                     onChange={(e) =>
-                                        setForm(prev => ({ ...prev, storagePath: e.target.value }))
+                                        setForm(prev => ({ ...prev, storage_path: e.target.value }))
                                     }
                                     placeholder="/ruta/del/archivo"
 
@@ -188,31 +134,18 @@ export const CreateArchiveDialog = () => {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="sourceSheet" className="text-sm font-medium">
+                                <Label htmlFor="source_sheet" className="text-sm font-medium">
                                     Hoja fuente
                                 </Label>
                                 <Input
-                                    id="sourceSheet"
+                                    id="source_sheet"
                                     type="text"
-                                    value={form.sourceSheet}
+                                    value={form.source_sheet}
                                     onChange={(e) =>
-                                        setForm(prev => ({ ...prev, sourceSheet: e.target.value }))
+                                        setForm(prev => ({ ...prev, source_sheet: e.target.value }))
                                     }
                                     placeholder="Hoja 1"
 
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="userId" className="text-sm font-medium">
-                                    Usuario que lo crea
-                                </Label>
-                                <Input
-                                    id="userId"
-                                    name="userId"
-                                    defaultValue={user?.username}
-                                    disabled
-                                    className="bg-muted"
                                 />
                             </div>
                         </div>

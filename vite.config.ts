@@ -13,9 +13,34 @@ export default defineConfig({
     }),
     tailwindcss()
   ],
-   resolve: {
+  resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    minify: "oxc",
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) {
+              return 'react'
+            }
+            if (id.includes('react-router-dom')) {
+              return 'router'
+            }
+            if (id.includes('lucide-react') || id.includes('@radix-ui') || id.includes('next-themes')) {
+              return 'ui'
+            }
+            if (id.includes('sonner')) {
+              return 'toast'
+            }
+          }
+        }
+      }
+    }
+  }
+
 })
