@@ -7,6 +7,13 @@ export interface Pagination {
     hasPrevPage: boolean
 }
 
+export interface metaData {
+    timestamp: string,
+    requestId: string,
+    dataCount: number,
+    dataCountFormatted: string
+}
+
 export interface PaginatedData<T> {
     rows: T[]
     pagination: Pagination
@@ -25,20 +32,22 @@ export interface ApiSuccessResponse<
     T = unknown,
     A = unknown,
     R = unknown> {
-    success: true | false
+    success: boolean
     data?: ApiData<T, A, R>
     message: string
-    metadata: {
-        timestamp: string,
-        requestId: string,
-        dataCount: number,
-        dataCountFormatted: string
-    }
+    metadata: metaData
+}
+
+export interface ApiSingleResponse<T> {
+    success: boolean
+    data: T[]
+    message: string
+    metadata: metaData
 }
 
 export interface BackendFieldError {
-  field: string
-  message: string
+    field: string
+    message: string
 }
 
 export interface ApiValidationError {

@@ -1,5 +1,5 @@
 import { apiFetch } from '@/services/api/api.ts';
-import type { ApiSuccessResponse } from '@/services/api/types.ts';
+import type { ApiSingleResponse, ApiSuccessResponse } from '@/services/api/types.ts';
 import type { CreateArchivePayload, UpdateArchivePayload, ArchiveFilters, UUID, ArchiveBase, RelatedEntry } from '../types.ts';
 
 
@@ -29,7 +29,7 @@ export const listArchives = (params?: ArchiveFilters) => {
 
 // List archives from uuid
 export const listArchivesById = (archiveId: UUID) => {
-    return apiFetch<ApiSuccessResponse>(`/archives/${archiveId}`, {
+    return apiFetch<ApiSingleResponse<ArchiveBase>>(`/archives/${archiveId}`, {
         method: "GET",
     })
 };

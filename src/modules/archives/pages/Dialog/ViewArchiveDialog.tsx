@@ -1,17 +1,9 @@
 import { Dialog, DialogFooter, DialogHeader } from "@/components/ui/dialog"
 import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogTitle } from "@/components/ui/dialog"
-import type { UUID } from "../../types"
+import type { ArchiveActions} from "../../types"
 import { Button } from "@/components/ui/button"
 
-
-type Props = {
-  open: boolean
-  archiveId?: UUID
-  archiveName: string
-  onClose: () => void
-}
-
-export const ViewArchiveDialog = ({ open, archiveId, archiveName, onClose }: Props) => {
+export const ViewArchiveDialog = ({ open, archiveId, archiveName, onClose }: ArchiveActions) => {
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
       <DialogOverlay />
