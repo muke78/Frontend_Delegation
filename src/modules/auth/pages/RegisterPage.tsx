@@ -9,11 +9,11 @@ import { Link } from "react-router-dom"
 
 export const RegisterPage = () => {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 px-4">
-            <div className="absolute inset-0 bg-grid-slate-200/50 dark:bg-grid-slate-700/25 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
+        <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-50 via-slate-100 to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 px-4">
+            <div className="absolute inset-0 bg-grid-slate-200/50 dark:bg-grid-slate-700/25 mask-[radial-gradient(ellipse_at_center,transparent_20%,black)]" />
 
             <form className="relative w-full max-w-md">
-                <div className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border rounded-2xl shadow-2xl p-8 space-y-6">
+                <div className="bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80 border rounded-2xl shadow-2xl p-8 space-y-6">
                 
                     <div className="flex flex-col items-center text-center space-y-2">
                         <div className="p-3 bg-primary/10 rounded-full">
