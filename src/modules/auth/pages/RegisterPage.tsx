@@ -107,10 +107,10 @@ export const RegisterPage = () => {
                             Crear cuenta
                         </Button>
                     </FieldGroup>
-                    <div className="flex text-sm font-medium text-muted-foreground text-center">
+                    <p className="text-sm font-medium text-muted-foreground text-center">
                         <span className="text-destructive">*</span>
-                        <p>En automatico se te redigira a login al momento de que crees tu cuenta</p>
-                    </div>
+                        Automáticamente serás redirigido a la página de inicio de sesión al crear tu cuenta.
+                    </p>
                 </div>
             </form>
         </div>
