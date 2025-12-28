@@ -1,6 +1,8 @@
 import type { BackendGenericError, BackendValidationError, ApiError} from "./types";
 
-const BASE_URL = import.meta.env.VITE_API_URL
+// const BASE_URL = import.meta.env.VITE_API_URL
+
+const BASE_URL = "http://localhost:3000/api/v1"
 
 export async function apiFetch<T>(
   endpoint: string,

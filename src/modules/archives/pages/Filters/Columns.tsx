@@ -2,7 +2,7 @@ import { Icons } from "@/styles/Icons"
 import { Button } from "@/components/ui/button"
 
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { useArchiveContext } from "../../context/useArchiveContext"
+import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts"
 
 export const ColumnsApp = () => {
 

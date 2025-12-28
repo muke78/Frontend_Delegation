@@ -1,17 +1,18 @@
 import { Routes, Route, Navigate } from "react-router-dom"
-import { LoginPage } from "@/modules/auth/pages/LoginPage"
-import { Home } from "@/modules/dashboard/pages/Home"
+
+import { LoginPage } from "@/modules/auth/pages/LoginPage.tsx"
+import { Home } from "@/modules/dashboard/pages/Home.tsx"
 import { PrivateRoute } from "@/app/PrivateRoute.tsx"
 import { PublicRoute } from "@/app/PublicRoute.tsx"
 import { RegisterPage } from "@/modules/auth/pages/RegisterPage.tsx"
-import { NotFound } from "@/components/layout/NotFound/NotFound"
-import { RecoverPassword } from "@/modules/auth/pages/RecoverPassword"
-import { Archives } from "@/modules/archives/pages/Archives"
-import { RelatedEntries } from "@/modules/related-entries/pages/RelatedEntries"
+import { NotFound } from "@/components/layout/NotFound/NotFound.tsx"
+import { RecoverPassword } from "@/modules/auth/pages/RecoverPassword.tsx"
+import { Archives } from "@/modules/archives/pages/Archives.tsx"
+import { RelatedEntries } from "@/modules/related-entries/pages/RelatedEntries.tsx"
 
-import { Config } from "@/modules/config/pages/Config"
-import { Users } from "@/modules/users/pages/Users"
-import { Layout } from "@/components/layout/Layout"
+import { Config } from "@/modules/config/pages/Config.tsx"
+import { Users } from "@/modules/users/pages/Users.tsx"
+import { Layout } from "@/components/layout/Layout.tsx"
 
 export const AppRouter = () => {
     return (

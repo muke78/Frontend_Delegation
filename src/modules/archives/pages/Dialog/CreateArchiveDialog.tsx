@@ -4,14 +4,14 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Icons } from "@/styles/Icons"
-import { useArchiveContext } from "../../context/useArchiveContext"
+import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts"
 
 export const CreateArchiveDialog = () => {
-    const { form, setForm, openDialog, setOpenDialog, handleSubmitCreate } = useArchiveContext()
+    const { formCreate, setFormCreate, openDialog, setOpenDialog, handleSubmitCreate } = useArchiveContext()
 
-    const onSubmitCreate = (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmitCreate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        handleSubmitCreate()
+        await handleSubmitCreate()
     };
 
     return (
@@ -42,8 +42,8 @@ export const CreateArchiveDialog = () => {
                                 <Input
                                     id="identifier"
                                     type="text"
-                                    value={form.identifier}
-                                    onChange={(e) => setForm(prev => ({ ...prev, identifier: e.target.value.toUpperCase() }))}
+                                    value={formCreate.identifier}
+                                    onChange={(e) => setFormCreate(prev => ({ ...prev, identifier: e.target.value.toUpperCase() }))}
                                     placeholder="ABC"
                                     required
 
@@ -57,8 +57,8 @@ export const CreateArchiveDialog = () => {
                                 <Input
                                     id="base_folio"
                                     type="text"
-                                    value={form.base_folio}
-                                    onChange={(e) => setForm(prev => ({ ...prev, base_folio: e.target.value.toUpperCase() }))}
+                                    value={formCreate.base_folio}
+                                    onChange={(e) => setFormCreate(prev => ({ ...prev, base_folio: e.target.value.toUpperCase() }))}
                                     placeholder="DYCCDC2528"
                                     required
 
@@ -72,9 +72,9 @@ export const CreateArchiveDialog = () => {
                                 <Input
                                     id="name"
                                     type="text"
-                                    value={form.name}
+                                    value={formCreate.name}
                                     onChange={(e) =>
-                                        setForm(prev => ({ ...prev, name: e.target.value.toUpperCase() }))
+                                        setFormCreate(prev => ({ ...prev, name: e.target.value.toUpperCase() }))
                                     }
                                     placeholder="Ingrese el nombre del archivo"
                                     required
@@ -83,11 +83,11 @@ export const CreateArchiveDialog = () => {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="doc_type" className="text-sm font-medium">
+                                <Label htmlFor="doc_type_create" className="text-sm font-medium">
                                     Tipo de documento
                                 </Label>
-                                <Select value={form.doc_type} onValueChange={(value) => setForm(prev => ({ ...prev, doc_type: value }))}>
-                                    <SelectTrigger id="doc_type" className="w-full">
+                                <Select value={formCreate.doc_type} onValueChange={(value) => setFormCreate(prev => ({ ...prev, doc_type: value }))}>
+                                    <SelectTrigger id="doc_type_create" className="w-full">
                                         <SelectValue placeholder="Seleccionar tipo de documento" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -105,9 +105,9 @@ export const CreateArchiveDialog = () => {
                                 <Input
                                     id="year"
                                     type="number"
-                                    value={form.year}
+                                    value={formCreate.year}
                                     onChange={(e) =>
-                                        setForm(prev => ({ ...prev, year: e.target.value }))
+                                        setFormCreate(prev => ({ ...prev, year: e.target.value }))
                                     }
                                     placeholder="YYYY"
                                     required
@@ -124,9 +124,9 @@ export const CreateArchiveDialog = () => {
                                 <Input
                                     id="storage_path"
                                     type="text"
-                                    value={form.storage_path}
+                                    value={formCreate.storage_path}
                                     onChange={(e) =>
-                                        setForm(prev => ({ ...prev, storage_path: e.target.value }))
+                                        setFormCreate(prev => ({ ...prev, storage_path: e.target.value }))
                                     }
                                     placeholder="/ruta/del/archivo"
 
@@ -140,9 +140,9 @@ export const CreateArchiveDialog = () => {
                                 <Input
                                     id="source_sheet"
                                     type="text"
-                                    value={form.source_sheet}
+                                    value={formCreate.source_sheet}
                                     onChange={(e) =>
-                                        setForm(prev => ({ ...prev, source_sheet: e.target.value }))
+                                        setFormCreate(prev => ({ ...prev, source_sheet: e.target.value }))
                                     }
                                     placeholder="Hoja 1"
 

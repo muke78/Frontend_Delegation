@@ -1,12 +1,12 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/styles/Icons";
-import { useState } from "react";
-import { DeleteArchiveDialog } from "../Dialog/DeleteArchiveDialog";
-import type { ArchiveBase } from "../../types";
-import { EditArchiveDialog } from "../Dialog/EditArchiveDialog";
-import { ViewArchiveDialog } from "../Dialog/ViewArchiveDialog";
-import { useArchiveContext } from "../../context/useArchiveContext";
+import { EditArchiveDialog } from "@/modules/archives/pages/Dialog/EditArchiveDialog.tsx";
+import { ViewArchiveDialog } from "@/modules/archives/pages/Dialog/ViewArchiveDialog.tsx";
+import { DeleteArchiveDialog } from "@/modules/archives/pages/Dialog/DeleteArchiveDialog.tsx";
+import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts"
 
+import type { ArchiveBase } from "@/modules/archives/types.ts";
 
 export const ArchiveActions = ({ archive }: { archive: ArchiveBase }) => {
     const { handleRebuildFolio } = useArchiveContext()
@@ -19,7 +19,7 @@ export const ArchiveActions = ({ archive }: { archive: ArchiveBase }) => {
                 <Button
                     size="sm"
                     variant="ghost"
-                    className="h-8 gap-1.5 cursor-pointer hover:bg-blue-50 hover:text-blue-600"
+                    className="gap-1.5 cursor-pointer hover:bg-blue-50 hover:text-blue-600"
                     title="Ver detalles"
                     onClick={() => setAction("view")}
                 >
@@ -30,7 +30,7 @@ export const ArchiveActions = ({ archive }: { archive: ArchiveBase }) => {
                 <Button
                     size="sm"
                     variant="ghost"
-                    className="h-8 gap-1.5 cursor-pointer hover:bg-amber-50 hover:text-amber-600"
+                    className="gap-1.5 cursor-pointer hover:bg-amber-50 hover:text-amber-600"
                     title="Editar archivo"
                     onClick={() => setAction("edit")}
                 >
@@ -41,7 +41,7 @@ export const ArchiveActions = ({ archive }: { archive: ArchiveBase }) => {
                 <Button
                     size="sm"
                     variant="ghost"
-                    className="h-8 gap-1.5 cursor-pointer hover:bg-emerald-50 hover:text-emerald-600"
+                    className="gap-1.5 cursor-pointer hover:bg-emerald-50 hover:text-emerald-600"
                     title="Reconstruir folio"
                     onClick={() => handleRebuildFolio(archive.archives_id)}
                 >
@@ -52,7 +52,7 @@ export const ArchiveActions = ({ archive }: { archive: ArchiveBase }) => {
                 <Button
                     size="sm"
                     variant="ghost"
-                    className="h-8 gap-1.5 cursor-pointer text-destructive hover:bg-destructive/10"
+                    className="gap-1.5 cursor-pointer text-destructive hover:bg-destructive/10"
                     title="Eliminar archivo"
                     onClick={() => setAction("delete")}
                 >

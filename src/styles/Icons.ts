@@ -1,4 +1,4 @@
-import { Mail, Lock, Loader2, FileText, Home, FileQuestion, ArrowLeft, Archive, Settings, PackageOpen, User, ChevronUp, LogOut, User2, Trash2, Pencil, Ellipsis, Search, Plus, Eye, Settings2, Save, Blocks } from 'lucide-react';
+import { Mail, Lock, Loader2, FileText, Home, FileQuestion, ArrowLeft, Archive, Settings, PackageOpen, User, ChevronUp, LogOut, User2, Trash2, Pencil, Ellipsis, Search, Plus, Eye, Settings2, Save, Blocks, Eraser, Sheet } from 'lucide-react';
 
 export const Icons = {
     Mail,
@@ -23,6 +23,8 @@ export const Icons = {
     Eye,
     Settings2,
     Save,
-    Blocks
+    Blocks,
+    Eraser,
+    Sheet
 };
 

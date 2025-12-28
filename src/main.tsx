@@ -7,12 +7,12 @@ import { AuthProvider } from '@/context/AuthProvider.tsx'
 import { AppRouter } from '@/app/AppRouter.tsx'
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <AppRouter />
-        <Toaster closeButton expand richColors position="bottom-right" />
-      </AuthProvider>
-    </BrowserRouter>
-  </StrictMode>
+    <StrictMode>
+        <BrowserRouter>
+            <AuthProvider>
+                <AppRouter />
+                <Toaster closeButton expand richColors position="bottom-right" />
+            </AuthProvider>
+        </BrowserRouter>
+    </StrictMode>
 )

@@ -4,92 +4,22 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Icons } from "@/styles/Icons"
-import type { ArchiveActions } from "../../types"
-import { useArchiveContext } from "../../context/useArchiveContext"
-import { toast } from "sonner"
-import type { ApiError } from "@/services/api/types"
-import { listArchivesById, updateArchive } from "../../services/archive.services"
-import { useEffect } from "react"
+import type { ArchiveActionsType } from "@/modules/archives/types.ts";
+import { useArchiveEdit } from "@/modules/archives/hooks/useArchiveEdit.ts"
 
-export const EditArchiveDialog = ({ open, archiveId, archiveName, onClose }: ArchiveActions) => {
-    const { form, setForm, refresh } = useArchiveContext()
 
-    const handleSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
+export const EditArchiveDialog = ({ open, archiveId, archiveName, onClose }: ArchiveActionsType) => {
+
+    const { formEdit, setFormEdit, handleSubmitEdit } = useArchiveEdit({
+        archiveId,
+        onClose,
+        open
+    })
+
+    const onmSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        try {
-
-            const payload = {
-                identifier: form.identifier,
-                base_folio: form.base_folio,
-                name: form.name,
-                doc_type: form.doc_type,
-                year: form.year,
-                source_sheet: form.source_sheet,
-                storage_path: form.storage_path,
-            }
-
-            const res = await updateArchive(archiveId, payload)
-            await refresh();
-            toast.success(res.message)
-            onClose()
-        } catch (error) {
-            const err = error as ApiError
-
-            if (err.type === "validation") {
-                err.errors.forEach(e => {
-                    toast.error(`${e.field}: ${e.message}`, {
-                        duration: 10000,
-                    })
-                })
-            } else {
-                toast.error(err.message, { duration: 7000 })
-            }
-        }
+        await handleSubmitEdit()
     };
-
-    useEffect(() => {
-        if (!open || !archiveId) return
-
-        const getArchiveById = async () => {
-            try {
-                const res = await listArchivesById(archiveId)
-                toast.success(res.message)
-                const archive = res.data[0]
-
-                if (archive) {
-                    setForm({
-                        identifier: archive.identifier,
-                        base_folio: archive.base_folio,
-                        name: archive.name,
-                        doc_type: archive.doc_type,
-                        year: archive.year,
-                        storage_path: archive.storage_path,
-                        source_sheet: archive.source_sheet
-                    })
-                } else {
-                    toast.error(`No se encontró el archivo con ID ${archiveId}`)
-                    onClose()
-                }
-            } catch (error) {
-
-                const err = error as ApiError
-
-                if (err.type === "validation") {
-                    err.errors.forEach(e => {
-                        toast.error(`${e.field}: ${e.message}`, {
-                            duration: 10000,
-                        })
-                    })
-                } else {
-                    toast.error(err.message, { duration: 7000 })
-                }
-
-            }
-        }
-
-        getArchiveById()
-    }, [open, archiveId, setForm, onClose])
-
 
     return (
         <>
@@ -104,7 +34,7 @@ export const EditArchiveDialog = ({ open, archiveId, archiveName, onClose }: Arc
                         </DialogDescription>
                     </DialogHeader>
 
-                    <form onSubmit={handleSubmitEdit} className="space-y-6 py-4">
+                    <form onSubmit={onmSubmitEdit} className="space-y-6 py-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label htmlFor="identifier" className="text-sm font-medium">
@@ -113,8 +43,8 @@ export const EditArchiveDialog = ({ open, archiveId, archiveName, onClose }: Arc
                                 <Input
                                     id="identifier"
                                     type="text"
-                                    value={form.identifier}
-                                    onChange={(e) => setForm(prev => ({ ...prev, identifier: e.target.value.toUpperCase() }))}
+                                    value={formEdit.identifier}
+                                    onChange={(e) => setFormEdit(prev => ({ ...prev, identifier: e.target.value.toUpperCase() }))}
                                     placeholder="ABC"
                                 />
                             </div>
@@ -126,9 +56,9 @@ export const EditArchiveDialog = ({ open, archiveId, archiveName, onClose }: Arc
                                 <Input
                                     id="base_folio"
                                     type="text"
-                                    value={form.base_folio}
+                                    value={formEdit.base_folio}
                                     placeholder="DYCCDC2528"
-                                    onChange={(e) => setForm(prev => ({ ...prev, base_folio: e.target.value.toUpperCase() }))}
+                                    onChange={(e) => setFormEdit(prev => ({ ...prev, base_folio: e.target.value.toUpperCase() }))}
                                 />
                             </div>
 
@@ -139,18 +69,18 @@ export const EditArchiveDialog = ({ open, archiveId, archiveName, onClose }: Arc
                                 <Input
                                     id="name"
                                     type="text"
-                                    value={form.name}
+                                    value={formEdit.name}
                                     placeholder="Ingrese el nombre del archivo"
-                                    onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value.toUpperCase() }))}
+                                    onChange={(e) => setFormEdit(prev => ({ ...prev, name: e.target.value.toUpperCase() }))}
                                 />
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="doc_type" className="text-sm font-medium">
+                                <Label htmlFor="doc_type_edit" className="text-sm font-medium">
                                     Tipo de documento
                                 </Label>
-                                <Select value={form.doc_type} onValueChange={(value) => setForm(prev => ({ ...prev, doc_type: value }))}>
-                                    <SelectTrigger id="doc_type" className="w-full">
+                                <Select value={formEdit.doc_type} onValueChange={(value) => setFormEdit(prev => ({ ...prev, doc_type: value }))}>
+                                    <SelectTrigger id="doc_type_edit" className="w-full">
                                         <SelectValue placeholder="Seleccionar tipo de documento" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -167,11 +97,11 @@ export const EditArchiveDialog = ({ open, archiveId, archiveName, onClose }: Arc
                                 </Label>
                                 <Input
                                     id="year"
-                                    value={form.year}
+                                    value={formEdit.year}
                                     type="number"
                                     placeholder="YYYY"
                                     onChange={(e) =>
-                                        setForm(prev => ({ ...prev, year: e.target.value }))
+                                        setFormEdit(prev => ({ ...prev, year: e.target.value }))
                                     }
                                     min="1900"
                                     max="2099"
@@ -185,10 +115,10 @@ export const EditArchiveDialog = ({ open, archiveId, archiveName, onClose }: Arc
                                 <Input
                                     id="storage_path"
                                     type="text"
-                                    value={form.storage_path}
+                                    value={formEdit.storage_path}
                                     placeholder="/ruta/del/archivo"
                                     onChange={(e) =>
-                                        setForm(prev => ({ ...prev, storage_path: e.target.value }))
+                                        setFormEdit(prev => ({ ...prev, storage_path: e.target.value }))
                                     }
                                 />
                             </div>
@@ -200,10 +130,10 @@ export const EditArchiveDialog = ({ open, archiveId, archiveName, onClose }: Arc
                                 <Input
                                     id="source_sheet"
                                     type="text"
-                                    value={form.source_sheet}
+                                    value={formEdit.source_sheet}
                                     placeholder="Hoja 1"
                                     onChange={(e) =>
-                                        setForm(prev => ({ ...prev, source_sheet: e.target.value }))
+                                        setFormEdit(prev => ({ ...prev, source_sheet: e.target.value }))
                                     }
                                 />
                             </div>

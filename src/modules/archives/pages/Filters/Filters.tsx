@@ -10,16 +10,23 @@ import {
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Icons } from "@/styles/Icons"
+import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts"
 
 export const FiltersApp = () => {
+    const { filters, setFilters } = useArchiveContext()
+
     return (
         <FieldGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
             {/* Identificador */}
             <Field>
-                <FieldLabel className="text-sm font-medium mb-2">Identificador</FieldLabel>
+                <FieldLabel htmlFor="identifier" className="text-sm font-medium">Identificador</FieldLabel>
                 <div className="relative">
                     <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                     <Input
+                        id="identifier"
+                        type="text"
+                        value={filters.identifier}
+                        onChange={(e) => setFilters(prev => ({ ...prev, identifier: e.target.value.toUpperCase() }))}
                         placeholder="ABC"
                         className="pl-10"
                     />
@@ -28,10 +35,14 @@ export const FiltersApp = () => {
 
             {/* Base */}
             <Field>
-                <FieldLabel className="text-sm font-medium mb-2">Base</FieldLabel>
+                <FieldLabel htmlFor="base_folio" className="text-sm font-medium">Base</FieldLabel>
                 <div className="relative">
                     <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                     <Input
+                        id="base_folio"
+                        type="text"
+                        value={filters.base_folio}
+                        onChange={(e) => setFilters(prev => ({ ...prev, base_folio: e.target.value.toUpperCase() }))}
                         placeholder="DYCCDC2528"
                         className="pl-10"
                     />
@@ -40,10 +51,14 @@ export const FiltersApp = () => {
 
             {/* Nombre */}
             <Field>
-                <FieldLabel className="text-sm font-medium mb-2">Nombre</FieldLabel>
+                <FieldLabel htmlFor="name" className="text-sm font-medium">Nombre</FieldLabel>
                 <div className="relative">
                     <Icons.Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                     <Input
+                        id="name"
+                        type="text"
+                        value={filters.name}
+                        onChange={(e) => setFilters(prev => ({ ...prev, name: e.target.value.toUpperCase() }))}
                         placeholder="Nombre del archivo"
                         className="pl-10"
                     />
@@ -52,9 +67,12 @@ export const FiltersApp = () => {
 
             {/* Año */}
             <Field>
-                <FieldLabel className="text-sm font-medium mb-2">Año</FieldLabel>
+                <FieldLabel htmlFor="year" className="text-sm font-medium">Año</FieldLabel>
                 <Input
+                    id="year"
                     type="number"
+                    value={filters.year}
+                    onChange={(e) => setFilters(prev => ({ ...prev, year: e.target.value }))}
                     placeholder="YYYY"
                     min="1900"
                     max="2099"
@@ -63,9 +81,9 @@ export const FiltersApp = () => {
 
             {/* Tipo de Archivo */}
             <Field>
-                <FieldLabel className="text-sm font-medium mb-2" id="file-type-label">Tipo</FieldLabel>
-                <Select>
-                    <SelectTrigger className="cursor-pointer h-10" aria-labelledby="file-type-label">
+                <FieldLabel htmlFor="doc_type_filters" className="text-sm font-medium" id="file-type-label">Tipo de documento</FieldLabel>
+                <Select value={filters.doc_type} onValueChange={(value) => setFilters(prev => ({ ...prev, doc_type: value }))}>
+                    <SelectTrigger id="doc_type_filters" className="cursor-pointer h-10" aria-labelledby="file-type-label">
                         <SelectValue placeholder="Selecciona tipo" />
                     </SelectTrigger>
                     <SelectContent>
@@ -81,17 +99,16 @@ export const FiltersApp = () => {
 
             {/* Usuario */}
             <Field >
-                <FieldLabel className="text-sm font-medium mb-2" id="created-by-label">Creado por</FieldLabel>
-                <Select>
-                    <SelectTrigger className="cursor-pointer h-10" aria-labelledby="created-by-label">
+                <FieldLabel htmlFor="user" className="text-sm font-medium" id="created-by-label">Creado por</FieldLabel>
+                <Select value={filters.created_by} onValueChange={(value) => setFilters(prev => ({ ...prev, created_by: value }))}>
+                    <SelectTrigger id="user" className="cursor-pointer h-10" aria-labelledby="created-by-label">
                         <SelectValue placeholder="Seleccionar usuario" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
                             <SelectLabel>Usuarios</SelectLabel>
-                            <SelectItem value="user1">Usuario 1</SelectItem>
-                            <SelectItem value="user2">Usuario 2</SelectItem>
-                            <SelectItem value="user3">Usuario 3</SelectItem>
+                            <SelectItem value="d2edb2ab-cca7-45c8-9748-a17e999b7f0f">ise</SelectItem>
+                            <SelectItem value="0bab831b-3e92-4897-b641-cffc0dfe1d3f">erick</SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>
