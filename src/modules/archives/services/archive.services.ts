@@ -1,6 +1,6 @@
 import { apiFetch } from '@/services/api/api.ts';
 import type { ApiSingleResponse, ApiSuccessResponse } from '@/services/api/types.ts';
-import type { CreateArchivePayload, UpdateArchivePayload, ArchiveFilters, UUID, ArchiveBase, RelatedEntry } from '../types.ts';
+import type { CreateArchivePayload, UpdateArchivePayload, ArchiveFilters, UUID, ArchiveBase, RelatedEntry } from '@/modules/archives/types.ts';
 
 
 export const listArchiveDuplex = (archiveId: UUID) => {
@@ -11,7 +11,20 @@ export const listArchiveDuplex = (archiveId: UUID) => {
 
 // List archives query params
 export const listArchives = (params?: ArchiveFilters) => {
-    return apiFetch<ApiSuccessResponse<ArchiveBase>>(`/archives?${params ? params : ""}`, { method: "GET" })
+    const searchParams = new URLSearchParams()
+
+    Object.entries(params ?? {}).forEach(([key, value]) => {
+        if (value !== undefined && value !== "") {
+            searchParams.append(key, String(value))
+        }
+    })
+
+    const query = searchParams.toString()
+
+    return apiFetch<ApiSuccessResponse<ArchiveBase>>(
+        `/archives${query ? `?${query}` : ""}`,
+        { method: "GET" }
+    )
 }
 
 // List archives from uuid

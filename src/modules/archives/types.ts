@@ -63,10 +63,10 @@ export type ColumnVisibility = {
     actions: boolean
 }
 
-export type ArchiveActions = {
+export type ArchiveActionsType = {
     open: boolean
     archiveId: UUID
-    archiveName: string
+    archiveName?: string
     onClose: () => void
 }
 

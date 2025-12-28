@@ -11,10 +11,11 @@ import { PagintationApp } from "@/components/layout/Pagination/Pagintation";
 
 import { Icons } from "@/styles/Icons";
 import { Badge } from "@/components/ui/badge";
-import { ArchiveActions } from "../components/ArchiveActions";
-import { useArchiveContext } from "../../context/useArchiveContext";
+import { ArchiveActions } from "@/modules/archives/pages/components/ArchiveActions.tsx";
+import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts"
 
-import { CountLimit } from "../Filters/CountLimit";
+import { CountLimit } from "@/modules/archives/pages/Filters/CountLimit.tsx";
+import { getRowIndex } from "@/utils/archives/RangePagination";
 
 
 
@@ -38,19 +39,19 @@ export const TableApp = () => {
                         <TableHeader>
                             <TableRow className="bg-muted/50">
                                 {columnVisibility.id && (
-                                    <TableHead className="w-[60px] font-semibold">#</TableHead>
+                                    <TableHead className="w-15 font-semibold">#</TableHead>
                                 )}
                                 {columnVisibility.identifier && (
-                                    <TableHead className="font-semibold min-w-[120px]">Identificador</TableHead>
+                                    <TableHead className="font-semibold min-w-30">Identificador</TableHead>
                                 )}
                                 {columnVisibility.base && (
-                                    <TableHead className="font-semibold min-w-[140px]">Base</TableHead>
+                                    <TableHead className="font-semibold min-w-35">Base</TableHead>
                                 )}
                                 {columnVisibility.folio && (
-                                    <TableHead className="font-semibold min-w-[130px]">Folio</TableHead>
+                                    <TableHead className="font-semibold min-w-32.5">Folio</TableHead>
                                 )}
                                 {columnVisibility.name && (
-                                    <TableHead className="font-semibold min-w-[200px]">Nombre</TableHead>
+                                    <TableHead className="font-semibold min-w-50">Nombre</TableHead>
                                 )}
                                 {columnVisibility.type && (
                                     <TableHead className="font-semibold">Tipo</TableHead>
@@ -59,16 +60,16 @@ export const TableApp = () => {
                                     <TableHead className="font-semibold">Año</TableHead>
                                 )}
                                 {columnVisibility.path && (
-                                    <TableHead className="font-semibold min-w-[180px]">Ruta</TableHead>
+                                    <TableHead className="font-semibold min-w-45">Ruta</TableHead>
                                 )}
                                 {columnVisibility.sheet && (
                                     <TableHead className="font-semibold">Hoja</TableHead>
                                 )}
                                 {columnVisibility.creator && (
-                                    <TableHead className="font-semibold min-w-[150px]">Creado por</TableHead>
+                                    <TableHead className="font-semibold min-w-37.5">Creado por</TableHead>
                                 )}
                                 {columnVisibility.actions && (
-                                    <TableHead className="font-semibold text-right min-w-[200px]">Acciones</TableHead>
+                                    <TableHead className="font-semibold text-right min-w-50">Acciones</TableHead>
                                 )}
                             </TableRow>
                         </TableHeader>
@@ -96,7 +97,7 @@ export const TableApp = () => {
                                     <TableRow key={arch.archives_id} className="hover:bg-muted/30">
                                         {columnVisibility.id && (
                                             <TableCell className="font-medium text-muted-foreground">
-                                                {idx + 1}
+                                               {paginationArchive && getRowIndex(paginationArchive, idx)}
                                             </TableCell>
                                         )}
                                         {columnVisibility.identifier && (
@@ -113,9 +114,9 @@ export const TableApp = () => {
                                             <TableCell className="font-medium">{arch.folio}</TableCell>
                                         )}
                                         {columnVisibility.name && (
-                                            <TableCell className="font-medium max-w-[300px] truncate" title={arch.name}>
+                                            <TableCell className="font-medium max-w-75 truncate" title={arch.name}>
                                                 <div className="flex items-center gap-2">
-                                                    <Icons.FileText className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                                                    <Icons.FileText className="h-4 w-4 text-muted-foreground shrink-0" />
                                                     <span className="truncate">{arch.name}</span>
                                                 </div>
                                             </TableCell>
@@ -131,7 +132,7 @@ export const TableApp = () => {
                                             <TableCell className="font-medium">{arch.year}</TableCell>
                                         )}
                                         {columnVisibility.path && (
-                                            <TableCell className="text-xs text-muted-foreground max-w-[200px] truncate font-mono" title={arch.storage_path}>
+                                            <TableCell className="text-xs text-muted-foreground max-w-50 truncate font-mono" title={arch.storage_path}>
                                                 {arch.storage_path}
                                             </TableCell>
                                         )}
@@ -141,7 +142,7 @@ export const TableApp = () => {
                                         {columnVisibility.creator && (
                                             <TableCell>
                                                 <div className="flex items-center gap-2">
-                                                    <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                                    <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                                                         <span className="text-xs font-medium text-primary">
                                                             {arch.created_by_name?.charAt(0).toUpperCase() || '?'}
                                                         </span>

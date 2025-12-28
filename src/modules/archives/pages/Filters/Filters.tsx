@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Icons } from "@/styles/Icons"
-import { useArchiveContext } from "../../context/useArchiveContext"
+import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts"
 
 export const FiltersApp = () => {
     const { filters, setFilters } = useArchiveContext()
@@ -72,7 +72,7 @@ export const FiltersApp = () => {
                     id="year"
                     type="number"
                     value={filters.year}
-                    onChange={(e) => setFilters(prev => ({ ...prev, year: e.target.value.toUpperCase() }))}
+                    onChange={(e) => setFilters(prev => ({ ...prev, year: e.target.value }))}
                     placeholder="YYYY"
                     min="1900"
                     max="2099"
@@ -81,9 +81,9 @@ export const FiltersApp = () => {
 
             {/* Tipo de Archivo */}
             <Field>
-                <FieldLabel htmlFor="doc_type" className="text-sm font-medium" id="file-type-label">Tipo</FieldLabel>
+                <FieldLabel htmlFor="doc_type_filters" className="text-sm font-medium" id="file-type-label">Tipo de documento</FieldLabel>
                 <Select value={filters.doc_type} onValueChange={(value) => setFilters(prev => ({ ...prev, doc_type: value }))}>
-                    <SelectTrigger id="doc_type" className="cursor-pointer h-10" aria-labelledby="file-type-label">
+                    <SelectTrigger id="doc_type_filters" className="cursor-pointer h-10" aria-labelledby="file-type-label">
                         <SelectValue placeholder="Selecciona tipo" />
                     </SelectTrigger>
                     <SelectContent>

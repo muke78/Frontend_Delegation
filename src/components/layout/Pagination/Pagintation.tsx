@@ -1,3 +1,4 @@
+import type { PaginationAppProps } from "@/components/types"
 import {
     Pagination,
     PaginationContent,
@@ -7,43 +8,8 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import type { Pagination as PaginationType } from "@/services/api/types"
+import { getPaginationRange } from "@/utils/archives/RangePagination.ts"
 import clsx from "clsx"
-
-interface PaginationAppProps {
-    pagination: PaginationType
-    onPageChange?: (page: number) => void
-}
-
-const getPaginationRange = (
-    current: number,
-    total: number,
-    delta = 5
-) => {
-
-    if (total <= 1) {
-        return total === 1 ? [1] : [];
-    }
-
-    const range: (number | "...")[] = []
-
-    const left = Math.max(2, current - delta)
-    const right = Math.min(total - 1, current + delta)
-
-    range.push(1)
-
-    if (left > 2) range.push("...")
-
-    for (let i = left; i <= right; i++) {
-        range.push(i)
-    }
-
-    if (right < total - 1) range.push("...")
-
-    if (total > 1) range.push(total)
-
-    return range
-}
 
 export const PagintationApp = ({ pagination, onPageChange }: PaginationAppProps) => {
     const {
@@ -67,7 +33,6 @@ export const PagintationApp = ({ pagination, onPageChange }: PaginationAppProps)
                             !hasPrevPage && "pointer-events-none opacity-50"
                         )}
                     >
-                        Anterior
                     </PaginationPrevious>
                 </PaginationItem>
 
@@ -95,7 +60,6 @@ export const PagintationApp = ({ pagination, onPageChange }: PaginationAppProps)
                             !hasNextPage && "pointer-events-none opacity-50"
                         )}
                     >
-                        Siguiente
                     </PaginationNext>
                 </PaginationItem>
             </PaginationContent>

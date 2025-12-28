@@ -25,7 +25,7 @@ const DEFAULT_COLUMN_VISIBILITY: ColumnVisibility = {
     actions: true,
 }
 
-const DEFAULT_FORM_STATE: FormState = {
+export const DEFAULT_FORM_STATE: FormState = {
     identifier: "",
     base_folio: "",
     name: "",
@@ -73,11 +73,6 @@ const buildURLSearchParams = (filters: ArchiveFilters): URLSearchParams => {
     return params
 }
 
-const formatArchiveFilters = (filters: ArchiveFilters): ArchiveFilters => {
-    const params = buildURLSearchParams(filters)
-    return params.toString() as ArchiveFilters
-}
-
 export const useArchive = () => {
     const { user } = useAuthContext();
     const navigate = useNavigate();
@@ -89,7 +84,7 @@ export const useArchive = () => {
     const [loading, setLoading] = useState(true)
     const [openDialog, setOpenDialog] = useState(false)
     const [columnVisibility, setColumnVisibility] = useState<ColumnVisibility>(getStoredColumnVisibility)
-    const [form, setForm] = useState<FormState>(DEFAULT_FORM_STATE)
+    const [formCreate, setFormCreate] = useState<FormState>(DEFAULT_FORM_STATE)
     const [filters, setFilters] = useState<ArchiveFilters>(getFiltersFromURL)
 
     // Handlers de errores
@@ -130,7 +125,7 @@ export const useArchive = () => {
     }, [])
 
     // Funciones de API
-    const loadListArchive = useCallback(async (queryParams: ArchiveFilters) => {
+    const loadListArchive = useCallback(async (queryParams?: ArchiveFilters) => {
         try {
             setLoading(true)
             const res = await listArchives(queryParams)
@@ -151,25 +146,25 @@ export const useArchive = () => {
     }, [handleApiError])
 
     const refresh = useCallback(async () => {
-        const queryParams = formatArchiveFilters(filters)
-        await loadListArchive(queryParams)
+        await loadListArchive(filters)
     }, [filters, loadListArchive])
+
 
     const handleSubmitCreate = useCallback(async (): Promise<void> => {
         try {
             const res = await createArchive({
-                ...form,
+                ...formCreate,
                 created_by: user?.user_id,
             })
 
             await refresh()
             toast.success(res.message)
             setOpenDialog(false)
-            setForm(DEFAULT_FORM_STATE)
+            setFormCreate(DEFAULT_FORM_STATE)
         } catch (error) {
             handleApiError(error)
         }
-    }, [form, user?.user_id, refresh, handleApiError])
+    }, [formCreate, user?.user_id, refresh, handleApiError])
 
 
     const handleDeleteArchive = useCallback(async (archiveId: UUID): Promise<boolean> => {
@@ -177,13 +172,14 @@ export const useArchive = () => {
             const res = await deleteArchive(archiveId)
             toast.success(res.message)
             setArchive(prev => prev.filter(a => a.archives_id !== archiveId))
+            await loadListArchive()
             return true
         } catch (error) {
             handleApiError(error)
             await refresh()
             return false
         }
-    }, [handleApiError, refresh])
+    }, [handleApiError, refresh, loadListArchive])
 
     const handleRebuildFolio = useCallback(async (archiveId: UUID): Promise<boolean> => {
         try {
@@ -207,14 +203,12 @@ export const useArchive = () => {
 
     // Efectos
     useEffect(() => {
-        const queryParams = formatArchiveFilters(filters)
-
         if (debounceTimeoutRef.current) {
             clearTimeout(debounceTimeoutRef.current)
         }
 
         debounceTimeoutRef.current = setTimeout(() => {
-            loadListArchive(queryParams)
+            loadListArchive(filters)
         }, DEBOUNCE_DELAY)
 
         return () => {
@@ -244,10 +238,10 @@ export const useArchive = () => {
         paginationArchive,
         columnVisibility,
         openDialog,
-        form,
+        formCreate,
         filters,
         setOpenDialog,
-        setForm,
+        setFormCreate,
         setFilters,
         toggleColumn,
         loadListArchive,

@@ -22,7 +22,7 @@ export const Content = ({ open }: { open: boolean }) => {
                                                     {item.icon}
                                                     {open && <span>{item.title}</span>}
                                                     {!open && (
-                                                        <span className="sr-only">
+                                                        <span>
                                                             {item.title}
                                                         </span>
                                                     )}

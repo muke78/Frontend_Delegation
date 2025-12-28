@@ -1,6 +1,7 @@
-import { FullScreenLoader } from "@/components/common/FullScreenLoader"
-import { useAuthContext } from "@/context/useAuthContext"
 import { Navigate, Outlet, useLocation } from "react-router-dom"
+
+import { FullScreenLoader } from "@/components/common/FullScreenLoader.tsx"
+import { useAuthContext } from "@/context/useAuthContext"
 
 
 export const PublicRoute = () => {

@@ -8,10 +8,10 @@ export interface ArchiveContextType {
     paginationArchive?: Pagination
     columnVisibility: ColumnVisibility
     openDialog: boolean
-    form: FormState
+    formCreate: FormState
     filters: ArchiveFilters
     setOpenDialog: Dispatch<SetStateAction<boolean>>
-    setForm: Dispatch<SetStateAction<FormState>>
+    setFormCreate: Dispatch<SetStateAction<FormState>>
     setFilters: Dispatch<SetStateAction<ArchiveFilters>>
     toggleColumn: (column: keyof ColumnVisibility) => void
     loadListArchive: (filters: ArchiveFilters) => Promise<void>

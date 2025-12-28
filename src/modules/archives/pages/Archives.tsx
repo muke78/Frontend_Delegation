@@ -1,44 +1,44 @@
 import { TableApp } from "./Table/Table"
-import { CreateArchiveDialog } from "./Dialog/CreateArchiveDialog"
-import { FiltersApp } from "./Filters/Filters"
-import { ColumnsApp } from "./Filters/Columns"
-import { ArchiveProvider } from "../context/ArchiveProvider"
-import { ClearFilters } from "./Filters/ClearFilters"
-import { ExportFile } from "./Builder/ExportFile"
+import { CreateArchiveDialog } from "@/modules/archives/pages/Dialog/CreateArchiveDialog.tsx"
+import { FiltersApp } from "@/modules/archives/pages/Filters/Filters.tsx"
+import { ColumnsApp } from "@/modules/archives/pages/Filters/Columns.tsx"
+import { ArchiveProvider } from "@/modules/archives/context/ArchiveProvider.tsx"
+import { ClearFilters } from "@/modules/archives/pages/Filters/ClearFilters.tsx"
+import { ExportFile } from '@/modules/archives/pages/Builder/ExportFile.tsx';
 
 
 export const Archives = () => {
-  return (
-    <ArchiveProvider >
-      <div className="space-y-0">
-        {/* Sección de Filtros */}
-        <section className="rounded-t-lg border bg-card p-6 shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <h2 className="text-xl font-semibold">
-              Filtros de búsqueda
-            </h2>
+    return (
+        <ArchiveProvider >
+            <div className="space-y-0">
+                {/* Sección de Filtros */}
+                <section className="rounded-t-lg border bg-card p-6 shadow-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <h2 className="text-xl font-semibold">
+                            Filtros de búsqueda
+                        </h2>
 
-            <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2">
 
-              <ClearFilters />
-              {/* Dropdown para visibilidad de columnas */}
-              <ColumnsApp />
-              {/* Modal para cargar archivos */}
-              <CreateArchiveDialog />
+                            <ClearFilters />
+                            {/* Dropdown para visibilidad de columnas */}
+                            <ColumnsApp />
+                            {/* Modal para cargar archivos */}
+                            <CreateArchiveDialog />
 
-              <ExportFile />
+                            <ExportFile />
+                        </div>
+                    </div>
+
+                    <FiltersApp />
+                </section>
+
+                {/* Sección de Tabla */}
+                <section className="rounded-b-lg border border-t-0 bg-card p-6 shadow-sm">
+                    <TableApp />
+                </section>
             </div>
-          </div>
+        </ArchiveProvider>
 
-          <FiltersApp />
-        </section>
-
-        {/* Sección de Tabla */}
-        <section className="rounded-b-lg border border-t-0 bg-card p-6 shadow-sm">
-          <TableApp />
-        </section>
-      </div>
-    </ArchiveProvider>
-
-  )
+    )
 }
