@@ -15,8 +15,7 @@ export const PublicRoute = () => {
     }
 
     if (isAuthenticated) {
-
-        const from = (location.state)?.from?.pathname || '/home'
+        const from = location.state?.from?.pathname || "/home"
         return <Navigate to={from} replace />
     }
 
