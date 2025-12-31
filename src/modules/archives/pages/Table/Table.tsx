@@ -16,6 +16,7 @@ import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.
 
 import { CountLimit } from "@/modules/archives/pages/Filters/CountLimit.tsx";
 import { getRowIndex } from "@/utils/archives/RangePagination";
+import { NotFoundTable } from "@/modules/archives/pages/Table/NotFoundTable.tsx";
 
 
 
@@ -23,16 +24,21 @@ export const TableApp = () => {
     const {
         archive,
         loading,
+        filters,
         paginationArchive,
         columnVisibility,
         handlePageChange,
+        handleLimitChange
     } = useArchiveContext()
 
     if (loading) return <FullScreenLoader message="Cargando..." />
 
     return (
         <div className="w-full space-y-4">
-            <CountLimit />
+            <CountLimit
+                pagination={paginationArchive}
+                limit={filters.limit}
+                onLimitChange={handleLimitChange} />
             <div className="rounded-lg border overflow-hidden">
                 <div className="overflow-x-auto">
                     <Table>
@@ -77,27 +83,17 @@ export const TableApp = () => {
                         <TableBody>
                             {archive.length === 0 ? (
                                 <TableRow>
-                                    <TableCell
-                                        colSpan={Object.values(columnVisibility).filter(Boolean).length}
-                                        className="h-32 text-center text-muted-foreground"
-                                    >
-                                        <div className="flex flex-col items-center justify-center gap-3">
-                                            <Icons.FileText className="h-12 w-12 text-muted-foreground/40" />
-                                            <div>
-                                                <p className="font-medium">No se encontraron archivos</p>
-                                                <p className="text-sm text-muted-foreground mt-1">
-                                                    Intenta ajustar los filtros o agrega un nuevo archivo
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </TableCell>
+                                    <NotFoundTable
+                                        spaceColSpan={Object.values(columnVisibility).filter(Boolean).length}
+                                        subtitle="No se encontraron archivos"
+                                        description=" Intenta ajustar los filtros o agrega un nuevo archivo" />
                                 </TableRow>
                             ) : (
                                 archive.map((arch, idx) => (
                                     <TableRow key={arch.archives_id} className="hover:bg-muted/30">
                                         {columnVisibility.id && (
                                             <TableCell className="font-medium text-muted-foreground">
-                                               {paginationArchive && getRowIndex(paginationArchive, idx)}
+                                                {paginationArchive && getRowIndex(paginationArchive, idx)}
                                             </TableCell>
                                         )}
                                         {columnVisibility.identifier && (

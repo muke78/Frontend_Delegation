@@ -1,8 +1,8 @@
-import { toast } from "sonner";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import type { ArchiveActionsType } from "@/modules/archives/types.ts";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts"
+import { toast } from "sonner";
 
 
 export const DeleteArchiveDialog = ({ open,

@@ -1,17 +1,23 @@
-import { toast } from "sonner"
-import type { ApiError } from "@/services/api/types"
 import { useEffect, useState } from "react"
-import { listArchivesById, updateArchive } from "../services/archive.services";
-import type { ArchiveActionsType, FormState } from "../types";
-import { DEFAULT_FORM_STATE } from "./useArchive";
-import { useArchiveContext } from "../context/useArchiveContext";
+import { listArchivesById, updateArchive } from "@/modules/archives/services/archive.services.ts";
+import type { ArchiveActionsType, FormState } from "@/modules/archives/types.ts";
+import { DEFAULT_FORM_STATE } from "@/modules/archives/hooks/useEnviromentArchives.ts";
+import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
+import { ErrorCollector } from "@/utils/archives/ErrorCollector";
+import { toast } from "sonner"
 
 
 export const useArchiveEdit = ({ archiveId, onClose, open }: ArchiveActionsType) => {
 
     const { refresh } = useArchiveContext()
+
+    // Estados
     const [formEdit, setFormEdit] = useState<FormState>(DEFAULT_FORM_STATE)
 
+    // Recolector de errores
+    const { handleApiError } = ErrorCollector()
+
+    // Funcion que manda a editar un archivo
     const handleSubmitEdit = async () => {
         try {
 
@@ -30,20 +36,11 @@ export const useArchiveEdit = ({ archiveId, onClose, open }: ArchiveActionsType)
             toast.success(res.message)
             onClose()
         } catch (error) {
-            const err = error as ApiError
-
-            if (err.type === "validation") {
-                err.errors.forEach(e => {
-                    toast.error(`${e.field}: ${e.message}`, {
-                        duration: 10000,
-                    })
-                })
-            } else {
-                toast.error(err.message, { duration: 7000 })
-            }
+            handleApiError(error)
         }
     };
 
+    // Efectos (Conseguir el registro que se le dio clic y sobnecargarlo al Dialog para editar)
     useEffect(() => {
         if (!open || !archiveId) return
 
@@ -51,7 +48,6 @@ export const useArchiveEdit = ({ archiveId, onClose, open }: ArchiveActionsType)
             try {
                 const res = await listArchivesById(archiveId)
                 const archive = res.data[0]
-                toast.success(res.message)
 
                 if (archive) {
                     setFormEdit({
@@ -69,23 +65,13 @@ export const useArchiveEdit = ({ archiveId, onClose, open }: ArchiveActionsType)
                 }
             } catch (error) {
 
-                const err = error as ApiError
-
-                if (err.type === "validation") {
-                    err.errors.forEach(e => {
-                        toast.error(`${e.field}: ${e.message}`, {
-                            duration: 10000,
-                        })
-                    })
-                } else {
-                    toast.error(err.message, { duration: 7000 })
-                }
+                handleApiError(error)
 
             }
         }
 
         getArchiveById()
-    }, [archiveId, setFormEdit, onClose, open])
+    }, [archiveId, setFormEdit, onClose, open, handleApiError])
 
 
     return {

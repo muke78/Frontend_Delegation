@@ -1,4 +1,4 @@
-import { TableApp } from "./Table/Table"
+import { TableApp } from "@/modules/archives/pages/Table/Table.tsx"
 import { CreateArchiveDialog } from "@/modules/archives/pages/Dialog/CreateArchiveDialog.tsx"
 import { FiltersApp } from "@/modules/archives/pages/Filters/Filters.tsx"
 import { ColumnsApp } from "@/modules/archives/pages/Filters/Columns.tsx"
