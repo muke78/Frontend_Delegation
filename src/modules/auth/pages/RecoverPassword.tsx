@@ -29,7 +29,7 @@ export const RecoverPassword = () => {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [showCodeButton, setShowCodeButton] = useState(true);
+    const [_showCodeButton, setShowCodeButton] = useState(true);
     const [timeRemaining, setTimeRemaining] = useState(0);
     const [attempts, setAttempts] = useState(3);
     const [error, setError] = useState("");

@@ -84,9 +84,9 @@ export const EditArchiveDialog = ({ open, archiveId, archiveName, onClose }: Arc
                                         <SelectValue placeholder="Seleccionar tipo de documento" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="excel">Excel</SelectItem>
-                                        <SelectItem value="pdf">PDF</SelectItem>
-                                        <SelectItem value="word">Word</SelectItem>
+                                        <SelectItem value="Excel">Excel</SelectItem>
+                                        <SelectItem value="PDF">PDF</SelectItem>
+                                        <SelectItem value="Word">Word</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>

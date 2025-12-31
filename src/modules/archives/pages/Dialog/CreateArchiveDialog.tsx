@@ -91,16 +91,16 @@ export const CreateArchiveDialog = () => {
                                         <SelectValue placeholder="Seleccionar tipo de documento" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="excel">Excel</SelectItem>
-                                        <SelectItem value="pdf">PDF</SelectItem>
-                                        <SelectItem value="word">Word</SelectItem>
+                                        <SelectItem value="Excel">Excel</SelectItem>
+                                        <SelectItem value="PDF">PDF</SelectItem>
+                                        <SelectItem value="Word">Word</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
 
                             <div className="space-y-2">
                                 <Label htmlFor="year" className="text-sm font-medium">
-                                    Año
+                                    Año <span className="text-destructive">*</span>
                                 </Label>
                                 <Input
                                     id="year"
@@ -111,9 +111,6 @@ export const CreateArchiveDialog = () => {
                                     }
                                     placeholder="YYYY"
                                     required
-                                    min="1900"
-                                    max="2099"
-
                                 />
                             </div>
 

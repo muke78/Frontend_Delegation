@@ -1,3 +1,5 @@
+import type { metaData, Pagination } from "@/services/api/types"
+
 export type ArchiveBase = {
     archives_id: string
     identifier: string
@@ -43,9 +45,20 @@ type ArchiveFilterFields =
 
 
 export type ArchiveFilters = Partial<Pick<ArchiveBase, ArchiveFilterFields>> & {
-    limit?: string
-    page?: string
+    limit: string
+    page: string
 }
+
+export type ArchiveDialogRelatedDuplex = {
+    r_limit: string
+    r_page: string
+}
+
+export type ArchiveDuplexQuery = {
+    page?: string
+    limit?: string
+}
+
 
 export type UUID = string
 
@@ -69,5 +82,26 @@ export type ArchiveActionsType = {
     archiveName?: string
     onClose: () => void
 }
+
+export type ArchiveDuplex = {
+    open: boolean
+    archiveId: UUID
+}
+
+export interface DuplexResponse<A, R> {
+    archive: A
+    related: R[]
+    pagination: Pagination
+}
+
+
+export interface ApiDuplexSuccessResponse<A, R> {
+    success: boolean
+    data: DuplexResponse<A, R>
+    message: string
+    metadata: metaData
+}
+
+
 
 

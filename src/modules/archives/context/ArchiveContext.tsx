@@ -1,6 +1,6 @@
 import { createContext, type Dispatch, type SetStateAction } from 'react';
-import type { ArchiveBase, ArchiveFilters, ColumnVisibility, FormState, UUID } from '../types';
-import type { Pagination } from '@/services/api/types';
+import type { ArchiveBase, ArchiveFilters, ColumnVisibility, FormState, UUID } from '@/modules/archives/types.ts';
+import type { Pagination } from '@/services/api/types.ts';
 
 export interface ArchiveContextType {
     archive: ArchiveBase[]

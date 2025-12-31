@@ -1,41 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react"
-import type { ArchiveBase, ArchiveFilters, ColumnVisibility, FormState, UUID } from "../types"
+import type { ArchiveBase, ArchiveFilters, ColumnVisibility, FormState, UUID } from "@/modules/archives/types.ts"
 import { listArchives, deleteArchive, rebuildFolio, createArchive } from "@/modules/archives/services/archive.services.ts"
 import type { ApiError, Pagination } from "@/services/api/types"
-import { toast } from "sonner"
 import { useAuthContext } from "@/context/useAuthContext"
 import { useNavigate } from 'react-router-dom';
+import { STORAGE_KEY, DEBOUNCE_DELAY, DEFAULT_PAGE_LIMIT, DEFAULT_COLUMN_VISIBILITY, DEFAULT_FORM_STATE } from "@/modules/archives/hooks/useEnviromentArchives.ts"
+import { ErrorCollector } from "@/utils/archives/ErrorCollector"
+import { toast } from "sonner"
 
-// Constantes
-const DEBOUNCE_DELAY = 500
-const STORAGE_KEY = "archive_columns_visibility"
-const DEFAULT_PAGE_LIMIT = 20
-
-const DEFAULT_COLUMN_VISIBILITY: ColumnVisibility = {
-    id: true,
-    identifier: true,
-    base: true,
-    folio: true,
-    name: true,
-    type: true,
-    year: true,
-    path: true,
-    sheet: true,
-    creator: true,
-    actions: true,
-}
-
-export const DEFAULT_FORM_STATE: FormState = {
-    identifier: "",
-    base_folio: "",
-    name: "",
-    doc_type: "",
-    year: "",
-    storage_path: "",
-    source_sheet: "",
-}
-
-// Utilidades
+// Utilidades (Conseguir la visibilidad de columnas)
 const getStoredColumnVisibility = (): ColumnVisibility => {
     try {
         const stored = localStorage.getItem(STORAGE_KEY)
@@ -46,6 +19,7 @@ const getStoredColumnVisibility = (): ColumnVisibility => {
     }
 }
 
+// Construccion de parametros que se disponen
 const getFiltersFromURL = (): ArchiveFilters => {
     const params = new URLSearchParams(window.location.search)
 
@@ -61,18 +35,6 @@ const getFiltersFromURL = (): ArchiveFilters => {
     }
 }
 
-const buildURLSearchParams = (filters: ArchiveFilters): URLSearchParams => {
-    const params = new URLSearchParams()
-
-    Object.entries(filters).forEach(([key, value]) => {
-        if (value) {
-            params.append(key, String(value))
-        }
-    })
-
-    return params
-}
-
 export const useArchive = () => {
     const { user } = useAuthContext();
     const navigate = useNavigate();
@@ -81,24 +43,13 @@ export const useArchive = () => {
     // Estado
     const [archive, setArchive] = useState<ArchiveBase[]>([])
     const [paginationArchive, setPaginationArchive] = useState<Pagination>()
-    const [loading, setLoading] = useState(true)
-    const [openDialog, setOpenDialog] = useState(false)
     const [columnVisibility, setColumnVisibility] = useState<ColumnVisibility>(getStoredColumnVisibility)
-    const [formCreate, setFormCreate] = useState<FormState>(DEFAULT_FORM_STATE)
     const [filters, setFilters] = useState<ArchiveFilters>(getFiltersFromURL)
+    const [formCreate, setFormCreate] = useState<FormState>(DEFAULT_FORM_STATE)
+    const [openDialog, setOpenDialog] = useState(false)
+    const [loading, setLoading] = useState(true)
 
-    // Handlers de errores
-    const handleApiError = useCallback((error: unknown) => {
-        const err = error as ApiError
-
-        if (err.type === "validation") {
-            err.errors.forEach(e => {
-                toast.error(`${e.field}: ${e.message}`, { duration: 10000 })
-            })
-        } else {
-            toast.error(err.message, { duration: 7000 })
-        }
-    }, [])
+    const { handleApiError } = ErrorCollector()
 
     // Funciones de columnas
     const toggleColumn = useCallback((column: keyof ColumnVisibility) => {
@@ -145,11 +96,12 @@ export const useArchive = () => {
         }
     }, [handleApiError])
 
+    // Funcion que refresca la data si hay cambios
     const refresh = useCallback(async () => {
         await loadListArchive(filters)
     }, [filters, loadListArchive])
 
-
+    // Funcion que manda a crear archivos
     const handleSubmitCreate = useCallback(async (): Promise<void> => {
         try {
             const res = await createArchive({
@@ -166,7 +118,7 @@ export const useArchive = () => {
         }
     }, [formCreate, user?.user_id, refresh, handleApiError])
 
-
+    // Funcion que manda a borrar archivos
     const handleDeleteArchive = useCallback(async (archiveId: UUID): Promise<boolean> => {
         try {
             const res = await deleteArchive(archiveId)
@@ -181,6 +133,7 @@ export const useArchive = () => {
         }
     }, [handleApiError, refresh, loadListArchive])
 
+    // Funcion que manda a reconstruir el folio
     const handleRebuildFolio = useCallback(async (archiveId: UUID): Promise<boolean> => {
         try {
             const res = await rebuildFolio(archiveId)
@@ -201,7 +154,7 @@ export const useArchive = () => {
     }, [refresh])
 
 
-    // Efectos
+    // Efectos (Debounce para carga lenta en filtros)
     useEffect(() => {
         if (debounceTimeoutRef.current) {
             clearTimeout(debounceTimeoutRef.current)
@@ -218,16 +171,25 @@ export const useArchive = () => {
         }
     }, [filters, loadListArchive])
 
-
+    // Construccion de sincronizacion de la url (solo para archivos)
     useEffect(() => {
-        const params = buildURLSearchParams(filters)
-        const newUrl = params.toString()
-            ? `${window.location.pathname}?${params.toString()}`
-            : window.location.pathname
+        const params = new URLSearchParams(window.location.search)
 
-        navigate(newUrl, { replace: true })
+        Object.entries(filters).forEach(([key, value]) => {
+            if (value) {
+                params.set(key, String(value))
+            } else {
+                params.delete(key)
+            }
+        })
+
+        navigate(
+            `${window.location.pathname}?${params.toString()}`,
+            { replace: true }
+        )
     }, [filters, navigate])
 
+    // Sincronizacion de visibilidad de columnas
     useEffect(() => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(columnVisibility))
     }, [columnVisibility])

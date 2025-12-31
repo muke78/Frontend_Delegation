@@ -74,8 +74,6 @@ export const FiltersApp = () => {
                     value={filters.year}
                     onChange={(e) => setFilters(prev => ({ ...prev, year: e.target.value }))}
                     placeholder="YYYY"
-                    min="1900"
-                    max="2099"
                 />
             </Field>
 

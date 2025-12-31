@@ -1,4 +1,4 @@
-import { Mail, Lock, Loader2, FileText, Home, FileQuestion, ArrowLeft, Archive, Settings, PackageOpen, User, ChevronUp, LogOut, User2, Trash2, Pencil, Ellipsis, Search, Plus, Eye, Settings2, Save, Blocks, Eraser, Sheet, KeyRound, ShieldCheck, CircleCheck, Circle } from 'lucide-react';
+import { Mail, Lock, Loader2, FileText, Home, FileQuestion, ArrowLeft, Archive, Settings, PackageOpen, User, ChevronUp, LogOut, User2, Trash2, Pencil, Ellipsis, Search, Plus, Eye, Settings2, Save, Blocks, Eraser, Sheet, KeyRound, ShieldCheck, CircleCheck, Circle, SquareArrowOutUpRight } from 'lucide-react';
 
 export const Icons = {
     Mail,
@@ -29,6 +29,7 @@ export const Icons = {
     KeyRound,
     ShieldCheck,
     CircleCheck,
-    Circle
+    Circle,
+    SquareArrowOutUpRight
 };
 

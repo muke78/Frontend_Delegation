@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ArchiveContext } from './ArchiveContext';
+import { ArchiveContext } from '@/modules/archives/context/ArchiveContext.tsx';
 
 export const useArchiveContext = () => {
     const ctx = useContext(ArchiveContext);
