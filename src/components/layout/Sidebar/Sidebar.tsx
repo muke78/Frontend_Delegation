@@ -1,33 +1,29 @@
-import {
-    Sidebar,
-    useSidebar,
-} from "@/components/ui/sidebar"
+import { Sidebar, useSidebar } from "@/components/ui/sidebar";
 
 import { useEffect } from "react";
-import { Footer } from './Footer/Footer.tsx';
+import { Footer } from "./Footer/Footer.tsx";
 import { Header } from "./Header/Header.tsx";
 import { Content } from "./Content/Content.tsx";
 import { Separator } from "@/components/ui/separator.tsx";
 
 export const AppSidebar = () => {
-    const { open } = useSidebar();
+	const { open } = useSidebar();
 
-    useEffect(() => {
-        localStorage.setItem("sidebar_state", String(open))
-    }, [open])
+	useEffect(() => {
+		localStorage.setItem("sidebar_state", String(open));
+	}, [open]);
 
-    return (
-        <Sidebar variant="inset" collapsible="icon">
-            <Header open={open} />
+	return (
+		<Sidebar variant="inset" collapsible="icon">
+			<Header open={open} />
 
-            <Separator orientation="horizontal" />
+			<Separator orientation="horizontal" />
 
-            <Content open={open} />
+			<Content open={open} />
 
-            <Separator orientation="horizontal" />
-            
-            <Footer open={open} />
+			<Separator orientation="horizontal" />
 
-        </Sidebar >
-    )
-}
+			<Footer open={open} />
+		</Sidebar>
+	);
+};

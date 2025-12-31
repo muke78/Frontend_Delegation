@@ -1,5 +1,3 @@
 export const RelatedEntries = () => {
-  return (
-    <div>RelatedEntries</div>
-  )
-}
+	return <div>RelatedEntries</div>;
+};

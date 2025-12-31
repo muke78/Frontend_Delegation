@@ -1,107 +1,105 @@
-import type { metaData, Pagination } from "@/services/api/types"
+import type { metaData, Pagination } from "@/services/api/types";
 
 export type ArchiveBase = {
-    archives_id: string
-    identifier: string
-    base_folio: string
-    folio: string
-    name: string
-    doc_type: string
-    year: string
-    storage_path: string
-    source_sheet: string
-    created_by?: string
-    created_by_name?: string
-}
+	archives_id: string;
+	identifier: string;
+	base_folio: string;
+	folio: string;
+	name: string;
+	doc_type: string;
+	year: string;
+	storage_path: string;
+	source_sheet: string;
+	created_by?: string;
+	created_by_name?: string;
+};
 
 export interface RelatedEntry {
-    related_entries_id: string
-    archive_id: string
-    reference_number: number
-    reference_folio: string
-    description: string
-    event_date: string
-    responsible_person: string
-    responsible_role: string
-    notas: string
-    created: string
-    updated: string
+	related_entries_id: string;
+	archive_id: string;
+	reference_number: number;
+	reference_folio: string;
+	description: string;
+	event_date: string;
+	responsible_person: string;
+	responsible_role: string;
+	notas: string;
+	created: string;
+	updated: string;
 }
 
+export type CreateArchivePayload = Omit<
+	ArchiveBase,
+	"archives_id" | "folio" | "created_by_name"
+>;
 
-export type CreateArchivePayload = Omit<ArchiveBase, 'archives_id' | 'folio' | 'created_by_name'>
+export type UpdateArchivePayload = Partial<ArchiveBase>;
 
-export type UpdateArchivePayload = Partial<ArchiveBase>
-
-export type FormState = Omit<ArchiveBase, 'archives_id' | 'folio' | 'created_by' | 'created_by_name'>
+export type FormState = Omit<
+	ArchiveBase,
+	"archives_id" | "folio" | "created_by" | "created_by_name"
+>;
 
 type ArchiveFilterFields =
-    | 'identifier'
-    | 'base_folio'
-    | 'name'
-    | 'doc_type'
-    | 'year'
-    | 'created_by'
-
+	| "identifier"
+	| "base_folio"
+	| "name"
+	| "doc_type"
+	| "year"
+	| "created_by";
 
 export type ArchiveFilters = Partial<Pick<ArchiveBase, ArchiveFilterFields>> & {
-    limit: string
-    page: string
-}
+	limit: string;
+	page: string;
+};
 
 export type ArchiveDialogRelatedDuplex = {
-    r_limit: string
-    r_page: string
-}
+	r_limit: string;
+	r_page: string;
+};
 
 export type ArchiveDuplexQuery = {
-    page?: string
-    limit?: string
-}
+	page?: string;
+	limit?: string;
+};
 
-
-export type UUID = string
+export type UUID = string;
 
 export type ColumnVisibility = {
-    id: boolean
-    identifier: boolean
-    base: boolean
-    folio: boolean
-    name: boolean
-    type: boolean
-    year: boolean
-    path: boolean
-    sheet: boolean
-    creator: boolean
-    actions: boolean
-}
+	id: boolean;
+	identifier: boolean;
+	base: boolean;
+	folio: boolean;
+	name: boolean;
+	type: boolean;
+	year: boolean;
+	path: boolean;
+	sheet: boolean;
+	creator: boolean;
+	actions: boolean;
+};
 
 export type ArchiveActionsType = {
-    open: boolean
-    archiveId: UUID
-    archiveName?: string
-    onClose: () => void
-}
+	open: boolean;
+	archiveId: UUID;
+	archiveName?: string;
+	onClose: () => void;
+};
 
 export type ArchiveDuplex = {
-    open: boolean
-    archiveId: UUID
-}
+	open: boolean;
+	archiveId: UUID;
+};
 
 export interface DuplexResponse<A, R> {
-    archive: A
-    related: R[]
-    pagination: Pagination
+	archive: A;
+	related: R[];
+	pagination: Pagination;
 }
-
 
 export interface ApiDuplexSuccessResponse<A, R> {
-    success: boolean
-    data: DuplexResponse<A, R>
-    message: string
-    metadata: metaData
+	success: boolean;
+	data: DuplexResponse<A, R>;
+	message: string;
+	metadata: metaData;
 }
-
-
-
-
