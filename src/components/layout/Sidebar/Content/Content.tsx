@@ -36,9 +36,7 @@ export const Content = ({ open }: { open: boolean }) => {
 													isActive={isActive}
 													className={cn(
 														"data-[active=true]:bg-primary data-[active=true]:text-primary-foreground",
-														isActive
-															? "bg-primary text-primary-foreground"
-															: "hover:bg-sidebar-accent",
+														!isActive && "hover:bg-sidebar-accent",
 													)}
 												>
 													<NavLink

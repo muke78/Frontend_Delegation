@@ -4,7 +4,7 @@ import { Icons } from "@/styles/Icons";
 export const Header = ({ open }: { open: boolean }) => {
 	return (
 		<SidebarHeader>
-			<header className="flex p-2">
+			<header className="flex p-2" aria-label="Título de la aplicación">
 				<div className="flex items-center gap-2">
 					<Icons.FileText size={22} className="text-primary" />
 					{open && (

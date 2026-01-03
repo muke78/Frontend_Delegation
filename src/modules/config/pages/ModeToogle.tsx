@@ -24,14 +24,15 @@ export function ModeToggle() {
 			<SelectContent>
 				<SelectItem value="light">
 					<Icons.Sun />
-					Light
+					<span>Light</span>
 				</SelectItem>
 				<SelectItem value="dark">
-					<Icons.Moon /> Dark
+					<Icons.Moon />
+					<span>Dark</span>
 				</SelectItem>
 				<SelectItem value="system">
 					<Icons.Settings />
-					System
+					<span>System</span>
 				</SelectItem>
 			</SelectContent>
 		</Select>

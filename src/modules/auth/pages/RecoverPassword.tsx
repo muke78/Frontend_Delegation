@@ -423,7 +423,7 @@ export const RecoverPassword = () => {
 							}
 						}}
 						disabled={step === 1}
-						className="cursor-pointer text-black dark:text-white"
+						className="cursor-pointer text-foreground"
 					>
 						<Icons.ArrowLeft className="w-4 h-4 mr-2" />
 						Volver
