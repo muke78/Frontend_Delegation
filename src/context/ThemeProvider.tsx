@@ -20,30 +20,30 @@ export function ThemeProvider({
 
 	useEffect(() => {
 		const root = window.document.documentElement;
-		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 		const applyTheme = (isDark: boolean) => {
-			root.classList.remove("light", "dark")
-			root.classList.add(isDark ? "dark" : "light")
-		}
+			root.classList.remove("light", "dark");
+			root.classList.add(isDark ? "dark" : "light");
+		};
 
 		root.classList.remove("light", "dark");
 
 		if (theme === "system") {
-			applyTheme(mediaQuery.matches)
+			applyTheme(mediaQuery.matches);
 
 			const handleChange = (event: MediaQueryListEvent) => {
-				applyTheme(event.matches)
-			}
+				applyTheme(event.matches);
+			};
 
-			mediaQuery.addEventListener("change", handleChange)
+			mediaQuery.addEventListener("change", handleChange);
 
 			return () => {
-				mediaQuery.removeEventListener("change", handleChange)
-			}
+				mediaQuery.removeEventListener("change", handleChange);
+			};
 		}
 
-		root.classList.remove("light", "dark")
+		root.classList.remove("light", "dark");
 		root.classList.add(theme);
 	}, [theme]);
 
