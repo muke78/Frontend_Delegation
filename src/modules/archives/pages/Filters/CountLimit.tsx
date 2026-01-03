@@ -78,7 +78,7 @@ export const CountLimit = ({
 					</TooltipTrigger>
 
 					{isDisabled && (
-						<TooltipContent>
+						<TooltipContent side="top">
 							<span>No hay registros disponibles para mostrar.</span>
 						</TooltipContent>
 					)}

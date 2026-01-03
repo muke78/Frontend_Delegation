@@ -39,7 +39,6 @@ export const ClearFilters = () => {
 					size={"icon"}
 					onClick={clearFilters}
 					disabled={!hasActiveFilters}
-					className={!hasActiveFilters ? "opacity-50" : "cursor-pointer"}
 					aria-disabled={!hasActiveFilters}
 					aria-label="Limpiar filtros"
 				>
