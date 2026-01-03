@@ -63,7 +63,7 @@ export const ViewArchiveDialog = ({
 			}}
 		>
 			<DialogOverlay />
-			<DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
+			<DialogContent className="max-w-7xl max-h-[93vh] overflow-y-auto">
 				<DialogHeader>
 					<DialogTitle className="text-2xl font-semibold">
 						Información del archivo
@@ -183,7 +183,7 @@ export const ViewArchiveDialog = ({
 												relatedView.map((reltd) => (
 													<TableRow
 														key={reltd.related_entries_id}
-														className="hover:bg-muted/30"
+														className="hover:bg-primary/10"
 													>
 														<TableCell>{reltd.reference_number}</TableCell>
 														<TableCell className="font-medium">

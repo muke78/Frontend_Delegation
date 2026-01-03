@@ -35,6 +35,7 @@ export const ClearFilters = () => {
 			<TooltipTrigger asChild>
 				<Button
 					type="button"
+					className="cursor-pointer"
 					variant={"secondary"}
 					size={"icon"}
 					onClick={clearFilters}

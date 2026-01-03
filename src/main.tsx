@@ -5,13 +5,16 @@ import { Toaster } from "sonner";
 import "./index.css";
 import { AuthProvider } from "@/context/AuthProvider.tsx";
 import { AppRouter } from "@/app/AppRouter.tsx";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<BrowserRouter>
 			<AuthProvider>
-				<AppRouter />
-				<Toaster closeButton expand richColors position="bottom-right" />
+				<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+					<AppRouter />
+					<Toaster closeButton expand richColors position="bottom-right" />
+				</ThemeProvider>
 			</AuthProvider>
 		</BrowserRouter>
 	</StrictMode>,

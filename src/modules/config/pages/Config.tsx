@@ -1,3 +1,9 @@
+import { ModeToggle } from "./ModeToogle";
+
 export const Config = () => {
-	return <div>Config</div>;
+	return (
+		<>
+			<ModeToggle />
+		</>
+	);
 };

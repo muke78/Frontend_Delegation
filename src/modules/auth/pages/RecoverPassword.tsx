@@ -160,11 +160,11 @@ export const RecoverPassword = () => {
 	};
 
 	return (
-		<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 p-4">
+		<div className="min-h-screen flex items-center justify-center bg-primary/5 p-4">
 			<div className="w-full max-w-md">
 				{/* Barra de progreso */}
 				<div className="mb-8">
-					<div className="flex justify-between text-sm text-slate-600 mb-2">
+					<div className="flex justify-between text-sm mb-2">
 						<span>Paso {step} de 3</span>
 						<span>{Math.round(progress)}%</span>
 					</div>
@@ -172,18 +172,16 @@ export const RecoverPassword = () => {
 				</div>
 
 				{/* Tarjeta principal */}
-				<div className="bg-white rounded-lg shadow-lg p-8">
+				<div className="bg-background rounded-lg shadow-lg p-8">
 					{/* Paso 1: Verificación de correo */}
 					{step === 1 && (
 						<form onSubmit={handleSendCode} className="space-y-6">
 							<div className="text-center mb-6">
-								<div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-									<Icons.Mail className="w-8 h-8 text-blue-600" />
+								<div className="inline-flex items-center justify-center bg-primary/20 w-16 h-16 rounded-full mb-4">
+									<Icons.Mail className="w-8 h-8 text-primary" />
 								</div>
-								<h2 className="text-2xl font-bold text-slate-900">
-									Verificación de correo
-								</h2>
-								<p className="mt-2 text-sm text-slate-600">
+								<h2 className="text-2xl font-bold">Verificación de correo</h2>
+								<p className="mt-2 text-sm">
 									Ingresa la cuenta de correo con la que te registraste. Te
 									enviaremos un código de verificación.
 								</p>
@@ -199,7 +197,7 @@ export const RecoverPassword = () => {
 								<Field>
 									<FieldLabel htmlFor="email">Correo electrónico</FieldLabel>
 									<div className="relative">
-										<Icons.Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+										<Icons.Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
 										<Input
 											id="email"
 											type="email"
@@ -217,7 +215,11 @@ export const RecoverPassword = () => {
 								</Field>
 							</FieldSet>
 
-							<Button type="submit" className="w-full" size="lg">
+							<Button
+								type="submit"
+								size={"default"}
+								className="w-full text-base font-medium cursor-pointer"
+							>
 								Enviar código
 							</Button>
 						</form>
@@ -227,20 +229,18 @@ export const RecoverPassword = () => {
 					{step === 2 && (
 						<form onSubmit={handleVerifyCode} className="space-y-6">
 							<div className="text-center mb-6">
-								<div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-									<Icons.ShieldCheck className="w-8 h-8 text-green-600" />
+								<div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-4">
+									<Icons.ShieldCheck className="w-8 h-8 text-primary" />
 								</div>
-								<h2 className="text-2xl font-bold text-slate-900">
-									Verificación de código
-								</h2>
-								<p className="mt-2 text-sm text-slate-600">
+								<h2 className="text-2xl font-bold">Verificación de código</h2>
+								<p className="mt-2 text-sm">
 									Ingresa el código de 6 dígitos que enviamos a{" "}
-									<span className="font-semibold text-slate-900">{email}</span>
+									<span className="font-semibold">{email}</span>
 								</p>
 							</div>
 
 							{error && (
-								<Alert variant="destructive">
+								<Alert variant={"destructive"}>
 									<AlertDescription>{error}</AlertDescription>
 								</Alert>
 							)}
@@ -275,9 +275,9 @@ export const RecoverPassword = () => {
 									</div>
 									<FieldDescription className="text-center mt-4">
 										{timeRemaining > 0 ? (
-											<span className="text-slate-600">
+											<span>
 												Podrás solicitar un nuevo código en{" "}
-												<span className="font-semibold text-slate-900">
+												<span className="font-bold">
 													{formatTime(timeRemaining)}
 												</span>
 											</span>
@@ -286,7 +286,8 @@ export const RecoverPassword = () => {
 												type="button"
 												variant="link"
 												onClick={handleResendCode}
-												className="text-blue-600 hover:text-blue-700"
+												size={"default"}
+												className="w-full text-base font-medium cursor-pointer"
 											>
 												Reenviar código
 											</Button>
@@ -297,8 +298,8 @@ export const RecoverPassword = () => {
 
 							<Button
 								type="submit"
-								className="w-full"
-								size="lg"
+								size={"default"}
+								className="w-full text-base font-medium cursor-pointer"
 								disabled={verifyCode.length !== 6}
 							>
 								Verificar código
@@ -310,13 +311,11 @@ export const RecoverPassword = () => {
 					{step === 3 && (
 						<form onSubmit={handleChangePassword} className="space-y-6">
 							<div className="text-center mb-6">
-								<div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
-									<Icons.Lock className="w-8 h-8 text-purple-600" />
+								<div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-4">
+									<Icons.Lock className="w-8 h-8 text-primary" />
 								</div>
-								<h2 className="text-2xl font-bold text-slate-900">
-									Nueva contraseña
-								</h2>
-								<p className="mt-2 text-sm text-slate-600">
+								<h2 className="text-2xl font-bold">Nueva contraseña</h2>
+								<p className="mt-2 text-sm">
 									Crea una contraseña segura y fácil de recordar
 								</p>
 							</div>
@@ -374,8 +373,8 @@ export const RecoverPassword = () => {
 									</div>
 								</FieldGroup>
 
-								<div className="rounded-lg bg-slate-50 p-4 space-y-2">
-									<p className="text-sm font-semibold text-slate-900 mb-3">
+								<div className="rounded-lg bg-muted p-4 space-y-2">
+									<p className="text-sm font-semibold mb-3">
 										La contraseña debe contener:
 									</p>
 									<ValidationItem
@@ -403,9 +402,9 @@ export const RecoverPassword = () => {
 
 							<Button
 								type="submit"
-								className="w-full"
-								size="lg"
 								disabled={!isPasswordValid || newPassword !== confirmPassword}
+								size={"default"}
+								className="w-full text-base font-medium cursor-pointer"
 							>
 								Cambiar contraseña
 							</Button>
@@ -416,7 +415,7 @@ export const RecoverPassword = () => {
 				{/* Footer */}
 				<div className="text-center mt-6">
 					<Button
-						variant="ghost"
+						variant={"link"}
 						onClick={() => {
 							if (step > 1) {
 								setStep((prev) => prev - 1);
@@ -424,7 +423,7 @@ export const RecoverPassword = () => {
 							}
 						}}
 						disabled={step === 1}
-						className="text-slate-600"
+						className="cursor-pointer text-black dark:text-white"
 					>
 						<Icons.ArrowLeft className="w-4 h-4 mr-2" />
 						Volver
@@ -445,13 +444,11 @@ const ValidationItem = ({
 }) => (
 	<div className="flex items-center gap-2">
 		{isValid ? (
-			<Icons.CircleCheck className="w-4 h-4 text-green-600 flex-shrink-0" />
+			<Icons.CircleCheck className="w-4 h-4 text-green-600 shrink-0" />
 		) : (
-			<Icons.Circle className="w-4 h-4 text-slate-300 flex-shrink-0" />
+			<Icons.Circle className="w-4 h-4 text-slate-300 shrink-0" />
 		)}
-		<span
-			className={`text-sm ${isValid ? "text-green-700" : "text-slate-600"}`}
-		>
+		<span className={`text-sm ${isValid ? "text-green-600" : "text-rose-500"}`}>
 			{text}
 		</span>
 	</div>

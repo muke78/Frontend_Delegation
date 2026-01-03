@@ -27,14 +27,14 @@ export const PagintationApp = ({
 						aria-disabled={!hasPrevPage}
 						onClick={() => hasPrevPage && onPageChange?.(currentPage - 1)}
 						className={clsx(
-							"cursor-pointer",
+							"cursor-pointer bg-primary text-white",
 							!hasPrevPage && "pointer-events-none opacity-50",
 						)}
 					></PaginationPrevious>
 				</PaginationItem>
 
 				{pages.map((page, idx) => (
-					<PaginationItem key={idx}>
+					<PaginationItem key={`pagination_item_${idx}`}>
 						{page === "..." ? (
 							<PaginationEllipsis />
 						) : (
@@ -54,7 +54,7 @@ export const PagintationApp = ({
 						aria-disabled={!hasNextPage}
 						onClick={() => hasNextPage && onPageChange?.(currentPage + 1)}
 						className={clsx(
-							"cursor-pointer",
+							"cursor-pointer bg-primary text-white",
 							!hasNextPage && "pointer-events-none opacity-50",
 						)}
 					></PaginationNext>
