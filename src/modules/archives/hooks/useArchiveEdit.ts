@@ -76,7 +76,7 @@ export const useArchiveEdit = ({
 		};
 
 		getArchiveById();
-	}, [archiveId, setFormEdit, onClose, open, handleApiError]);
+	}, [archiveId, onClose, open, handleApiError]);
 
 	return {
 		formEdit,

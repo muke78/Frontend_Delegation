@@ -18,18 +18,20 @@ export const FiltersApp = () => {
 	return (
 		<FieldGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
 			{/* Identificador */}
-			<Field>
+			<Field role="search">
 				<FieldLabel htmlFor="identifier" className="text-sm font-medium">
 					Identificador
 				</FieldLabel>
 				<div className="relative">
 					<Icons.Search
+						aria-hidden="true"
+						focusable="false"
 						className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
 						size={16}
 					/>
 					<Input
 						id="identifier"
-						type="text"
+						type="search"
 						value={filters.identifier}
 						onChange={(e) =>
 							setFilters((prev) => ({
@@ -44,18 +46,20 @@ export const FiltersApp = () => {
 			</Field>
 
 			{/* Base */}
-			<Field>
+			<Field role="search">
 				<FieldLabel htmlFor="base_folio" className="text-sm font-medium">
 					Base
 				</FieldLabel>
 				<div className="relative">
 					<Icons.Search
+						aria-hidden="true"
+						focusable="false"
 						className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
 						size={16}
 					/>
 					<Input
 						id="base_folio"
-						type="text"
+						type="search"
 						value={filters.base_folio}
 						onChange={(e) =>
 							setFilters((prev) => ({
@@ -70,18 +74,20 @@ export const FiltersApp = () => {
 			</Field>
 
 			{/* Nombre */}
-			<Field>
+			<Field role="search">
 				<FieldLabel htmlFor="name" className="text-sm font-medium">
 					Nombre
 				</FieldLabel>
 				<div className="relative">
 					<Icons.Search
+						aria-hidden="true"
+						focusable="false"
 						className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
 						size={16}
 					/>
 					<Input
 						id="name"
-						type="text"
+						type="search"
 						value={filters.name}
 						onChange={(e) =>
 							setFilters((prev) => ({
@@ -96,23 +102,32 @@ export const FiltersApp = () => {
 			</Field>
 
 			{/* Año */}
-			<Field>
+			<Field role="search">
 				<FieldLabel htmlFor="year" className="text-sm font-medium">
 					Año
 				</FieldLabel>
-				<Input
-					id="year"
-					type="number"
-					value={filters.year}
-					onChange={(e) =>
-						setFilters((prev) => ({ ...prev, year: e.target.value }))
-					}
-					placeholder="YYYY"
-				/>
+				<div className="relative">
+					<Icons.Search
+						aria-hidden="true"
+						focusable="false"
+						className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+						size={16}
+					/>
+					<Input
+						id="year"
+						type="number"
+						value={filters.year}
+						onChange={(e) =>
+							setFilters((prev) => ({ ...prev, year: e.target.value }))
+						}
+						placeholder="YYYY"
+						className="pl-10"
+					/>
+				</div>
 			</Field>
 
 			{/* Tipo de Archivo */}
-			<Field>
+			<Field role="search">
 				<FieldLabel
 					htmlFor="doc_type_filters"
 					className="text-sm font-medium"
@@ -145,7 +160,7 @@ export const FiltersApp = () => {
 			</Field>
 
 			{/* Usuario */}
-			<Field>
+			<Field role="search">
 				<FieldLabel
 					htmlFor="user"
 					className="text-sm font-medium"

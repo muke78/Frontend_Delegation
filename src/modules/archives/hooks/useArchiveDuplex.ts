@@ -72,7 +72,7 @@ export const useArchiveDuplex = ({ open, archiveId }: ArchiveDuplex) => {
 	const clearDuplexParams = () => {
 		const params = new URLSearchParams(window.location.search);
 
-		params.delete("view");
+		params.delete("dialog");
 		params.delete("archiveId");
 		params.delete("r_page");
 		params.delete("r_limit");

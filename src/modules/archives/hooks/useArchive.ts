@@ -170,7 +170,9 @@ export const useArchive = () => {
 				const err = error as ApiError;
 
 				if (err.type === "validation") {
-					err.errors.forEach((msg) => toast.info(msg.message));
+					err.errors.forEach((msg) => {
+						toast.info(msg.message);
+					});
 				} else {
 					toast.info(err.message);
 				}

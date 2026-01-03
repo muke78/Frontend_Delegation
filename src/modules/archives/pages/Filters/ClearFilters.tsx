@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Icons } from "@/styles/Icons";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
 import {
@@ -6,11 +5,19 @@ import {
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
 
 export const ClearFilters = () => {
-	const { setFilters } = useArchiveContext();
+	const { filters, setFilters } = useArchiveContext();
+
+	const hasActiveFilters = Object.entries(filters).some(([key, value]) => {
+		const isControlKey = key === "page" || key === "limit";
+		return !isControlKey && value !== "";
+	});
 
 	const clearFilters = () => {
+		if (!hasActiveFilters) return;
+
 		setFilters((prev) => ({
 			...prev,
 			identifier: "",
@@ -27,10 +34,12 @@ export const ClearFilters = () => {
 		<Tooltip>
 			<TooltipTrigger asChild>
 				<Button
+					type="button"
 					variant={"secondary"}
 					size={"icon"}
-					className="cursor-pointer"
-					onClick={() => clearFilters()}
+					onClick={clearFilters}
+					disabled={!hasActiveFilters}
+					aria-disabled={!hasActiveFilters}
 					aria-label="Limpiar filtros"
 				>
 					<Icons.Eraser />
