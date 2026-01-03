@@ -9,7 +9,7 @@ import { ExportFile } from "@/modules/archives/pages/Builder/ExportFile.tsx";
 export const Archives = () => {
 	return (
 		<ArchiveProvider>
-			<div className="space-y-0">
+			<div className="space-y-0 p-4">
 				{/* Sección de Filtros */}
 				<section className="rounded-t-lg border bg-card p-6 shadow-sm">
 					<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">

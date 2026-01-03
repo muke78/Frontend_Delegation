@@ -29,6 +29,8 @@ import {
 	CircleCheck,
 	Circle,
 	SquareArrowOutUpRight,
+	Moon,
+	Sun,
 } from "lucide-react";
 
 export const Icons = {
@@ -62,4 +64,6 @@ export const Icons = {
 	CircleCheck,
 	Circle,
 	SquareArrowOutUpRight,
+	Moon,
+	Sun,
 };

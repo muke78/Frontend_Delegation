@@ -42,7 +42,7 @@ export const TableApp = () => {
 				<div className="overflow-x-auto">
 					<Table>
 						<TableHeader>
-							<TableRow className="bg-muted/50">
+							<TableRow>
 								{columnVisibility.id && (
 									<TableHead className="w-15 font-semibold">#</TableHead>
 								)}
@@ -104,7 +104,7 @@ export const TableApp = () => {
 								archive.map((arch, idx) => (
 									<TableRow
 										key={arch.archives_id}
-										className="hover:bg-muted/30"
+										className="hover:bg-primary/10"
 									>
 										{columnVisibility.id && (
 											<TableCell className="font-medium text-muted-foreground">

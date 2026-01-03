@@ -53,7 +53,7 @@ export const LoginPage = () => {
 	};
 
 	return (
-		<div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-50 via-slate-100 to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 px-4">
+		<div className="min-h-screen flex items-center justify-center bg-primary/5 px-4">
 			<div className="absolute inset-0 bg-grid-slate-200/50 dark:bg-grid-slate-700/25 mask-[radial-gradient(ellipse_at_center,transparent_20%,black)]" />
 
 			<form onSubmit={handleSubmit} className="relative w-full max-w-md">
@@ -138,7 +138,8 @@ export const LoginPage = () => {
 						<Button
 							type="submit"
 							disabled={loading}
-							className="w-full h-11 text-base font-medium cursor-pointer"
+							size={"default"}
+							className="w-full text-base font-medium cursor-pointer"
 						>
 							{loading ? (
 								<>
