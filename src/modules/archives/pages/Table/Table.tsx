@@ -160,7 +160,9 @@ export const TableApp = () => {
 											</TableCell>
 										)}
 										{columnVisibility.sheet && (
-											<TableCell>{arch.source_sheet}</TableCell>
+											<TableCell className="font-mono text-sm">
+												{arch.source_sheet}
+											</TableCell>
 										)}
 										{columnVisibility.creator && (
 											<TableCell>

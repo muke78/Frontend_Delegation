@@ -36,7 +36,7 @@ export const Footer = ({ open }: { open: boolean }) => {
 		try {
 			const message = await logout();
 			toast.success(message || "Sesión cerrada correctamente");
-		} catch (error) {
+		} catch (_error) {
 			toast.error("Error al cerrar sesión, pero se limpiará la sesión local");
 		} finally {
 			setLoggingOut(false);
@@ -75,8 +75,8 @@ export const Footer = ({ open }: { open: boolean }) => {
 							side="top"
 							align="start"
 							className={clsx(
-								"min-w-[180px]",
-								open ? "w-[var(--radix-popper-anchor-width)]" : "w-auto",
+								"min-w-45",
+								open ? "w-(--radix-popper-anchor-width)" : "w-auto",
 							)}
 						>
 							<DropdownMenuItem asChild className="cursor-pointer">

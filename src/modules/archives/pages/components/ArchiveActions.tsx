@@ -14,12 +14,14 @@ export const ArchiveActions = ({ archive }: { archive: ArchiveBase }) => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const [action, setAction] = useState<"view" | "edit" | "delete" | null>(null);
+	const [action, setAction] = useState<"dialog" | "edit" | "delete" | null>(
+		null,
+	);
 
 	const params = new URLSearchParams(location.search);
 
 	const openView =
-		params.get("view") === "archive" &&
+		params.get("dialog") === "archive" &&
 		params.get("archiveId") === archive.archives_id;
 
 	return (
@@ -33,7 +35,7 @@ export const ArchiveActions = ({ archive }: { archive: ArchiveBase }) => {
 					onClick={() => {
 						const params = new URLSearchParams(location.search);
 
-						params.set("view", "archive");
+						params.set("dialog", "archive");
 						params.set("archiveId", archive.archives_id);
 						params.set("r_page", "1");
 						params.set("r_limit", "20");
@@ -86,7 +88,7 @@ export const ArchiveActions = ({ archive }: { archive: ArchiveBase }) => {
 				onClose={() => {
 					const params = new URLSearchParams(location.search);
 
-					params.delete("view");
+					params.delete("dialog");
 					params.delete("archiveId");
 					params.delete("r_page");
 					params.delete("r_limit");
