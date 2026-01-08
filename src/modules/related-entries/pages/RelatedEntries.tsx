@@ -1,7 +1,11 @@
 import { FiltersApp } from "@/modules/related-entries/pages/Filters/Filters.tsx";
 import { TableApp } from "@/modules/related-entries/pages/Table/Table.tsx";
+import { ClearFilters } from "@/components/layout/Filters/ClearFilters.tsx";
+import { useRelatedContext } from "@/modules/related-entries/context/useRelatedContext.ts";
 
 export const RelatedEntries = () => {
+	const { clearFilters, hasActiveFilters } = useRelatedContext();
+
 	return (
 		<div className="space-y-0 p-4">
 			{/* Seccion de filtros */}
@@ -11,7 +15,10 @@ export const RelatedEntries = () => {
 
 					<div className="flex items-center gap-2">
 						{/* Componmente de limpiar los filtros */}
-
+						<ClearFilters
+							clearFilters={clearFilters}
+							hasActiveFilters={hasActiveFilters}
+						/>
 						{/* Dropdown para visibilidad de columnas */}
 
 						{/* Modal para cargar archivos */}

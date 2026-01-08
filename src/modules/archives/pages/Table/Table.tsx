@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArchiveActions } from "@/modules/archives/pages/components/ArchiveActions.tsx";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
 
-import { CountLimit } from "@/modules/archives/pages/Filters/CountLimit.tsx";
+import { CountLimit } from "@/components/layout/Filters/CountLimit";
 import { getRowIndex } from "@/utils/archives/RangePagination";
 import { NotFoundTable } from "@/components/layout/NotFound/NotFoundTable";
 

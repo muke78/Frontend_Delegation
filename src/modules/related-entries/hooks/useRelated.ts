@@ -84,6 +84,25 @@ export const useRelated = () => {
 		}));
 	}, []);
 
+	// Saber si hay filtros activados
+	const hasActiveFilters = Object.entries(filters).some(([key, value]) => {
+		const isControlKey = key === "page" || key === "limit";
+		return !isControlKey && value !== "";
+	});
+
+	// Limpieza de filtros
+	const clearFilters = () => {
+		if (!hasActiveFilters) return;
+		setFilters((prev) => ({
+			...prev,
+			reference_folio: "",
+			description: "",
+			event_date: "",
+			responsible_person: "",
+			page: "1",
+		}));
+	};
+
 	// Funciones de API
 	const loadListRelated = useCallback(
 		async (queryParams?: RelatedQueryParams) => {
@@ -160,6 +179,7 @@ export const useRelated = () => {
 		openDialog,
 		formCreate,
 		filters,
+		hasActiveFilters,
 		setOpenDialog,
 		setFormCreate,
 		setFilters,
@@ -169,5 +189,6 @@ export const useRelated = () => {
 
 		handlePageChange,
 		handleLimitChange,
+		clearFilters,
 	};
 };

@@ -14,11 +14,14 @@ import { useRelatedContext } from "../../context/useRelatedContext";
 
 export const FiltersApp = () => {
 	const [open, setOpen] = useState(false);
-	const [date, setDate] = useState<Date | undefined>(undefined);
 
 	const { filters, setFilters } = useRelatedContext();
 
 	const formatDateToISO = (date: Date) => date.toISOString().split("T")[0];
+
+	const selectedDate = filters.event_date
+		? new Date(filters.event_date)
+		: undefined;
 
 	return (
 		<FieldGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
@@ -122,7 +125,7 @@ export const FiltersApp = () => {
 								id="date"
 								className="justify-between font-normal"
 							>
-								{date ? date.toLocaleDateString() : "Selecciona una fecha"}
+								{filters.event_date || "Selecciona una fecha"}
 								<Icons.ChevronDownIcon />
 							</Button>
 						</PopoverTrigger>
@@ -132,13 +135,10 @@ export const FiltersApp = () => {
 						>
 							<Calendar
 								mode="single"
-								selected={date}
+								selected={selectedDate}
 								captionLayout="dropdown"
 								onSelect={(selectedDate) => {
 									if (!selectedDate) return;
-
-									setDate(selectedDate);
-
 									setFilters((prev) => ({
 										...prev,
 										event_date: formatDateToISO(selectedDate),

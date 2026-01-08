@@ -16,6 +16,7 @@ export interface ArchiveContextType {
 	openDialog: boolean;
 	formCreate: FormState;
 	filters: ArchiveFilters;
+	hasActiveFilters: boolean;
 	setOpenDialog: Dispatch<SetStateAction<boolean>>;
 	setFormCreate: Dispatch<SetStateAction<FormState>>;
 	setFilters: Dispatch<SetStateAction<ArchiveFilters>>;
@@ -27,6 +28,7 @@ export interface ArchiveContextType {
 	handleRebuildFolio: (archiveId: UUID) => Promise<boolean>;
 	handlePageChange: (page: number) => void;
 	handleLimitChange: (limit: number) => void;
+	clearFilters: () => void;
 }
 
 export const ArchiveContext = createContext<ArchiveContextType | null>(null);

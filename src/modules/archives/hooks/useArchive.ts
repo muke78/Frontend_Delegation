@@ -96,6 +96,27 @@ export const useArchive = () => {
 		}));
 	}, []);
 
+	// Saber si hay filtros activados
+	const hasActiveFilters = Object.entries(filters).some(([key, value]) => {
+		const isControlKey = key === "page" || key === "limit";
+		return !isControlKey && value !== "";
+	});
+
+	// Limpieza de filtros
+	const clearFilters = () => {
+		if (!hasActiveFilters) return;
+		setFilters((prev) => ({
+			...prev,
+			identifier: "",
+			base_folio: "",
+			name: "",
+			doc_type: "",
+			year: "",
+			created_by: "",
+			page: "1",
+		}));
+	};
+
 	// Funciones de API
 	const loadListArchive = useCallback(
 		async (queryParams?: ArchiveFilters) => {
@@ -232,6 +253,7 @@ export const useArchive = () => {
 		openDialog,
 		formCreate,
 		filters,
+		hasActiveFilters,
 		setOpenDialog,
 		setFormCreate,
 		setFilters,
@@ -243,5 +265,6 @@ export const useArchive = () => {
 		handleDeleteArchive,
 		handlePageChange,
 		handleLimitChange,
+		clearFilters,
 	};
 };

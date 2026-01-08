@@ -15,6 +15,7 @@ export interface RelatedContextType {
 	openDialog: boolean;
 	formCreate: CreateRelatedPayload;
 	filters: RelatedQueryParams;
+	hasActiveFilters: boolean;
 	setOpenDialog: Dispatch<SetStateAction<boolean>>;
 	setFormCreate: Dispatch<SetStateAction<CreateRelatedPayload>>;
 	setFilters: Dispatch<SetStateAction<RelatedQueryParams>>;
@@ -24,6 +25,7 @@ export interface RelatedContextType {
 
 	handlePageChange: (page: number) => void;
 	handleLimitChange: (limit: number) => void;
+	clearFilters: () => void;
 }
 
 export const RelatedContext = createContext<RelatedContextType | null>(null);

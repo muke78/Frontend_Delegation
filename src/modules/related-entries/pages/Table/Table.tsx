@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { Icons } from "@/styles/Icons";
 import { useRelatedContext } from "../../context/useRelatedContext";
-import { CountLimit } from "@/modules/archives/pages/Filters/CountLimit";
+import { CountLimit } from "@/components/layout/Filters/CountLimit";
 import { PagintationApp } from "@/components/layout/Pagination/Pagintation";
 import { FullScreenLoader } from "@/components/common/FullScreenLoader";
 import { NotFoundTable } from "@/components/layout/NotFound/NotFoundTable";
@@ -40,11 +40,13 @@ export const TableApp = () => {
 					<Table>
 						<TableHeader>
 							<TableRow className="bg-muted/50">
-								{columnVisibility.reference_number && (
-									<TableHead className="font-semibold">Número</TableHead>
-								)}
 								{columnVisibility.reference_folio && (
 									<TableHead className="font-semibold">Folio</TableHead>
+								)}
+								{columnVisibility.reference_number && (
+									<TableHead className="font-semibold">
+										Número de referencia
+									</TableHead>
 								)}
 								{columnVisibility.description && (
 									<TableHead className="font-semibold">Descripción</TableHead>
@@ -85,14 +87,14 @@ export const TableApp = () => {
 										key={rltd.related_entries_id}
 										className="hover:bg-primary/10"
 									>
-										{columnVisibility.reference_number && (
-											<TableCell className="font-mono text-sm font-medium">
-												{rltd.reference_number}
-											</TableCell>
-										)}
 										{columnVisibility.reference_folio && (
 											<TableCell className="font-mono text-sm">
 												{rltd.reference_folio}
+											</TableCell>
+										)}
+										{columnVisibility.reference_number && (
+											<TableCell className="font-mono text-sm font-medium">
+												{rltd.reference_number}
 											</TableCell>
 										)}
 										{columnVisibility.description && (
@@ -144,7 +146,6 @@ export const TableApp = () => {
 												</div>
 											</TableCell>
 										)}
-
 									</TableRow>
 								))
 							)}

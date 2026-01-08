@@ -2,10 +2,13 @@ import { TableApp } from "@/modules/archives/pages/Table/Table.tsx";
 import { CreateArchiveDialog } from "@/modules/archives/pages/Dialog/CreateArchiveDialog.tsx";
 import { FiltersApp } from "@/modules/archives/pages/Filters/Filters.tsx";
 import { ColumnsApp } from "@/modules/archives/pages/Filters/Columns.tsx";
-import { ClearFilters } from "@/modules/archives/pages/Filters/ClearFilters.tsx";
+import { ClearFilters } from "@/components/layout/Filters/ClearFilters.tsx";
 import { ExportFile } from "@/modules/archives/pages/Builder/ExportFile.tsx";
+import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
 
 export const Archives = () => {
+	const { clearFilters, hasActiveFilters } = useArchiveContext();
+
 	return (
 		<div className="space-y-0 p-4">
 			{/* Sección de Filtros */}
@@ -14,7 +17,10 @@ export const Archives = () => {
 					<h2 className="text-xl font-semibold">Filtros de búsqueda</h2>
 
 					<div className="flex items-center gap-2">
-						<ClearFilters />
+						<ClearFilters
+							clearFilters={clearFilters}
+							hasActiveFilters={hasActiveFilters}
+						/>
 						{/* Dropdown para visibilidad de columnas */}
 						<ColumnsApp />
 						{/* Modal para cargar archivos */}
