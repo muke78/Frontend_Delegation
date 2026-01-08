@@ -4,9 +4,9 @@ import type {
 	ArchiveFilters,
 	ColumnVisibility,
 	FormState,
-	UUID,
 } from "@/modules/archives/types.ts";
 import type { Pagination } from "@/services/api/types.ts";
+import type { UUID } from "@/types";
 
 export interface ArchiveContextType {
 	archive: ArchiveBase[];

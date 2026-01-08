@@ -10,24 +10,47 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectLabel,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
+import { useRelatedContext } from "../../context/useRelatedContext";
 
 export const FiltersApp = () => {
 	const [open, setOpen] = useState(false);
 	const [date, setDate] = useState<Date | undefined>(undefined);
 
+	const { filters, setFilters } = useRelatedContext();
+
+	const formatDateToISO = (date: Date) => date.toISOString().split("T")[0];
+
 	return (
 		<FieldGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-			{/* Descripcion */}
+			{/* Folio de referencia */}
+			<Field role="search">
+				<FieldLabel htmlFor="folio" className="text-sm font-medium">
+					Folio
+				</FieldLabel>
+				<div className="relative">
+					<Icons.Search
+						aria-hidden="true"
+						focusable="false"
+						className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+						size={16}
+					/>
+					<Input
+						id="folio"
+						type="search"
+						value={filters.reference_folio}
+						onChange={(e) =>
+							setFilters((prev) => ({
+								...prev,
+								reference_folio: e.target.value.toUpperCase(),
+							}))
+						}
+						placeholder="ABC"
+						className="pl-10"
+					/>
+				</div>
+			</Field>
 
+			{/* Descripcion */}
 			<Field role="search">
 				<FieldLabel htmlFor="description" className="text-sm font-medium">
 					Descripcion
@@ -42,8 +65,13 @@ export const FiltersApp = () => {
 					<Input
 						id="description"
 						type="search"
-						value={""}
-						onChange={() => {}}
+						value={filters.description}
+						onChange={(e) =>
+							setFilters((prev) => ({
+								...prev,
+								description: e.target.value.toUpperCase(),
+							}))
+						}
 						placeholder="Que se hizo?"
 						className="pl-10"
 					/>
@@ -68,40 +96,17 @@ export const FiltersApp = () => {
 					<Input
 						id="responsible_person"
 						type="search"
-						value={""}
-						onChange={() => {}}
+						value={filters.responsible_person}
+						onChange={(e) =>
+							setFilters((prev) => ({
+								...prev,
+								responsible_person: e.target.value.toUpperCase(),
+							}))
+						}
 						placeholder="Quien esta a cargo?"
 						className="pl-10"
 					/>
 				</div>
-			</Field>
-
-			{/* Ver relaciones por archivo */}
-			<Field role="search">
-				<FieldLabel
-					htmlFor="related_through"
-					className="text-sm font-medium"
-					id="file-type-label"
-				>
-					Relaciones por archivo
-				</FieldLabel>
-				<Select>
-					<SelectTrigger
-						id="related_through"
-						className="cursor-pointer h-10"
-						aria-labelledby="file-type-label"
-					>
-						<SelectValue placeholder="Selecciona un archivo" />
-					</SelectTrigger>
-					<SelectContent>
-						<SelectGroup>
-							<SelectLabel>Archivos</SelectLabel>
-							<SelectItem value="9e0d796e-ac33-485f-b8ac-5a79089a658a">
-								OEMDYCCDC2528
-							</SelectItem>
-						</SelectGroup>
-					</SelectContent>
-				</Select>
 			</Field>
 
 			{/* Fecha del evento */}
@@ -129,8 +134,16 @@ export const FiltersApp = () => {
 								mode="single"
 								selected={date}
 								captionLayout="dropdown"
-								onSelect={(date) => {
-									setDate(date);
+								onSelect={(selectedDate) => {
+									if (!selectedDate) return;
+
+									setDate(selectedDate);
+
+									setFilters((prev) => ({
+										...prev,
+										event_date: formatDateToISO(selectedDate),
+									}));
+
 									setOpen(false);
 								}}
 							/>

@@ -1,12 +1,18 @@
 import type { ColumnVisibility, FormState } from "@/modules/archives/types.ts";
+import type {
+	ColumnVisibilityRelated,
+	CreateRelatedPayload,
+} from "@/modules/related-entries/types";
 
 // Constantes
 export const DEFAULT_PAGE_LIMIT = 20;
 export const DEBOUNCE_DELAY = 500;
-export const STORAGE_KEY = "archive_columns_visibility";
+
+// Archivos
+export const STORAGE_KEY_ARCHIVE = "archive_columns_visibility";
 
 // Visibilidad de columnas
-export const DEFAULT_COLUMN_VISIBILITY: ColumnVisibility = {
+export const DEFAULT_COLUMN_VISIBILITY_ARCHIVE: ColumnVisibility = {
 	id: true,
 	identifier: true,
 	base: true,
@@ -20,8 +26,8 @@ export const DEFAULT_COLUMN_VISIBILITY: ColumnVisibility = {
 	actions: true,
 };
 
-// Estado por defecto de form
-export const DEFAULT_FORM_STATE: FormState = {
+// Estado por defecto de form archivos
+export const DEFAULT_FORM_STATE_ARCHIVE: FormState = {
 	identifier: "",
 	base_folio: "",
 	name: "",
@@ -29,4 +35,28 @@ export const DEFAULT_FORM_STATE: FormState = {
 	year: "",
 	storage_path: "",
 	source_sheet: "",
+};
+
+// Related
+export const STORAGE_KEY_RELATED = "related_columns_visibility";
+
+// Visibilidad de columnas
+export const DEFAULT_COLUMN_VISIBILITY_RELATED: ColumnVisibilityRelated = {
+	reference_number: true,
+	reference_folio: true,
+	description: true,
+	event_date: true,
+	responsible_person: true,
+	responsible_role: true,
+	notas: true,
+	actions: true,
+};
+
+// Estado por defecto de form relaciones
+export const DEFAULT_FORM_STATE_RELATED: CreateRelatedPayload = {
+	description: "",
+	event_date: "",
+	responsible_person: "",
+	responsible_role: "",
+	notas: "",
 };

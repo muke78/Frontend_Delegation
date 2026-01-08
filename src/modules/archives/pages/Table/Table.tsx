@@ -16,7 +16,7 @@ import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.
 
 import { CountLimit } from "@/modules/archives/pages/Filters/CountLimit.tsx";
 import { getRowIndex } from "@/utils/archives/RangePagination";
-import { NotFoundTable } from "@/modules/archives/pages/Table/NotFoundTable.tsx";
+import { NotFoundTable } from "@/components/layout/NotFound/NotFoundTable";
 
 export const TableApp = () => {
 	const {

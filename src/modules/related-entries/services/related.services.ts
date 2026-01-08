@@ -1,11 +1,15 @@
-import type { UUID } from "@/modules/archives/types";
 import { apiFetch } from "@/services/api/api";
+import type {
+	RelatedEntry,
+	RelatedQueryParams,
+	CreateRelatedPayload,
+	UpdateRelatedPayload,
+} from "@/modules/related-entries/types.ts";
+import type { UUID } from "@/types";
+import type { ApiSuccessResponse } from "@/services/api/types";
 
 // List related query params
-export const listRelated = (params) => {};
-
-// List references through a file
-export const listRelatedThroughFile = (params, archiveId: UUID) => {
+export const listRelated = (params?: RelatedQueryParams) => {
 	const searchParams = new URLSearchParams();
 
 	Object.entries(params ?? {}).forEach(([key, value]) => {
@@ -16,9 +20,12 @@ export const listRelatedThroughFile = (params, archiveId: UUID) => {
 
 	const query = searchParams.toString();
 
-	return apiFetch(`/archives/${archiveId}/related${query ? `?${query}` : ""}`, {
-		method: "GET",
-	});
+	return apiFetch<ApiSuccessResponse<RelatedEntry>>(
+		`/related${query ? `?${query}` : ""}`,
+		{
+			method: "GET",
+		},
+	);
 };
 
 // List references specifically
@@ -32,7 +39,10 @@ export const listRelatedSpecify = (
 };
 
 // Create a new related
-export const createRelated = (archiveId: UUID, payload) => {
+export const createRelated = (
+	archiveId: UUID,
+	payload: CreateRelatedPayload,
+) => {
 	return apiFetch(`/archives/${archiveId}/related`, {
 		method: "POST",
 		body: JSON.stringify(payload),
@@ -43,13 +53,14 @@ export const createRelated = (archiveId: UUID, payload) => {
 export const updateRelated = (
 	archiveId: UUID,
 	related_entries_id: UUID,
-	payload,
+	payload: UpdateRelatedPayload,
 ) => {
 	return apiFetch(`/archives/${archiveId}/related/${related_entries_id}`, {
 		method: "PUT",
 		body: JSON.stringify(payload),
 	});
 };
+
 // Delete a related
 export const deleteRelated = (archiveId: UUID, related_entries_id: UUID) => {
 	return apiFetch(`/archives/${archiveId}/related/${related_entries_id}`, {
