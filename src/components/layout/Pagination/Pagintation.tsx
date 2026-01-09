@@ -8,7 +8,7 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from "@/components/ui/pagination";
-import { getPaginationRange } from "@/utils/archives/RangePagination.ts";
+import { getPaginationRange } from "@/utils/RangePagination";
 import clsx from "clsx";
 
 export const PagintationApp = ({
@@ -33,8 +33,8 @@ export const PagintationApp = ({
 					></PaginationPrevious>
 				</PaginationItem>
 
-				{pages.map((page, idx) => (
-					<PaginationItem key={`pagination_item_${idx}`}>
+				{pages.map((page) => (
+					<PaginationItem key={`pagination_item_${page}`}>
 						{page === "..." ? (
 							<PaginationEllipsis />
 						) : (

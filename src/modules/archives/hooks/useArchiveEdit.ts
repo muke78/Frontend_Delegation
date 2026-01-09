@@ -9,7 +9,7 @@ import type {
 } from "@/modules/archives/types.ts";
 import { DEFAULT_FORM_STATE_ARCHIVE } from "@/hooks/useEnviromentArchives.ts";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
-import { ErrorCollector } from "@/utils/archives/ErrorCollector";
+import { ErrorCollector } from "@/utils/ErrorCollector";
 import { toast } from "sonner";
 
 export const useArchiveEdit = ({

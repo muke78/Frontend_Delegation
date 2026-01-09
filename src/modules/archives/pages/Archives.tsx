@@ -1,7 +1,7 @@
 import { TableApp } from "@/modules/archives/pages/Table/Table.tsx";
 import { CreateArchiveDialog } from "@/modules/archives/pages/Dialog/CreateArchiveDialog.tsx";
 import { FiltersApp } from "@/modules/archives/pages/Filters/Filters.tsx";
-import { ColumnsApp } from "@/modules/archives/pages/Filters/Columns.tsx";
+import { ColumnsApp as ColumnsAppArchive } from "@/modules/archives/pages/Filters/Columns.tsx";
 import { ClearFilters } from "@/components/layout/Filters/ClearFilters.tsx";
 import { ExportFile } from "@/modules/archives/pages/Builder/ExportFile.tsx";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
@@ -22,7 +22,7 @@ export const Archives = () => {
 							hasActiveFilters={hasActiveFilters}
 						/>
 						{/* Dropdown para visibilidad de columnas */}
-						<ColumnsApp />
+						<ColumnsAppArchive />
 						{/* Modal para cargar archivos */}
 						<CreateArchiveDialog />
 

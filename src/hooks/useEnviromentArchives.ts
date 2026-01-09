@@ -54,6 +54,7 @@ export const DEFAULT_COLUMN_VISIBILITY_RELATED: ColumnVisibilityRelated = {
 
 // Estado por defecto de form relaciones
 export const DEFAULT_FORM_STATE_RELATED: CreateRelatedPayload = {
+	archive_id: "",
 	description: "",
 	event_date: "",
 	responsible_person: "",

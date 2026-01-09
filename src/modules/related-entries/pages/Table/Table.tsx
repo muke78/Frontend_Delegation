@@ -40,25 +40,31 @@ export const TableApp = () => {
 					<Table>
 						<TableHeader>
 							<TableRow className="bg-muted/50">
-								{columnVisibility.reference_folio && (
-									<TableHead className="font-semibold">Folio</TableHead>
-								)}
 								{columnVisibility.reference_number && (
 									<TableHead className="font-semibold">
 										Número de referencia
 									</TableHead>
 								)}
+								{columnVisibility.reference_folio && (
+									<TableHead className="font-semibold">Folio</TableHead>
+								)}
 								{columnVisibility.description && (
 									<TableHead className="font-semibold">Descripción</TableHead>
 								)}
 								{columnVisibility.event_date && (
-									<TableHead className="font-semibold">Fecha</TableHead>
+									<TableHead className="font-semibold">
+										Fecha del evento
+									</TableHead>
 								)}
 								{columnVisibility.responsible_person && (
-									<TableHead className="font-semibold">Responsable</TableHead>
+									<TableHead className="font-semibold">
+										Persona responsable
+									</TableHead>
 								)}
 								{columnVisibility.responsible_role && (
-									<TableHead className="font-semibold">Cargo</TableHead>
+									<TableHead className="font-semibold">
+										Persona a cargo
+									</TableHead>
 								)}
 								{columnVisibility.notas && (
 									<TableHead className="font-semibold">Notas</TableHead>
@@ -87,14 +93,14 @@ export const TableApp = () => {
 										key={rltd.related_entries_id}
 										className="hover:bg-primary/10"
 									>
-										{columnVisibility.reference_folio && (
-											<TableCell className="font-mono text-sm">
-												{rltd.reference_folio}
-											</TableCell>
-										)}
 										{columnVisibility.reference_number && (
 											<TableCell className="font-mono text-sm font-medium">
 												{rltd.reference_number}
+											</TableCell>
+										)}
+										{columnVisibility.reference_folio && (
+											<TableCell className="font-mono text-sm">
+												{rltd.reference_folio}
 											</TableCell>
 										)}
 										{columnVisibility.description && (

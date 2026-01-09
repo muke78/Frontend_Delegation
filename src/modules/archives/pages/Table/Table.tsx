@@ -15,7 +15,7 @@ import { ArchiveActions } from "@/modules/archives/pages/components/ArchiveActio
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
 
 import { CountLimit } from "@/components/layout/Filters/CountLimit";
-import { getRowIndex } from "@/utils/archives/RangePagination";
+import { getRowIndex } from "@/utils/RangePagination";
 import { NotFoundTable } from "@/components/layout/NotFound/NotFoundTable";
 
 export const TableApp = () => {

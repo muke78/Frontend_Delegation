@@ -20,9 +20,10 @@ export interface RelatedContextType {
 	setFormCreate: Dispatch<SetStateAction<CreateRelatedPayload>>;
 	setFilters: Dispatch<SetStateAction<RelatedQueryParams>>;
 	toggleColumn: (column: keyof ColumnVisibilityRelated) => void;
+	setAllColumns: (value: boolean) => void;
 	loadListRelated: (filters: RelatedQueryParams) => Promise<void>;
 	refresh: () => void;
-
+	handleSubmitCreate: () => Promise<void>;
 	handlePageChange: (page: number) => void;
 	handleLimitChange: (limit: number) => void;
 	clearFilters: () => void;

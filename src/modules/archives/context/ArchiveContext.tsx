@@ -21,6 +21,7 @@ export interface ArchiveContextType {
 	setFormCreate: Dispatch<SetStateAction<FormState>>;
 	setFilters: Dispatch<SetStateAction<ArchiveFilters>>;
 	toggleColumn: (column: keyof ColumnVisibility) => void;
+	setAllColumns: (value: boolean) => void;
 	loadListArchive: (filters: ArchiveFilters) => Promise<void>;
 	refresh: () => void;
 	handleSubmitCreate: () => Promise<void>;

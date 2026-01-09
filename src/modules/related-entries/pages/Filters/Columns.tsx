@@ -1,6 +1,4 @@
-import { Icons } from "@/styles/Icons";
 import { Button } from "@/components/ui/button";
-
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -10,24 +8,22 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
+import { useRelatedContext } from "@/modules/related-entries/context/useRelatedContext.ts";
+import { Icons } from "@/styles/Icons";
 
 export const ColumnsApp = () => {
-	const { toggleColumn, columnVisibility, setAllColumns } = useArchiveContext();
+	const { toggleColumn, columnVisibility, setAllColumns } = useRelatedContext();
 
 	type ColumnKey = keyof typeof columnVisibility;
 
 	const columnLabels: Record<string, string> = {
-		id: "#",
-		identifier: "Identificador",
-		base: "Base",
-		folio: "Folio",
-		name: "Nombre",
-		type: "Tipo",
-		year: "Año",
-		path: "Ruta",
-		sheet: "Hoja",
-		creator: "Creado por",
+		reference_folio: "Folio",
+		reference_number: "Número de referencia",
+		description: "Descripción",
+		event_date: "Fecha del evento",
+		responsible_person: "Persona responsable",
+		responsible_role: "Persona a cargo",
+		notas: "Notas",
 		actions: "Acciones",
 	};
 
@@ -36,7 +32,7 @@ export const ColumnsApp = () => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="outline" className="gap-2 cursor-pointer">
+				<Button variant={"outline"} className="gap-2 cursor-pointer">
 					<Icons.Settings2 size={16} />
 					Columnas
 				</Button>

@@ -43,7 +43,7 @@ export const createRelated = (
 	archiveId: UUID,
 	payload: CreateRelatedPayload,
 ) => {
-	return apiFetch(`/archives/${archiveId}/related`, {
+	return apiFetch<ApiSuccessResponse>(`/archives/${archiveId}/related`, {
 		method: "POST",
 		body: JSON.stringify(payload),
 	});

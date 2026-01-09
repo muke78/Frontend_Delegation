@@ -11,16 +11,15 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { useRelatedContext } from "../../context/useRelatedContext";
+import { formatDateToISO } from "@/utils/FormatDate";
 
 export const FiltersApp = () => {
 	const [open, setOpen] = useState(false);
 
 	const { filters, setFilters } = useRelatedContext();
-
-	const formatDateToISO = (date: Date) => date.toISOString().split("T")[0];
-
+	
 	const selectedDate = filters.event_date
-		? new Date(filters.event_date)
+		? new Date(`${filters.event_date}T00:00:00`)
 		: undefined;
 
 	return (
@@ -136,6 +135,7 @@ export const FiltersApp = () => {
 							<Calendar
 								mode="single"
 								selected={selectedDate}
+								month={selectedDate}
 								captionLayout="dropdown"
 								onSelect={(selectedDate) => {
 									if (!selectedDate) return;

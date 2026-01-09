@@ -32,6 +32,7 @@ import {
 	Moon,
 	Sun,
 	ChevronDownIcon,
+	Columns,
 } from "lucide-react";
 
 export const Icons = {
@@ -68,4 +69,5 @@ export const Icons = {
 	Moon,
 	Sun,
 	ChevronDownIcon,
+	Columns,
 };

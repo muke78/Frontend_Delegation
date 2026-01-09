@@ -13,9 +13,10 @@ import {
 	STORAGE_KEY_RELATED,
 	DEFAULT_FORM_STATE_RELATED,
 } from "@/hooks/useEnviromentArchives.ts";
-import { ErrorCollector } from "@/utils/archives/ErrorCollector";
-import { listRelated } from "@/modules/related-entries/services/related.services.ts";
+import { ErrorCollector } from "@/utils/ErrorCollector";
+import { createRelated, listRelated } from "@/modules/related-entries/services/related.services.ts";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 // Utilidades (Conseguir la visibilidad de columnas)
 const getStoredColumnVisibility = (): ColumnVisibilityRelated => {
@@ -64,6 +65,16 @@ export const useRelated = () => {
 	const toggleColumn = useCallback((column: keyof ColumnVisibilityRelated) => {
 		setColumnVisibility((prev) => ({ ...prev, [column]: !prev[column] }));
 	}, []);
+
+	// Mostrar todas las columnas o desaparecer todas
+	const setAllColumns = (value: boolean) => {
+		setColumnVisibility(
+			(prev) =>
+				Object.fromEntries(
+					Object.keys(prev).map((key) => [key, value]),
+				) as typeof prev,
+		);
+	};
 
 	// Función de cambio de página
 	const handlePageChange = useCallback((page: number) => {
@@ -132,6 +143,23 @@ export const useRelated = () => {
 		await loadListRelated(filters);
 	}, [filters, loadListRelated]);
 
+	// Funcion que manda a crear relaciones
+	const handleSubmitCreate = useCallback(async (): Promise<void> => {
+		try {
+			const res = await createRelated(formCreate.archive_id, {
+				...formCreate
+			})
+			await refresh();
+			toast.success(res.message);
+			setOpenDialog(false);
+			setFormCreate(DEFAULT_FORM_STATE_RELATED);
+		} catch (error) {
+			handleApiError(error);
+		}
+	},
+		[formCreate, handleApiError, refresh],
+	)
+
 	// Efectos (Debounce para carga lenta en filtros)
 	useEffect(() => {
 		if (debounceTimeoutRef.current) {
@@ -184,9 +212,10 @@ export const useRelated = () => {
 		setFormCreate,
 		setFilters,
 		toggleColumn,
+		setAllColumns,
 		loadListRelated,
 		refresh,
-
+		handleSubmitCreate,
 		handlePageChange,
 		handleLimitChange,
 		clearFilters,

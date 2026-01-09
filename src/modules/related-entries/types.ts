@@ -26,7 +26,6 @@ export type RelatedQueryParams = {
 export type CreateRelatedPayload = Omit<
 	RelatedEntry,
 	| "related_entries_id"
-	| "archive_id"
 	| "reference_number"
 	| "reference_folio"
 	| "created"

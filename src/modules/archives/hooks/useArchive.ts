@@ -21,7 +21,7 @@ import {
 	DEFAULT_COLUMN_VISIBILITY_ARCHIVE,
 	DEFAULT_FORM_STATE_ARCHIVE,
 } from "@/hooks/useEnviromentArchives.ts";
-import { ErrorCollector } from "@/utils/archives/ErrorCollector.ts";
+import { ErrorCollector } from "@/utils/ErrorCollector";
 import { toast } from "sonner";
 import type { UUID } from "@/types";
 
@@ -76,6 +76,16 @@ export const useArchive = () => {
 	const toggleColumn = useCallback((column: keyof ColumnVisibility) => {
 		setColumnVisibility((prev) => ({ ...prev, [column]: !prev[column] }));
 	}, []);
+
+	// Mostrar todas las columnas o desaparecer todas
+	const setAllColumns = (value: boolean) => {
+		setColumnVisibility(
+			(prev) =>
+				Object.fromEntries(
+					Object.keys(prev).map((key) => [key, value]),
+				) as typeof prev,
+		);
+	};
 
 	// Función de cambio de página
 	const handlePageChange = useCallback((page: number) => {
@@ -258,6 +268,7 @@ export const useArchive = () => {
 		setFormCreate,
 		setFilters,
 		toggleColumn,
+		setAllColumns,
 		loadListArchive,
 		refresh,
 		handleSubmitCreate,
