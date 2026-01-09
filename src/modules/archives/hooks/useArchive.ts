@@ -4,7 +4,6 @@ import type {
 	ArchiveFilters,
 	ColumnVisibility,
 	FormState,
-	UUID,
 } from "@/modules/archives/types.ts";
 import {
 	listArchives,
@@ -16,23 +15,24 @@ import type { ApiError, Pagination } from "@/services/api/types.ts";
 import { useAuthContext } from "@/context/useAuthContext.ts";
 import { useNavigate } from "react-router-dom";
 import {
-	STORAGE_KEY,
+	STORAGE_KEY_ARCHIVE,
 	DEBOUNCE_DELAY,
 	DEFAULT_PAGE_LIMIT,
-	DEFAULT_COLUMN_VISIBILITY,
-	DEFAULT_FORM_STATE,
-} from "@/modules/archives/hooks/useEnviromentArchives.ts";
+	DEFAULT_COLUMN_VISIBILITY_ARCHIVE,
+	DEFAULT_FORM_STATE_ARCHIVE,
+} from "@/hooks/useEnviromentArchives.ts";
 import { ErrorCollector } from "@/utils/archives/ErrorCollector.ts";
 import { toast } from "sonner";
+import type { UUID } from "@/types";
 
 // Utilidades (Conseguir la visibilidad de columnas)
 const getStoredColumnVisibility = (): ColumnVisibility => {
 	try {
-		const stored = localStorage.getItem(STORAGE_KEY);
-		return stored ? JSON.parse(stored) : DEFAULT_COLUMN_VISIBILITY;
+		const stored = localStorage.getItem(STORAGE_KEY_ARCHIVE);
+		return stored ? JSON.parse(stored) : DEFAULT_COLUMN_VISIBILITY_ARCHIVE;
 	} catch (error) {
 		console.error("Error al parsear la visibilidad de las columnas:", error);
-		return DEFAULT_COLUMN_VISIBILITY;
+		return DEFAULT_COLUMN_VISIBILITY_ARCHIVE;
 	}
 };
 
@@ -64,7 +64,9 @@ export const useArchive = () => {
 		getStoredColumnVisibility,
 	);
 	const [filters, setFilters] = useState<ArchiveFilters>(getFiltersFromURL);
-	const [formCreate, setFormCreate] = useState<FormState>(DEFAULT_FORM_STATE);
+	const [formCreate, setFormCreate] = useState<FormState>(
+		DEFAULT_FORM_STATE_ARCHIVE,
+	);
 	const [openDialog, setOpenDialog] = useState(false);
 	const [loading, setLoading] = useState(true);
 
@@ -93,6 +95,27 @@ export const useArchive = () => {
 			page: "1",
 		}));
 	}, []);
+
+	// Saber si hay filtros activados
+	const hasActiveFilters = Object.entries(filters).some(([key, value]) => {
+		const isControlKey = key === "page" || key === "limit";
+		return !isControlKey && value !== "";
+	});
+
+	// Limpieza de filtros
+	const clearFilters = () => {
+		if (!hasActiveFilters) return;
+		setFilters((prev) => ({
+			...prev,
+			identifier: "",
+			base_folio: "",
+			name: "",
+			doc_type: "",
+			year: "",
+			created_by: "",
+			page: "1",
+		}));
+	};
 
 	// Funciones de API
 	const loadListArchive = useCallback(
@@ -134,7 +157,7 @@ export const useArchive = () => {
 			await refresh();
 			toast.success(res.message);
 			setOpenDialog(false);
-			setFormCreate(DEFAULT_FORM_STATE);
+			setFormCreate(DEFAULT_FORM_STATE_ARCHIVE);
 		} catch (error) {
 			handleApiError(error);
 		}
@@ -219,7 +242,7 @@ export const useArchive = () => {
 
 	// Sincronizacion de visibilidad de columnas
 	useEffect(() => {
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(columnVisibility));
+		localStorage.setItem(STORAGE_KEY_ARCHIVE, JSON.stringify(columnVisibility));
 	}, [columnVisibility]);
 
 	return {
@@ -230,6 +253,7 @@ export const useArchive = () => {
 		openDialog,
 		formCreate,
 		filters,
+		hasActiveFilters,
 		setOpenDialog,
 		setFormCreate,
 		setFilters,
@@ -241,5 +265,6 @@ export const useArchive = () => {
 		handleDeleteArchive,
 		handlePageChange,
 		handleLimitChange,
+		clearFilters,
 	};
 };

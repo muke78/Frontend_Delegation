@@ -46,11 +46,11 @@ export const NotFound = () => {
 	}
 
 	return (
-		<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 px-4">
-			<div className="absolute inset-0 bg-grid-slate-200/50 dark:bg-grid-slate-700/25 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
+		<div className="min-h-screen flex items-center justify-center bg-primary/5 px-4">
+			<div className="absolute inset-0 bg-grid-slate-200/50 dark:bg-grid-slate-700/25 mask-[radial-gradient(ellipse_at_center,transparent_20%,black)]" />
 
 			<div className="relative max-w-2xl w-full">
-				<div className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border rounded-2xl shadow-2xl p-12 text-center space-y-8">
+				<div className="bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80 border rounded-2xl shadow-2xl p-12 text-center space-y-8">
 					{/* Icono animado */}
 					<div className="flex justify-center">
 						<div className="relative">

@@ -7,7 +7,7 @@ import type {
 	ArchiveActionsType,
 	FormState,
 } from "@/modules/archives/types.ts";
-import { DEFAULT_FORM_STATE } from "@/modules/archives/hooks/useEnviromentArchives.ts";
+import { DEFAULT_FORM_STATE_ARCHIVE } from "@/hooks/useEnviromentArchives.ts";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
 import { ErrorCollector } from "@/utils/archives/ErrorCollector";
 import { toast } from "sonner";
@@ -20,7 +20,9 @@ export const useArchiveEdit = ({
 	const { refresh } = useArchiveContext();
 
 	// Estados
-	const [formEdit, setFormEdit] = useState<FormState>(DEFAULT_FORM_STATE);
+	const [formEdit, setFormEdit] = useState<FormState>(
+		DEFAULT_FORM_STATE_ARCHIVE,
+	);
 
 	// Recolector de errores
 	const { handleApiError } = ErrorCollector();

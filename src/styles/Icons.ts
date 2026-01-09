@@ -31,6 +31,7 @@ import {
 	SquareArrowOutUpRight,
 	Moon,
 	Sun,
+	ChevronDownIcon,
 } from "lucide-react";
 
 export const Icons = {
@@ -66,4 +67,5 @@ export const Icons = {
 	SquareArrowOutUpRight,
 	Moon,
 	Sun,
+	ChevronDownIcon,
 };

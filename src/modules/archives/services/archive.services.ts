@@ -7,12 +7,12 @@ import type {
 	CreateArchivePayload,
 	UpdateArchivePayload,
 	ArchiveFilters,
-	UUID,
 	ArchiveBase,
-	RelatedEntry,
 	ApiDuplexSuccessResponse,
 	ArchiveDuplexQuery,
 } from "@/modules/archives/types.ts";
+import type { RelatedEntry } from "@/modules/related-entries/types";
+import type { UUID } from "@/types";
 
 export const listArchiveDuplex = (
 	archiveId: UUID,

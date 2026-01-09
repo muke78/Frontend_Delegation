@@ -1,4 +1,5 @@
 import type { metaData, Pagination } from "@/services/api/types";
+import type { UUID } from "@/types.ts";
 
 export type ArchiveBase = {
 	archives_id: string;
@@ -13,20 +14,6 @@ export type ArchiveBase = {
 	created_by?: string;
 	created_by_name?: string;
 };
-
-export interface RelatedEntry {
-	related_entries_id: string;
-	archive_id: string;
-	reference_number: number;
-	reference_folio: string;
-	description: string;
-	event_date: string;
-	responsible_person: string;
-	responsible_role: string;
-	notas: string;
-	created: string;
-	updated: string;
-}
 
 export type CreateArchivePayload = Omit<
 	ArchiveBase,
@@ -62,8 +49,6 @@ export type ArchiveDuplexQuery = {
 	page?: string;
 	limit?: string;
 };
-
-export type UUID = string;
 
 export type ColumnVisibility = {
 	id: boolean;

@@ -1,5 +1,4 @@
 import { Icons } from "@/styles/Icons";
-import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
 import {
 	Tooltip,
 	TooltipContent,
@@ -7,29 +6,15 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 
-export const ClearFilters = () => {
-	const { filters, setFilters } = useArchiveContext();
+type PropsClearFiltersType = {
+	clearFilters: () => void;
+	hasActiveFilters: boolean;
+};
 
-	const hasActiveFilters = Object.entries(filters).some(([key, value]) => {
-		const isControlKey = key === "page" || key === "limit";
-		return !isControlKey && value !== "";
-	});
-
-	const clearFilters = () => {
-		if (!hasActiveFilters) return;
-
-		setFilters((prev) => ({
-			...prev,
-			identifier: "",
-			base_folio: "",
-			name: "",
-			doc_type: "",
-			year: "",
-			created_by: "",
-			page: "1",
-		}));
-	};
-
+export const ClearFilters = ({
+	clearFilters,
+	hasActiveFilters,
+}: PropsClearFiltersType) => {
 	return (
 		<Tooltip>
 			<TooltipTrigger asChild>

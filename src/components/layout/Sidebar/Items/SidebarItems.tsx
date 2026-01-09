@@ -5,7 +5,7 @@ export const SidebarItems: SidebarItem[] = [
 	{
 		title: "Inicio",
 		url: "/home",
-		icon: <Icons.Home size={16}/>,
+		icon: <Icons.Home size={16} />,
 		tooltip: "Inicio",
 	},
 	{

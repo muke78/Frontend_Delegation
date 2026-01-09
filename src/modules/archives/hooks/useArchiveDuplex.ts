@@ -6,10 +6,10 @@ import type {
 	ArchiveBase,
 	ArchiveDialogRelatedDuplex,
 	ArchiveDuplex,
-	RelatedEntry,
 } from "@/modules/archives/types.ts";
-import { DEFAULT_PAGE_LIMIT } from "@/modules/archives/hooks/useEnviromentArchives.ts";
+import { DEFAULT_PAGE_LIMIT } from "@/hooks/useEnviromentArchives.ts";
 import { ErrorCollector } from "@/utils/archives/ErrorCollector";
+import type { RelatedEntry } from "@/modules/related-entries/types";
 
 // Utilidades (Consguir los parametros de la URL)
 const getFiltersFromURL = (): ArchiveDialogRelatedDuplex => {

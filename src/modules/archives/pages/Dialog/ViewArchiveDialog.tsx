@@ -29,9 +29,9 @@ import {
 } from "@/components/ui/table";
 import { Icons } from "@/styles/Icons";
 import { PagintationApp } from "@/components/layout/Pagination/Pagintation";
-import { NotFoundTable } from "@/modules/archives/pages/Table/NotFoundTable.tsx";
+import { NotFoundTable } from "@/components/layout/NotFound/NotFoundTable";
 import { useArchiveDuplex } from "@/modules/archives/hooks/useArchiveDuplex.ts";
-import { CountLimit } from "@/modules/archives/pages/Filters/CountLimit.tsx";
+import { CountLimit } from "@/components/layout/Filters/CountLimit";
 import { FullScreenLoader } from "@/components/common/FullScreenLoader";
 
 export const ViewArchiveDialog = ({
@@ -134,6 +134,9 @@ export const ViewArchiveDialog = ({
 							</CardDescription>
 							<CardAction>
 								{relatedView.length > 0 ? (
+									// <Link
+									// 	to={`/related-entries?limit=20&reference_folio=${archiveView?.identifier}`}
+									// >
 									<Link to="/related-entries">
 										<Button variant={"ghost"} className="cursor-pointer">
 											<Icons.SquareArrowOutUpRight />
