@@ -119,7 +119,7 @@ export const TableApp = () => {
 										)}
 										{columnVisibility.notas && (
 											<TableCell className="max-w-50 truncate">
-												{rltd.notas}
+												{rltd.notas || "—"}
 											</TableCell>
 										)}
 										{columnVisibility.actions && (

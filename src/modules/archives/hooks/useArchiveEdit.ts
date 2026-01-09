@@ -7,7 +7,7 @@ import type {
 	ArchiveActionsType,
 	FormState,
 } from "@/modules/archives/types.ts";
-import { DEFAULT_FORM_STATE_ARCHIVE } from "@/modules/archives/hooks/useEnviromentArchives.ts";
+import { DEFAULT_FORM_STATE_ARCHIVE } from "@/hooks/useEnviromentArchives.ts";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
 import { ErrorCollector } from "@/utils/archives/ErrorCollector";
 import { toast } from "sonner";

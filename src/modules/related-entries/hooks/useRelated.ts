@@ -12,7 +12,7 @@ import {
 	DEFAULT_COLUMN_VISIBILITY_RELATED,
 	STORAGE_KEY_RELATED,
 	DEFAULT_FORM_STATE_RELATED,
-} from "@/modules/archives/hooks/useEnviromentArchives.ts";
+} from "@/hooks/useEnviromentArchives.ts";
 import { ErrorCollector } from "@/utils/archives/ErrorCollector";
 import { listRelated } from "@/modules/related-entries/services/related.services.ts";
 import { useNavigate } from "react-router-dom";
@@ -149,7 +149,7 @@ export const useRelated = () => {
 		};
 	}, [filters, loadListRelated]);
 
-	// Construccion de sincronizacion de la url (solo para archivos)
+	// Construccion de sincronizacion de la url para las entradas relacionadas
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
 

@@ -20,7 +20,7 @@ import {
 	DEFAULT_PAGE_LIMIT,
 	DEFAULT_COLUMN_VISIBILITY_ARCHIVE,
 	DEFAULT_FORM_STATE_ARCHIVE,
-} from "@/modules/archives/hooks/useEnviromentArchives.ts";
+} from "@/hooks/useEnviromentArchives.ts";
 import { ErrorCollector } from "@/utils/archives/ErrorCollector.ts";
 import { toast } from "sonner";
 import type { UUID } from "@/types";
