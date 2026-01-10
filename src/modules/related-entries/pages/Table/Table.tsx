@@ -110,7 +110,7 @@ export const TableApp = () => {
 										)}
 										{columnVisibility.event_date && (
 											<TableCell className="font-mono text-sm font-medium">
-												{rltd.event_date.split("T")[0]}
+												{rltd.event_date?.split("T")[0] || "SIN FECHA"}
 											</TableCell>
 										)}
 										{columnVisibility.responsible_person && (

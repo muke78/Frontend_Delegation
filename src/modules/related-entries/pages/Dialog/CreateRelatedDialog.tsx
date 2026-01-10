@@ -72,46 +72,7 @@ export const CreateRelatedDialog = () => {
                                 />
                             </div>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="event_date" className="text-sm font-medium">
-                                    Fecha de evento <span className="text-destructive">*</span>
-                                </Label>
-                                <Popover open={open} onOpenChange={setOpen}>
-                                    <PopoverTrigger asChild className="w-full">
-                                        <Button
-                                            variant="outline"
-                                            id="date"
-                                            className="justify-between font-normal"
-                                        >
-                                            {formCreate.event_date || "Selecciona una fecha"}
-                                            <Icons.ChevronDownIcon />
-                                        </Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent
-                                        className="w-auto overflow-hidden p-0"
-                                        align="start"
-                                    >
-                                        <Calendar
-                                            mode="single"
-                                            selected={selectedDate}
-                                            month={selectedDate}
-                                            captionLayout="dropdown"
-                                            onSelect={(selectedDate) => {
-                                                if (!selectedDate) return;
-                                                setFormCreate((prev) => ({
-                                                    ...prev,
-                                                    event_date: formatDateToISO(selectedDate),
-                                                }));
-
-                                                setOpen(false);
-                                            }}
-                                            required
-                                        />
-                                    </PopoverContent>
-                                </Popover>
-                            </div>
-
-                            <div className="space-y-2">
+                            <div className="space-y-2 col-span-2">
                                 <Label htmlFor="archive_id" className="text-sm font-medium" id="archive-by-label">
                                     Archivo a relacionar <span className="text-destructive">*</span>
                                 </Label>
@@ -190,6 +151,44 @@ export const CreateRelatedDialog = () => {
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
+                            </div>
+
+                            <div className="space-y-2 col-span-2">
+                                <Label htmlFor="event_date" className="text-sm font-medium">
+                                    Fecha de evento
+                                </Label>
+                                <Popover open={open} onOpenChange={setOpen}>
+                                    <PopoverTrigger asChild className="w-full">
+                                        <Button
+                                            variant="outline"
+                                            id="date"
+                                            className="justify-between font-normal"
+                                        >
+                                            {formCreate.event_date || "Selecciona una fecha"}
+                                            <Icons.ChevronDownIcon />
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent
+                                        className="w-auto overflow-hidden p-0"
+                                        align="start"
+                                    >
+                                        <Calendar
+                                            mode="single"
+                                            selected={selectedDate}
+                                            month={selectedDate}
+                                            captionLayout="dropdown"
+                                            onSelect={(selectedDate) => {
+                                                if (!selectedDate) return;
+                                                setFormCreate((prev) => ({
+                                                    ...prev,
+                                                    event_date: formatDateToISO(selectedDate),
+                                                }));
+
+                                                setOpen(false);
+                                            }}
+                                        />
+                                    </PopoverContent>
+                                </Popover>
                             </div>
 
                             <div className="space-y-2 col-span-2">

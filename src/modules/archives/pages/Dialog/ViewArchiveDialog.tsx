@@ -196,7 +196,7 @@ export const ViewArchiveDialog = ({
 															{reltd.description}
 														</TableCell>
 														<TableCell>
-															{reltd.event_date.split("T")[0]}
+															{reltd.event_date?.split("T")[0] || "SIN FECHA"}
 														</TableCell>
 														<TableCell>{reltd.responsible_person}</TableCell>
 														<TableCell>{reltd.responsible_role}</TableCell>
