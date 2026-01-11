@@ -95,7 +95,7 @@ export const TableApp = () => {
 									>
 										{columnVisibility.reference_number && (
 											<TableCell className="font-mono text-sm font-medium">
-												{rltd.reference_number}
+												{rltd.reference_formatted}
 											</TableCell>
 										)}
 										{columnVisibility.reference_folio && (

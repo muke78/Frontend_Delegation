@@ -14,14 +14,14 @@ createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<BrowserRouter>
 			<AuthProvider>
-				<ArchiveProvider>
-					<RelatedProvider>
+				<RelatedProvider>
+					<ArchiveProvider>
 						<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
 							<AppRouter />
 							<Toaster closeButton expand richColors position="bottom-right" />
 						</ThemeProvider>
-					</RelatedProvider>
-				</ArchiveProvider>
+					</ArchiveProvider>
+				</RelatedProvider>
 			</AuthProvider>
 		</BrowserRouter>
 	</StrictMode>,

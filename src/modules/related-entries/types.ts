@@ -1,9 +1,12 @@
+import type { UUID } from "@/types";
+
 type ISODateString = string;
 
 export interface RelatedEntry {
-	related_entries_id: string;
-	archive_id: string;
+	related_entries_id: UUID;
+	archive_id: UUID;
 	reference_number: number;
+	reference_formatted: string;
 	reference_folio: string;
 	description: string;
 	event_date: ISODateString;
@@ -23,10 +26,21 @@ export type RelatedQueryParams = {
 	page?: string;
 };
 
+export type CreateRelatedFormState = {
+	archive_id: UUID;
+	description: string;
+	event_date: string;
+	responsible_person: string;
+	responsible_role: string;
+	notas: string;
+};
+
 export type CreateRelatedPayload = Omit<
 	RelatedEntry,
 	| "related_entries_id"
+	| "archive_id"
 	| "reference_number"
+	| "reference_formatted"
 	| "reference_folio"
 	| "created"
 	| "updated"

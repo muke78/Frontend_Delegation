@@ -2,8 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type {
 	RelatedEntry,
 	ColumnVisibilityRelated,
-	CreateRelatedPayload,
 	RelatedQueryParams,
+	CreateRelatedFormState,
 } from "@/modules/related-entries/types.ts";
 import type { Pagination } from "@/services/api/types";
 import {
@@ -53,7 +53,7 @@ export const useRelated = () => {
 	const [columnVisibility, setColumnVisibility] =
 		useState<ColumnVisibilityRelated>(getStoredColumnVisibility);
 	const [filters, setFilters] = useState<RelatedQueryParams>(getFiltersFromURL);
-	const [formCreate, setFormCreate] = useState<CreateRelatedPayload>(
+	const [formCreate, setFormCreate] = useState<CreateRelatedFormState>(
 		DEFAULT_FORM_STATE_RELATED,
 	);
 	const [openDialog, setOpenDialog] = useState(false);
@@ -139,26 +139,25 @@ export const useRelated = () => {
 	);
 
 	// Funcion que refresca la data si hay cambios
-	const refresh = useCallback(async () => {
+	const refreshRelated = useCallback(async () => {
 		await loadListRelated(filters);
 	}, [filters, loadListRelated]);
 
 	// Funcion que manda a crear relaciones
 	const handleSubmitCreate = useCallback(async (): Promise<void> => {
 		try {
-			const res = await createRelated(formCreate.archive_id, {
-				...formCreate
-			})
-			await refresh();
+
+			const { archive_id, ...payload } = formCreate;
+
+			const res = await createRelated(archive_id, payload);
+			await refreshRelated();
 			toast.success(res.message);
 			setOpenDialog(false);
 			setFormCreate(DEFAULT_FORM_STATE_RELATED);
 		} catch (error) {
 			handleApiError(error);
 		}
-	},
-		[formCreate, handleApiError, refresh],
-	)
+	}, [formCreate, handleApiError, refreshRelated]);
 
 	// Efectos (Debounce para carga lenta en filtros)
 	useEffect(() => {
@@ -214,7 +213,7 @@ export const useRelated = () => {
 		toggleColumn,
 		setAllColumns,
 		loadListRelated,
-		refresh,
+		refreshRelated,
 		handleSubmitCreate,
 		handlePageChange,
 		handleLimitChange,

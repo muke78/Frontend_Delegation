@@ -17,7 +17,7 @@ export const useArchiveEdit = ({
 	onClose,
 	open,
 }: ArchiveActionsType) => {
-	const { refresh } = useArchiveContext();
+	const { refreshArchive } = useArchiveContext();
 
 	// Estados
 	const [formEdit, setFormEdit] = useState<FormState>(
@@ -41,7 +41,7 @@ export const useArchiveEdit = ({
 			};
 
 			const res = await updateArchive(archiveId, payload);
-			await refresh();
+			await refreshArchive();
 			toast.success(res.message);
 			onClose();
 		} catch (error) {

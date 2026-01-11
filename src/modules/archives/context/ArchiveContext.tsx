@@ -23,7 +23,7 @@ export interface ArchiveContextType {
 	toggleColumn: (column: keyof ColumnVisibility) => void;
 	setAllColumns: (value: boolean) => void;
 	loadListArchive: (filters: ArchiveFilters) => Promise<void>;
-	refresh: () => void;
+	refreshArchive: () => void;
 	handleSubmitCreate: () => Promise<void>;
 	handleDeleteArchive: (archiveId: UUID) => Promise<boolean>;
 	handleRebuildFolio: (archiveId: UUID) => Promise<boolean>;
