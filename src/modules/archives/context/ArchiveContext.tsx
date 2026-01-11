@@ -6,10 +6,11 @@ import type {
 	FormState,
 } from "@/modules/archives/types.ts";
 import type { Pagination } from "@/services/api/types.ts";
-import type { UUID } from "@/types";
+import type { SelectType, UUID } from "@/types";
 
 export interface ArchiveContextType {
 	archive: ArchiveBase[];
+	archiveSelect: SelectType[];
 	loading: boolean;
 	paginationArchive?: Pagination;
 	columnVisibility: ColumnVisibility;
@@ -21,8 +22,9 @@ export interface ArchiveContextType {
 	setFormCreate: Dispatch<SetStateAction<FormState>>;
 	setFilters: Dispatch<SetStateAction<ArchiveFilters>>;
 	toggleColumn: (column: keyof ColumnVisibility) => void;
+	setAllColumns: (value: boolean) => void;
 	loadListArchive: (filters: ArchiveFilters) => Promise<void>;
-	refresh: () => void;
+	refreshArchive: () => void;
 	handleSubmitCreate: () => Promise<void>;
 	handleDeleteArchive: (archiveId: UUID) => Promise<boolean>;
 	handleRebuildFolio: (archiveId: UUID) => Promise<boolean>;

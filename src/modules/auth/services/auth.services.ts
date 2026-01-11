@@ -1,6 +1,6 @@
 import { apiFetch } from "@/services/api/api.ts";
-import type { LoginPayload, UserProfile, User } from "../types.ts";
 import type { ApiSuccessResponse } from "@/services/api/types.ts";
+import type { LoginPayload, User, UserProfile } from "../types.ts";
 
 export const login = (payload: LoginPayload) => {
 	return apiFetch<ApiSuccessResponse>("/auth/login", {

@@ -1,4 +1,5 @@
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import {
 	Select,
 	SelectContent,
@@ -8,9 +9,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Icons } from "@/styles/Icons";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
+import { Icons } from "@/styles/Icons";
 
 export const FiltersApp = () => {
 	const { filters, setFilters } = useArchiveContext();

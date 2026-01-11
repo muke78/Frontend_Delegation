@@ -1,7 +1,7 @@
 import { createContext, type Dispatch, type SetStateAction } from "react";
 import type {
 	ColumnVisibilityRelated,
-	CreateRelatedPayload,
+	CreateRelatedFormState,
 	RelatedEntry,
 	RelatedQueryParams,
 } from "@/modules/related-entries/types.ts";
@@ -13,16 +13,17 @@ export interface RelatedContextType {
 	paginationRelated?: Pagination;
 	columnVisibility: ColumnVisibilityRelated;
 	openDialog: boolean;
-	formCreate: CreateRelatedPayload;
+	formCreate: CreateRelatedFormState;
 	filters: RelatedQueryParams;
 	hasActiveFilters: boolean;
 	setOpenDialog: Dispatch<SetStateAction<boolean>>;
-	setFormCreate: Dispatch<SetStateAction<CreateRelatedPayload>>;
+	setFormCreate: Dispatch<SetStateAction<CreateRelatedFormState>>;
 	setFilters: Dispatch<SetStateAction<RelatedQueryParams>>;
 	toggleColumn: (column: keyof ColumnVisibilityRelated) => void;
+	setAllColumns: (value: boolean) => void;
 	loadListRelated: (filters: RelatedQueryParams) => Promise<void>;
-	refresh: () => void;
-
+	refreshRelated: () => void;
+	handleSubmitCreate: () => Promise<void>;
 	handlePageChange: (page: number) => void;
 	handleLimitChange: (limit: number) => void;
 	clearFilters: () => void;

@@ -1,3 +1,8 @@
+import { FullScreenLoader } from "@/components/common/FullScreenLoader.tsx";
+import { CountLimit } from "@/components/layout/Filters/CountLimit";
+import { NotFoundTable } from "@/components/layout/NotFound/NotFoundTable";
+import { PagintationApp } from "@/components/layout/Pagination/Pagintation";
+import { Badge } from "@/components/ui/badge";
 import {
 	Table,
 	TableBody,
@@ -6,17 +11,10 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { FullScreenLoader } from "@/components/common/FullScreenLoader.tsx";
-import { PagintationApp } from "@/components/layout/Pagination/Pagintation";
-
-import { Icons } from "@/styles/Icons";
-import { Badge } from "@/components/ui/badge";
-import { ArchiveActions } from "@/modules/archives/pages/components/ArchiveActions.tsx";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
-
-import { CountLimit } from "@/components/layout/Filters/CountLimit";
-import { getRowIndex } from "@/utils/archives/RangePagination";
-import { NotFoundTable } from "@/components/layout/NotFound/NotFoundTable";
+import { ArchiveActions } from "@/modules/archives/pages/components/ArchiveActions.tsx";
+import { Icons } from "@/styles/Icons";
+import { getRowIndex } from "@/utils/RangePagination";
 
 export const TableApp = () => {
 	const {

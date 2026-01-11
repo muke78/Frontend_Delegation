@@ -1,6 +1,6 @@
-import type { ApiError } from "@/services/api/types";
 import { useCallback } from "react";
 import { toast } from "sonner";
+import type { ApiError } from "@/services/api/types";
 
 export const ErrorCollector = () => {
 	// Handlers de errores

@@ -1,9 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "@/context/useAuthContext";
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/styles/Icons.ts";
-
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { useAuthContext } from "@/context/useAuthContext";
+import { Icons } from "@/styles/Icons.ts";
 
 export const NotFound = () => {
 	const navigate = useNavigate();

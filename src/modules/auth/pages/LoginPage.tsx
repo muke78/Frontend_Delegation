@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Icons } from "@/styles/Icons.ts";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
 	Field,
 	FieldDescription,
@@ -11,13 +11,12 @@ import {
 	FieldLegend,
 	FieldSet,
 } from "@/components/ui/field";
-
-import { toast } from "sonner";
-import { login } from "@/modules/auth/services/auth.services.ts";
-import { Link, useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useAuthContext } from "@/context/useAuthContext";
-import { Checkbox } from "@/components/ui/checkbox";
+import { login } from "@/modules/auth/services/auth.services.ts";
 import type { ApiError } from "@/services/api/types.ts";
+import { Icons } from "@/styles/Icons.ts";
 
 export const LoginPage = () => {
 	const [email, setEmail] = useState<string>("");

@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import {
 	Select,
 	SelectContent,
@@ -5,15 +6,14 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 
 import { Separator } from "@/components/ui/separator";
-import type { Pagination } from "@/services/api/types";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import type { Pagination } from "@/services/api/types";
 
 type CountLimitProps = {
 	pagination?: Pagination;

@@ -1,15 +1,15 @@
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Icons } from "@/styles/Icons";
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
+import { Icons } from "@/styles/Icons";
+import { formatDateToISO } from "@/utils/FormatDate";
 import { useRelatedContext } from "../../context/useRelatedContext";
 
 export const FiltersApp = () => {
@@ -17,10 +17,8 @@ export const FiltersApp = () => {
 
 	const { filters, setFilters } = useRelatedContext();
 
-	const formatDateToISO = (date: Date) => date.toISOString().split("T")[0];
-
 	const selectedDate = filters.event_date
-		? new Date(filters.event_date)
+		? new Date(`${filters.event_date}T00:00:00`)
 		: undefined;
 
 	return (
@@ -136,6 +134,7 @@ export const FiltersApp = () => {
 							<Calendar
 								mode="single"
 								selected={selectedDate}
+								month={selectedDate}
 								captionLayout="dropdown"
 								onSelect={(selectedDate) => {
 									if (!selectedDate) return;

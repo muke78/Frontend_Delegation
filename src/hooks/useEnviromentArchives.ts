@@ -1,7 +1,7 @@
 import type { ColumnVisibility, FormState } from "@/modules/archives/types.ts";
 import type {
 	ColumnVisibilityRelated,
-	CreateRelatedPayload,
+	CreateRelatedFormState,
 } from "@/modules/related-entries/types";
 
 // Constantes
@@ -53,7 +53,8 @@ export const DEFAULT_COLUMN_VISIBILITY_RELATED: ColumnVisibilityRelated = {
 };
 
 // Estado por defecto de form relaciones
-export const DEFAULT_FORM_STATE_RELATED: CreateRelatedPayload = {
+export const DEFAULT_FORM_STATE_RELATED: CreateRelatedFormState = {
+	archive_id: "",
 	description: "",
 	event_date: "",
 	responsible_person: "",

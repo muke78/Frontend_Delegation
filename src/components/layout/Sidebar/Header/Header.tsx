@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/a11y/useAriaPropsSupportedByRole: <> */
 import { SidebarHeader } from "@/components/ui/sidebar";
 import { Icons } from "@/styles/Icons";
 

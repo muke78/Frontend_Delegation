@@ -6,8 +6,8 @@ import {
 	DialogDescription,
 	DialogFooter,
 	DialogHeader,
-	DialogTitle,
 	DialogOverlay,
+	DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,9 +18,9 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Icons } from "@/styles/Icons";
-import type { ArchiveActionsType } from "@/modules/archives/types.ts";
 import { useArchiveEdit } from "@/modules/archives/hooks/useArchiveEdit.ts";
+import type { ArchiveActionsType } from "@/modules/archives/types.ts";
+import { Icons } from "@/styles/Icons";
 
 export const EditArchiveDialog = ({
 	open,

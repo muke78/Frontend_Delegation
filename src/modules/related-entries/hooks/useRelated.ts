@@ -1,21 +1,25 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import {
+	DEBOUNCE_DELAY,
+	DEFAULT_COLUMN_VISIBILITY_RELATED,
+	DEFAULT_FORM_STATE_RELATED,
+	DEFAULT_PAGE_LIMIT,
+	STORAGE_KEY_RELATED,
+} from "@/hooks/useEnviromentArchives.ts";
+import {
+	createRelated,
+	listRelated,
+} from "@/modules/related-entries/services/related.services.ts";
 import type {
-	RelatedEntry,
 	ColumnVisibilityRelated,
-	CreateRelatedPayload,
+	CreateRelatedFormState,
+	RelatedEntry,
 	RelatedQueryParams,
 } from "@/modules/related-entries/types.ts";
 import type { Pagination } from "@/services/api/types";
-import {
-	DEBOUNCE_DELAY,
-	DEFAULT_PAGE_LIMIT,
-	DEFAULT_COLUMN_VISIBILITY_RELATED,
-	STORAGE_KEY_RELATED,
-	DEFAULT_FORM_STATE_RELATED,
-} from "@/hooks/useEnviromentArchives.ts";
-import { ErrorCollector } from "@/utils/archives/ErrorCollector";
-import { listRelated } from "@/modules/related-entries/services/related.services.ts";
-import { useNavigate } from "react-router-dom";
+import { ErrorCollector } from "@/utils/ErrorCollector";
 
 // Utilidades (Conseguir la visibilidad de columnas)
 const getStoredColumnVisibility = (): ColumnVisibilityRelated => {
@@ -52,7 +56,7 @@ export const useRelated = () => {
 	const [columnVisibility, setColumnVisibility] =
 		useState<ColumnVisibilityRelated>(getStoredColumnVisibility);
 	const [filters, setFilters] = useState<RelatedQueryParams>(getFiltersFromURL);
-	const [formCreate, setFormCreate] = useState<CreateRelatedPayload>(
+	const [formCreate, setFormCreate] = useState<CreateRelatedFormState>(
 		DEFAULT_FORM_STATE_RELATED,
 	);
 	const [openDialog, setOpenDialog] = useState(false);
@@ -64,6 +68,16 @@ export const useRelated = () => {
 	const toggleColumn = useCallback((column: keyof ColumnVisibilityRelated) => {
 		setColumnVisibility((prev) => ({ ...prev, [column]: !prev[column] }));
 	}, []);
+
+	// Mostrar todas las columnas o desaparecer todas
+	const setAllColumns = (value: boolean) => {
+		setColumnVisibility(
+			(prev) =>
+				Object.fromEntries(
+					Object.keys(prev).map((key) => [key, value]),
+				) as typeof prev,
+		);
+	};
 
 	// Función de cambio de página
 	const handlePageChange = useCallback((page: number) => {
@@ -128,9 +142,24 @@ export const useRelated = () => {
 	);
 
 	// Funcion que refresca la data si hay cambios
-	const refresh = useCallback(async () => {
+	const refreshRelated = useCallback(async () => {
 		await loadListRelated(filters);
 	}, [filters, loadListRelated]);
+
+	// Funcion que manda a crear relaciones
+	const handleSubmitCreate = useCallback(async (): Promise<void> => {
+		try {
+			const { archive_id, ...payload } = formCreate;
+
+			const res = await createRelated(archive_id, payload);
+			await refreshRelated();
+			toast.success(res.message);
+			setOpenDialog(false);
+			setFormCreate(DEFAULT_FORM_STATE_RELATED);
+		} catch (error) {
+			handleApiError(error);
+		}
+	}, [formCreate, handleApiError, refreshRelated]);
 
 	// Efectos (Debounce para carga lenta en filtros)
 	useEffect(() => {
@@ -184,9 +213,10 @@ export const useRelated = () => {
 		setFormCreate,
 		setFilters,
 		toggleColumn,
+		setAllColumns,
 		loadListRelated,
-		refresh,
-
+		refreshRelated,
+		handleSubmitCreate,
 		handlePageChange,
 		handleLimitChange,
 		clearFilters,
