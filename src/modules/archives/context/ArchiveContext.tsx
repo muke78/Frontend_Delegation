@@ -6,10 +6,11 @@ import type {
 	FormState,
 } from "@/modules/archives/types.ts";
 import type { Pagination } from "@/services/api/types.ts";
-import type { UUID } from "@/types";
+import type { SelectType, UUID } from "@/types";
 
 export interface ArchiveContextType {
 	archive: ArchiveBase[];
+	archiveSelect: SelectType[];
 	loading: boolean;
 	paginationArchive?: Pagination;
 	columnVisibility: ColumnVisibility;

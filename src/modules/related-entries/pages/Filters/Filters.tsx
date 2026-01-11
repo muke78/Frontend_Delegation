@@ -1,23 +1,22 @@
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Icons } from "@/styles/Icons";
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import { useRelatedContext } from "../../context/useRelatedContext";
+import { Icons } from "@/styles/Icons";
 import { formatDateToISO } from "@/utils/FormatDate";
+import { useRelatedContext } from "../../context/useRelatedContext";
 
 export const FiltersApp = () => {
 	const [open, setOpen] = useState(false);
 
 	const { filters, setFilters } = useRelatedContext();
-	
+
 	const selectedDate = filters.event_date
 		? new Date(`${filters.event_date}T00:00:00`)
 		: undefined;

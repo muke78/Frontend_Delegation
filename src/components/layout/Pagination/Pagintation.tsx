@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import type { PaginationAppProps } from "@/components/types";
 import {
 	Pagination,
@@ -9,7 +10,6 @@ import {
 	PaginationPrevious,
 } from "@/components/ui/pagination";
 import { getPaginationRange } from "@/utils/RangePagination";
-import clsx from "clsx";
 
 export const PagintationApp = ({
 	pagination,

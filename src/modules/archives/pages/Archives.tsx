@@ -1,10 +1,10 @@
-import { TableApp } from "@/modules/archives/pages/Table/Table.tsx";
-import { CreateArchiveDialog } from "@/modules/archives/pages/Dialog/CreateArchiveDialog.tsx";
-import { FiltersApp } from "@/modules/archives/pages/Filters/Filters.tsx";
-import { ColumnsApp as ColumnsAppArchive } from "@/modules/archives/pages/Filters/Columns.tsx";
 import { ClearFilters } from "@/components/layout/Filters/ClearFilters.tsx";
-import { ExportFile } from "@/modules/archives/pages/Builder/ExportFile.tsx";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
+import { ExportFile } from "@/modules/archives/pages/Builder/ExportFile.tsx";
+import { CreateArchiveDialog } from "@/modules/archives/pages/Dialog/CreateArchiveDialog.tsx";
+import { ColumnsApp as ColumnsAppArchive } from "@/modules/archives/pages/Filters/Columns.tsx";
+import { FiltersApp } from "@/modules/archives/pages/Filters/Filters.tsx";
+import { TableApp } from "@/modules/archives/pages/Table/Table.tsx";
 
 export const Archives = () => {
 	const { clearFilters, hasActiveFilters } = useArchiveContext();

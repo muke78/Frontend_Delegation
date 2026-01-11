@@ -1,18 +1,16 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-
-import { LoginPage } from "@/modules/auth/pages/LoginPage.tsx";
-import { Home } from "@/modules/dashboard/pages/Home.tsx";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { PrivateRoute } from "@/app/PrivateRoute.tsx";
 import { PublicRoute } from "@/app/PublicRoute.tsx";
-import { RegisterPage } from "@/modules/auth/pages/RegisterPage.tsx";
-import { NotFound } from "@/components/layout/NotFound/NotFound.tsx";
-import { RecoverPassword } from "@/modules/auth/pages/RecoverPassword.tsx";
-import { Archives } from "@/modules/archives/pages/Archives.tsx";
-import { RelatedEntries } from "@/modules/related-entries/pages/RelatedEntries.tsx";
-
-import { Config } from "@/modules/config/pages/Config.tsx";
-import { Users } from "@/modules/users/pages/Users.tsx";
 import { Layout } from "@/components/layout/Layout.tsx";
+import { NotFound } from "@/components/layout/NotFound/NotFound.tsx";
+import { Archives } from "@/modules/archives/pages/Archives.tsx";
+import { LoginPage } from "@/modules/auth/pages/LoginPage.tsx";
+import { RecoverPassword } from "@/modules/auth/pages/RecoverPassword.tsx";
+import { RegisterPage } from "@/modules/auth/pages/RegisterPage.tsx";
+import { Config } from "@/modules/config/pages/Config.tsx";
+import { Home } from "@/modules/dashboard/pages/Home.tsx";
+import { RelatedEntries } from "@/modules/related-entries/pages/RelatedEntries.tsx";
+import { Users } from "@/modules/users/pages/Users.tsx";
 
 export const AppRouter = () => {
 	return (

@@ -1,22 +1,25 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type {
-	RelatedEntry,
-	ColumnVisibilityRelated,
-	RelatedQueryParams,
-	CreateRelatedFormState,
-} from "@/modules/related-entries/types.ts";
-import type { Pagination } from "@/services/api/types";
-import {
-	DEBOUNCE_DELAY,
-	DEFAULT_PAGE_LIMIT,
-	DEFAULT_COLUMN_VISIBILITY_RELATED,
-	STORAGE_KEY_RELATED,
-	DEFAULT_FORM_STATE_RELATED,
-} from "@/hooks/useEnviromentArchives.ts";
-import { ErrorCollector } from "@/utils/ErrorCollector";
-import { createRelated, listRelated } from "@/modules/related-entries/services/related.services.ts";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import {
+	DEBOUNCE_DELAY,
+	DEFAULT_COLUMN_VISIBILITY_RELATED,
+	DEFAULT_FORM_STATE_RELATED,
+	DEFAULT_PAGE_LIMIT,
+	STORAGE_KEY_RELATED,
+} from "@/hooks/useEnviromentArchives.ts";
+import {
+	createRelated,
+	listRelated,
+} from "@/modules/related-entries/services/related.services.ts";
+import type {
+	ColumnVisibilityRelated,
+	CreateRelatedFormState,
+	RelatedEntry,
+	RelatedQueryParams,
+} from "@/modules/related-entries/types.ts";
+import type { Pagination } from "@/services/api/types";
+import { ErrorCollector } from "@/utils/ErrorCollector";
 
 // Utilidades (Conseguir la visibilidad de columnas)
 const getStoredColumnVisibility = (): ColumnVisibilityRelated => {
@@ -146,7 +149,6 @@ export const useRelated = () => {
 	// Funcion que manda a crear relaciones
 	const handleSubmitCreate = useCallback(async (): Promise<void> => {
 		try {
-
 			const { archive_id, ...payload } = formCreate;
 
 			const res = await createRelated(archive_id, payload);

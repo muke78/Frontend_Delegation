@@ -1,6 +1,4 @@
-import { Icons } from "@/styles/Icons";
 import { Button } from "@/components/ui/button";
-
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -11,6 +9,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
+import { Icons } from "@/styles/Icons";
 
 export const ColumnsApp = () => {
 	const { toggleColumn, columnVisibility, setAllColumns } = useArchiveContext();

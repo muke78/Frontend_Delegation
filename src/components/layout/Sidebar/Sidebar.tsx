@@ -1,10 +1,9 @@
-import { Sidebar, useSidebar } from "@/components/ui/sidebar";
-
 import { useEffect } from "react";
+import { Separator } from "@/components/ui/separator.tsx";
+import { Sidebar, useSidebar } from "@/components/ui/sidebar";
+import { Content } from "./Content/Content.tsx";
 import { Footer } from "./Footer/Footer.tsx";
 import { Header } from "./Header/Header.tsx";
-import { Content } from "./Content/Content.tsx";
-import { Separator } from "@/components/ui/separator.tsx";
 
 export const AppSidebar = () => {
 	const { open } = useSidebar();

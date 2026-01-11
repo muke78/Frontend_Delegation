@@ -1,14 +1,8 @@
 import { Link } from "react-router-dom";
-
-import { Dialog, DialogFooter, DialogHeader } from "@/components/ui/dialog";
-import {
-	DialogClose,
-	DialogContent,
-	DialogDescription,
-	DialogOverlay,
-	DialogTitle,
-} from "@/components/ui/dialog";
-import type { ArchiveActionsType } from "@/modules/archives/types.ts";
+import { FullScreenLoader } from "@/components/common/FullScreenLoader";
+import { CountLimit } from "@/components/layout/Filters/CountLimit";
+import { NotFoundTable } from "@/components/layout/NotFound/NotFoundTable";
+import { PagintationApp } from "@/components/layout/Pagination/Pagintation";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -18,7 +12,16 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogOverlay,
+	DialogTitle,
+} from "@/components/ui/dialog";
 import {
 	Table,
 	TableBody,
@@ -27,12 +30,9 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { Icons } from "@/styles/Icons";
-import { PagintationApp } from "@/components/layout/Pagination/Pagintation";
-import { NotFoundTable } from "@/components/layout/NotFound/NotFoundTable";
 import { useArchiveDuplex } from "@/modules/archives/hooks/useArchiveDuplex.ts";
-import { CountLimit } from "@/components/layout/Filters/CountLimit";
-import { FullScreenLoader } from "@/components/common/FullScreenLoader";
+import type { ArchiveActionsType } from "@/modules/archives/types.ts";
+import { Icons } from "@/styles/Icons";
 
 export const ViewArchiveDialog = ({
 	open,
@@ -188,7 +188,7 @@ export const ViewArchiveDialog = ({
 														key={reltd.related_entries_id}
 														className="hover:bg-primary/10"
 													>
-														<TableCell>{reltd.reference_number}</TableCell>
+														<TableCell>{reltd.reference_formatted}</TableCell>
 														<TableCell className="font-medium">
 															{reltd.reference_folio}
 														</TableCell>

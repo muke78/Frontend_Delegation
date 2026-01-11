@@ -1,3 +1,7 @@
+import clsx from "clsx";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -18,10 +22,6 @@ import {
 } from "@/components/ui/tooltip.tsx";
 import { useAuthContext } from "@/context/useAuthContext.ts";
 import { Icons } from "@/styles/Icons.ts";
-import clsx from "clsx";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 
 export const Footer = ({ open }: { open: boolean }) => {
 	const navigate = useNavigate();

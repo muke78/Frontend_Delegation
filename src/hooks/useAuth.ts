@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
 	getProfile,
 	logout as logoutService,
@@ -22,7 +22,7 @@ export function useAuth() {
 			if (isMountedRef.current) {
 				setUser(Array.isArray(res.data) ? res.data[0] || null : null);
 			}
-		} catch (error) {
+		} catch (_error) {
 			if (isMountedRef.current) {
 				setUser(null);
 			}

@@ -1,30 +1,31 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useAuthContext } from "@/context/useAuthContext.ts";
+import {
+	DEBOUNCE_DELAY,
+	DEFAULT_COLUMN_VISIBILITY_ARCHIVE,
+	DEFAULT_FORM_STATE_ARCHIVE,
+	DEFAULT_PAGE_LIMIT,
+	STORAGE_KEY_ARCHIVE,
+} from "@/hooks/useEnviromentArchives.ts";
+import {
+	createArchive,
+	deleteArchive,
+	listArchives,
+	listArchivesForSelect,
+	rebuildFolio,
+} from "@/modules/archives/services/archive.services.ts";
 import type {
 	ArchiveBase,
 	ArchiveFilters,
 	ColumnVisibility,
 	FormState,
 } from "@/modules/archives/types.ts";
-import {
-	listArchives,
-	deleteArchive,
-	rebuildFolio,
-	createArchive,
-} from "@/modules/archives/services/archive.services.ts";
-import type { ApiError, Pagination } from "@/services/api/types.ts";
-import { useAuthContext } from "@/context/useAuthContext.ts";
-import { useNavigate } from "react-router-dom";
-import {
-	STORAGE_KEY_ARCHIVE,
-	DEBOUNCE_DELAY,
-	DEFAULT_PAGE_LIMIT,
-	DEFAULT_COLUMN_VISIBILITY_ARCHIVE,
-	DEFAULT_FORM_STATE_ARCHIVE,
-} from "@/hooks/useEnviromentArchives.ts";
-import { ErrorCollector } from "@/utils/ErrorCollector";
-import { toast } from "sonner";
-import type { UUID } from "@/types";
 import { useRelatedContext } from "@/modules/related-entries/context/useRelatedContext";
+import type { ApiError, Pagination } from "@/services/api/types.ts";
+import type { SelectType, UUID } from "@/types";
+import { ErrorCollector } from "@/utils/ErrorCollector";
 
 // Utilidades (Conseguir la visibilidad de columnas)
 const getStoredColumnVisibility = (): ColumnVisibility => {
@@ -55,12 +56,13 @@ const getFiltersFromURL = (): ArchiveFilters => {
 
 export const useArchive = () => {
 	const { user } = useAuthContext();
-	const { refreshRelated } = useRelatedContext()
+	const { refreshRelated } = useRelatedContext();
 	const navigate = useNavigate();
 	const debounceTimeoutRef = useRef<number | null>(null);
 
 	// Estado
 	const [archive, setArchive] = useState<ArchiveBase[]>([]);
+	const [archiveSelect, setArchiveSelect] = useState<SelectType[]>([]);
 	const [paginationArchive, setPaginationArchive] = useState<Pagination>();
 	const [columnVisibility, setColumnVisibility] = useState<ColumnVisibility>(
 		getStoredColumnVisibility,
@@ -153,6 +155,16 @@ export const useArchive = () => {
 		[handleApiError],
 	);
 
+	const loadListArchiveSelect = useCallback(async () => {
+		try {
+			const res = await listArchivesForSelect();
+			setArchiveSelect(res.data);
+		} catch (error) {
+			handleApiError(error);
+			setArchiveSelect([]);
+		}
+	}, [handleApiError]);
+
 	// Funcion que refresca la data si hay cambios
 	const refreshArchive = useCallback(async () => {
 		await loadListArchive(filters);
@@ -183,7 +195,7 @@ export const useArchive = () => {
 				toast.success(res.message);
 				setArchive((prev) => prev.filter((a) => a.archives_id !== archiveId));
 				await refreshArchive();
-				await refreshRelated()
+				await refreshRelated();
 				return true;
 			} catch (error) {
 				handleApiError(error);
@@ -218,6 +230,10 @@ export const useArchive = () => {
 		},
 		[refreshArchive],
 	);
+
+	useEffect(() => {
+		loadListArchiveSelect();
+	}, [loadListArchiveSelect]);
 
 	// Efectos (Debounce para carga lenta en filtros)
 	useEffect(() => {
@@ -260,6 +276,7 @@ export const useArchive = () => {
 
 	return {
 		archive,
+		archiveSelect,
 		loading,
 		paginationArchive,
 		columnVisibility,

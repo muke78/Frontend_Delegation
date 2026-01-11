@@ -1,7 +1,7 @@
 import type { ColumnVisibility, FormState } from "@/modules/archives/types.ts";
 import type {
 	ColumnVisibilityRelated,
-	CreateRelatedFormState
+	CreateRelatedFormState,
 } from "@/modules/related-entries/types";
 
 // Constantes

@@ -1,3 +1,4 @@
+import { NavLink, useLocation } from "react-router-dom";
 import {
 	SidebarContent,
 	SidebarGroup,
@@ -6,14 +7,13 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { SidebarItems } from "../Items/SidebarItems";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { SidebarItems } from "../Items/SidebarItems";
 
 export const Content = ({ open }: { open: boolean }) => {
 	const { pathname } = useLocation();
