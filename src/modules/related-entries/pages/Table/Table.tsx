@@ -1,3 +1,7 @@
+import { FullScreenLoader } from "@/components/common/FullScreenLoader";
+import { CountLimit } from "@/components/layout/Filters/CountLimit";
+import { NotFoundTable } from "@/components/layout/NotFound/NotFoundTable";
+import { PagintationApp } from "@/components/layout/Pagination/Pagintation";
 import { Button } from "@/components/ui/button";
 import {
 	Table,
@@ -9,10 +13,6 @@ import {
 } from "@/components/ui/table";
 import { Icons } from "@/styles/Icons";
 import { useRelatedContext } from "../../context/useRelatedContext";
-import { CountLimit } from "@/components/layout/Filters/CountLimit";
-import { PagintationApp } from "@/components/layout/Pagination/Pagintation";
-import { FullScreenLoader } from "@/components/common/FullScreenLoader";
-import { NotFoundTable } from "@/components/layout/NotFound/NotFoundTable";
 
 export const TableApp = () => {
 	const {
@@ -40,25 +40,31 @@ export const TableApp = () => {
 					<Table>
 						<TableHeader>
 							<TableRow className="bg-muted/50">
-								{columnVisibility.reference_folio && (
-									<TableHead className="font-semibold">Folio</TableHead>
-								)}
 								{columnVisibility.reference_number && (
 									<TableHead className="font-semibold">
 										Número de referencia
 									</TableHead>
 								)}
+								{columnVisibility.reference_folio && (
+									<TableHead className="font-semibold">Folio</TableHead>
+								)}
 								{columnVisibility.description && (
 									<TableHead className="font-semibold">Descripción</TableHead>
 								)}
 								{columnVisibility.event_date && (
-									<TableHead className="font-semibold">Fecha</TableHead>
+									<TableHead className="font-semibold">
+										Fecha del evento
+									</TableHead>
 								)}
 								{columnVisibility.responsible_person && (
-									<TableHead className="font-semibold">Responsable</TableHead>
+									<TableHead className="font-semibold">
+										Persona responsable
+									</TableHead>
 								)}
 								{columnVisibility.responsible_role && (
-									<TableHead className="font-semibold">Cargo</TableHead>
+									<TableHead className="font-semibold">
+										Persona a cargo
+									</TableHead>
 								)}
 								{columnVisibility.notas && (
 									<TableHead className="font-semibold">Notas</TableHead>
@@ -87,14 +93,14 @@ export const TableApp = () => {
 										key={rltd.related_entries_id}
 										className="hover:bg-primary/10"
 									>
+										{columnVisibility.reference_number && (
+											<TableCell className="font-mono text-sm font-medium">
+												{rltd.reference_formatted}
+											</TableCell>
+										)}
 										{columnVisibility.reference_folio && (
 											<TableCell className="font-mono text-sm">
 												{rltd.reference_folio}
-											</TableCell>
-										)}
-										{columnVisibility.reference_number && (
-											<TableCell className="font-mono text-sm font-medium">
-												{rltd.reference_number}
 											</TableCell>
 										)}
 										{columnVisibility.description && (
@@ -104,7 +110,7 @@ export const TableApp = () => {
 										)}
 										{columnVisibility.event_date && (
 											<TableCell className="font-mono text-sm font-medium">
-												{rltd.event_date.split("T")[0]}
+												{rltd.event_date?.split("T")[0] || "SIN FECHA"}
 											</TableCell>
 										)}
 										{columnVisibility.responsible_person && (

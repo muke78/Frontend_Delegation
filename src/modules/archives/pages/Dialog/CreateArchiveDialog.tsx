@@ -6,9 +6,9 @@ import {
 	DialogDescription,
 	DialogFooter,
 	DialogHeader,
+	DialogOverlay,
 	DialogTitle,
 	DialogTrigger,
-	DialogOverlay,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,8 +19,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Icons } from "@/styles/Icons";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
+import { Icons } from "@/styles/Icons";
 
 export const CreateArchiveDialog = () => {
 	const {

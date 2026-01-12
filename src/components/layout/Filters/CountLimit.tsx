@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import {
 	Select,
 	SelectContent,
@@ -5,15 +6,14 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 
 import { Separator } from "@/components/ui/separator";
-import type { Pagination } from "@/services/api/types";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import type { Pagination } from "@/services/api/types";
 
 type CountLimitProps = {
 	pagination?: Pagination;
@@ -59,7 +59,7 @@ export const CountLimit = ({
 							>
 								<SelectTrigger
 									id="page-limit"
-									className="w-24"
+									className="w-24 cursor-pointer"
 									aria-label="Seleccionar cantidad de registros a mostrar"
 									aria-disabled={isDisabled}
 								>

@@ -1,11 +1,14 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
-	FieldDescription,
-	FieldSet,
-	FieldGroup,
 	Field,
+	FieldDescription,
+	FieldGroup,
 	FieldLabel,
+	FieldSet,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,12 +16,9 @@ import {
 	InputOTPGroup,
 	InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Icons } from "@/styles/Icons";
-import { useState, useEffect } from "react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 
 export const RecoverPassword = () => {
 	const navigate = useNavigate();

@@ -1,5 +1,5 @@
-import { useRelated } from "@/modules/related-entries/hooks/useRelated.ts";
 import { RelatedContext } from "@/modules/related-entries/context/RelatedContext.tsx";
+import { useRelated } from "@/modules/related-entries/hooks/useRelated.ts";
 
 export const RelatedProvider = ({
 	children,

@@ -1,12 +1,12 @@
-import { apiFetch } from "@/services/api/api";
 import type {
+	CreateRelatedPayload,
 	RelatedEntry,
 	RelatedQueryParams,
-	CreateRelatedPayload,
 	UpdateRelatedPayload,
 } from "@/modules/related-entries/types.ts";
-import type { UUID } from "@/types";
+import { apiFetch } from "@/services/api/api";
 import type { ApiSuccessResponse } from "@/services/api/types";
+import type { UUID } from "@/types";
 
 // List related query params
 export const listRelated = (params?: RelatedQueryParams) => {
@@ -43,7 +43,7 @@ export const createRelated = (
 	archiveId: UUID,
 	payload: CreateRelatedPayload,
 ) => {
-	return apiFetch(`/archives/${archiveId}/related`, {
+	return apiFetch<ApiSuccessResponse>(`/archives/${archiveId}/related`, {
 		method: "POST",
 		body: JSON.stringify(payload),
 	});

@@ -1,16 +1,16 @@
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
+import { AppSidebar } from "@/components/layout/Sidebar/Sidebar.tsx";
 import {
 	SidebarInset,
 	SidebarProvider,
 	SidebarTrigger,
 } from "@/components/ui/sidebar.tsx";
-import { AppSidebar } from "@/components/layout/Sidebar/Sidebar.tsx";
-import { useState } from "react";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip.tsx";
-import { Outlet } from "react-router-dom";
 
 export const Layout = () => {
 	const [defaultOpen] = useState<boolean>(() => {

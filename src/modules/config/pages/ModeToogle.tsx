@@ -1,6 +1,3 @@
-import { useTheme } from "@/context/ThemeProvider";
-import { Icons } from "@/styles/Icons.ts";
-
 import {
 	Select,
 	SelectContent,
@@ -8,6 +5,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { useTheme } from "@/context/ThemeProvider";
+import { Icons } from "@/styles/Icons.ts";
 
 export function ModeToggle() {
 	const { theme, setTheme } = useTheme();

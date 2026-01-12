@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Icons } from "@/styles/Icons";
+import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
+import { DeleteArchiveDialog } from "@/modules/archives/pages/Dialog/DeleteArchiveDialog.tsx";
 import { EditArchiveDialog } from "@/modules/archives/pages/Dialog/EditArchiveDialog.tsx";
 import { ViewArchiveDialog } from "@/modules/archives/pages/Dialog/ViewArchiveDialog.tsx";
-import { DeleteArchiveDialog } from "@/modules/archives/pages/Dialog/DeleteArchiveDialog.tsx";
-import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
-
 import type { ArchiveBase } from "@/modules/archives/types.ts";
+import { Icons } from "@/styles/Icons";
 
 export const ArchiveActions = ({ archive }: { archive: ArchiveBase }) => {
 	const { handleRebuildFolio } = useArchiveContext();

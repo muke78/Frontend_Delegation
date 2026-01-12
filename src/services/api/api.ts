@@ -1,7 +1,7 @@
 import type {
+	ApiError,
 	BackendGenericError,
 	BackendValidationError,
-	ApiError,
 } from "./types";
 
 // const BASE_URL = import.meta.env.VITE_API_URL

@@ -1,10 +1,10 @@
-import { Icons } from "@/styles/Icons";
+import { Button } from "@/components/ui/button";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
+import { Icons } from "@/styles/Icons";
 
 type PropsClearFiltersType = {
 	clearFilters: () => void;

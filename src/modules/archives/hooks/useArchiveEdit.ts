@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { DEFAULT_FORM_STATE_ARCHIVE } from "@/hooks/useEnviromentArchives.ts";
+import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
 import {
 	listArchivesById,
 	updateArchive,
@@ -7,17 +10,14 @@ import type {
 	ArchiveActionsType,
 	FormState,
 } from "@/modules/archives/types.ts";
-import { DEFAULT_FORM_STATE_ARCHIVE } from "@/hooks/useEnviromentArchives.ts";
-import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
-import { ErrorCollector } from "@/utils/archives/ErrorCollector";
-import { toast } from "sonner";
+import { ErrorCollector } from "@/utils/ErrorCollector";
 
 export const useArchiveEdit = ({
 	archiveId,
 	onClose,
 	open,
 }: ArchiveActionsType) => {
-	const { refresh } = useArchiveContext();
+	const { refreshArchive } = useArchiveContext();
 
 	// Estados
 	const [formEdit, setFormEdit] = useState<FormState>(
@@ -41,7 +41,7 @@ export const useArchiveEdit = ({
 			};
 
 			const res = await updateArchive(archiveId, payload);
-			await refresh();
+			await refreshArchive();
 			toast.success(res.message);
 			onClose();
 		} catch (error) {

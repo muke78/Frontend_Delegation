@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { DEFAULT_PAGE_LIMIT } from "@/hooks/useEnviromentArchives.ts";
 import { listArchiveDuplex } from "@/modules/archives/services/archive.services.ts";
-import type { Pagination } from "@/services/api/types";
 import type {
 	ArchiveBase,
 	ArchiveDialogRelatedDuplex,
 	ArchiveDuplex,
 } from "@/modules/archives/types.ts";
-import { DEFAULT_PAGE_LIMIT } from "@/hooks/useEnviromentArchives.ts";
-import { ErrorCollector } from "@/utils/archives/ErrorCollector";
 import type { RelatedEntry } from "@/modules/related-entries/types";
+import type { Pagination } from "@/services/api/types";
+import { ErrorCollector } from "@/utils/ErrorCollector";
 
 // Utilidades (Consguir los parametros de la URL)
 const getFiltersFromURL = (): ArchiveDialogRelatedDuplex => {

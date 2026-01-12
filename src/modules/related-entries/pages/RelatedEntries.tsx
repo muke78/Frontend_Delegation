@@ -1,7 +1,9 @@
-import { FiltersApp } from "@/modules/related-entries/pages/Filters/Filters.tsx";
-import { TableApp } from "@/modules/related-entries/pages/Table/Table.tsx";
 import { ClearFilters } from "@/components/layout/Filters/ClearFilters.tsx";
 import { useRelatedContext } from "@/modules/related-entries/context/useRelatedContext.ts";
+import { CreateRelatedDialog } from "@/modules/related-entries/pages/Dialog/CreateRelatedDialog.tsx";
+import { ColumnsApp as ColumnsAppRelated } from "@/modules/related-entries/pages/Filters/Columns.tsx";
+import { FiltersApp } from "@/modules/related-entries/pages/Filters/Filters.tsx";
+import { TableApp } from "@/modules/related-entries/pages/Table/Table.tsx";
 
 export const RelatedEntries = () => {
 	const { clearFilters, hasActiveFilters } = useRelatedContext();
@@ -20,8 +22,9 @@ export const RelatedEntries = () => {
 							hasActiveFilters={hasActiveFilters}
 						/>
 						{/* Dropdown para visibilidad de columnas */}
-
+						<ColumnsAppRelated />
 						{/* Modal para cargar archivos */}
+						<CreateRelatedDialog />
 					</div>
 				</div>
 

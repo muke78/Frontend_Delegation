@@ -1,18 +1,18 @@
+import type {
+	ApiDuplexSuccessResponse,
+	ArchiveBase,
+	ArchiveDuplexQuery,
+	ArchiveFilters,
+	CreateArchivePayload,
+	UpdateArchivePayload,
+} from "@/modules/archives/types.ts";
+import type { RelatedEntry } from "@/modules/related-entries/types";
 import { apiFetch } from "@/services/api/api.ts";
 import type {
 	ApiSingleResponse,
 	ApiSuccessResponse,
 } from "@/services/api/types.ts";
-import type {
-	CreateArchivePayload,
-	UpdateArchivePayload,
-	ArchiveFilters,
-	ArchiveBase,
-	ApiDuplexSuccessResponse,
-	ArchiveDuplexQuery,
-} from "@/modules/archives/types.ts";
-import type { RelatedEntry } from "@/modules/related-entries/types";
-import type { UUID } from "@/types";
+import type { SelectType, UUID } from "@/types";
 
 export const listArchiveDuplex = (
 	archiveId: UUID,
@@ -50,6 +50,12 @@ export const listArchives = (params?: ArchiveFilters) => {
 		`/archives${query ? `?${query}` : ""}`,
 		{ method: "GET" },
 	);
+};
+
+export const listArchivesForSelect = () => {
+	return apiFetch<ApiSingleResponse<SelectType>>(`/archives/select`, {
+		method: "GET",
+	});
 };
 
 // List archives from uuid

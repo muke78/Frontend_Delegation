@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -11,8 +13,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Icons } from "@/styles/Icons";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 
 export const RegisterPage = () => {
 	const [showPassword, setShowPassword] = useState<boolean>(false);
