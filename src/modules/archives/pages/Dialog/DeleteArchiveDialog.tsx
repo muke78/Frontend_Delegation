@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
 import type { ArchiveActionsType } from "@/modules/archives/types.ts";
+import { useArchiveActions } from "@/hooks/useArchiveActions";
 
 export const DeleteArchiveDialog = ({
 	open,
@@ -20,6 +21,19 @@ export const DeleteArchiveDialog = ({
 	onClose,
 }: ArchiveActionsType) => {
 	const { handleDeleteArchive } = useArchiveContext();
+	const { syncAfterArchiveDelete } = useArchiveActions();
+
+	const onDelete = async () => {
+		if (!archiveId) {
+			toast.error("ID del archivo no válido");
+			return;
+		}
+		const ok = await handleDeleteArchive(archiveId);
+		if (ok) {
+			await syncAfterArchiveDelete();
+			onClose();
+		}
+	};
 
 	return (
 		<Dialog open={open} onOpenChange={(v) => !v && onClose()}>
@@ -46,15 +60,7 @@ export const DeleteArchiveDialog = ({
 						type="submit"
 						variant={"destructive"}
 						className="cursor-pointer"
-						onClick={async () => {
-							if (!archiveId) {
-								toast.error("ID del archivo no válido");
-								return;
-							}
-
-							const ok = await handleDeleteArchive(archiveId);
-							if (ok) onClose();
-						}}
+						onClick={onDelete}
 					>
 						Aceptar
 					</Button>

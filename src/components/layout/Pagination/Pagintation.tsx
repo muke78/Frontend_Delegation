@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <> */
 import clsx from "clsx";
 import type { PaginationAppProps } from "@/components/types";
 import {
@@ -33,8 +34,8 @@ export const PagintationApp = ({
 					></PaginationPrevious>
 				</PaginationItem>
 
-				{pages.map((page) => (
-					<PaginationItem key={`pagination_item_${page}`}>
+				{pages.map((page, idx) => (
+					<PaginationItem key={`pagination_item_${page}_${idx}`}>
 						{page === "..." ? (
 							<PaginationEllipsis />
 						) : (

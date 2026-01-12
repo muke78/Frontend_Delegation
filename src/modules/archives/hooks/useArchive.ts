@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuthContext } from "@/context/useAuthContext.ts";
@@ -22,7 +22,6 @@ import type {
 	ColumnVisibility,
 	FormState,
 } from "@/modules/archives/types.ts";
-import { useRelatedContext } from "@/modules/related-entries/context/useRelatedContext";
 import type { ApiError, Pagination } from "@/services/api/types.ts";
 import type { SelectType, UUID } from "@/types";
 import { ErrorCollector } from "@/utils/ErrorCollector";
@@ -56,9 +55,9 @@ const getFiltersFromURL = (): ArchiveFilters => {
 
 export const useArchive = () => {
 	const { user } = useAuthContext();
-	const { refreshRelated } = useRelatedContext();
 	const navigate = useNavigate();
 	const debounceTimeoutRef = useRef<number | null>(null);
+	const didLoadRef = useRef(false);
 
 	// Estado
 	const [archive, setArchive] = useState<ArchiveBase[]>([]);
@@ -82,14 +81,14 @@ export const useArchive = () => {
 	}, []);
 
 	// Mostrar todas las columnas o desaparecer todas
-	const setAllColumns = (value: boolean) => {
+	const setAllColumns = useCallback((value: boolean) => {
 		setColumnVisibility(
 			(prev) =>
 				Object.fromEntries(
 					Object.keys(prev).map((key) => [key, value]),
 				) as typeof prev,
 		);
-	};
+	}, []);
 
 	// Función de cambio de página
 	const handlePageChange = useCallback((page: number) => {
@@ -117,7 +116,7 @@ export const useArchive = () => {
 	});
 
 	// Limpieza de filtros
-	const clearFilters = () => {
+	const clearFilters = useCallback(() => {
 		if (!hasActiveFilters) return;
 		setFilters((prev) => ({
 			...prev,
@@ -129,7 +128,7 @@ export const useArchive = () => {
 			created_by: "",
 			page: "1",
 		}));
-	};
+	}, [hasActiveFilters]);
 
 	// Funciones de API
 	const loadListArchive = useCallback(
@@ -195,7 +194,6 @@ export const useArchive = () => {
 				toast.success(res.message);
 				setArchive((prev) => prev.filter((a) => a.archives_id !== archiveId));
 				await refreshArchive();
-				await refreshRelated();
 				return true;
 			} catch (error) {
 				handleApiError(error);
@@ -203,7 +201,7 @@ export const useArchive = () => {
 				return false;
 			}
 		},
-		[handleApiError, refreshArchive, refreshRelated],
+		[handleApiError, refreshArchive],
 	);
 
 	// Funcion que manda a reconstruir el folio
@@ -232,6 +230,9 @@ export const useArchive = () => {
 	);
 
 	useEffect(() => {
+		if (didLoadRef.current) return;
+		didLoadRef.current = true;
+
 		loadListArchiveSelect();
 	}, [loadListArchiveSelect]);
 
@@ -274,28 +275,51 @@ export const useArchive = () => {
 		localStorage.setItem(STORAGE_KEY_ARCHIVE, JSON.stringify(columnVisibility));
 	}, [columnVisibility]);
 
-	return {
-		archive,
-		archiveSelect,
-		loading,
-		paginationArchive,
-		columnVisibility,
-		openDialog,
-		formCreate,
-		filters,
-		hasActiveFilters,
-		setOpenDialog,
-		setFormCreate,
-		setFilters,
-		toggleColumn,
-		setAllColumns,
-		loadListArchive,
-		refreshArchive,
-		handleSubmitCreate,
-		handleRebuildFolio,
-		handleDeleteArchive,
-		handlePageChange,
-		handleLimitChange,
-		clearFilters,
-	};
+	return useMemo(
+		() => ({
+			archive,
+			archiveSelect,
+			loading,
+			paginationArchive,
+			columnVisibility,
+			openDialog,
+			formCreate,
+			filters,
+			hasActiveFilters,
+			setOpenDialog,
+			setFormCreate,
+			setFilters,
+			toggleColumn,
+			setAllColumns,
+			loadListArchive,
+			refreshArchive,
+			handleSubmitCreate,
+			handleRebuildFolio,
+			handleDeleteArchive,
+			handlePageChange,
+			handleLimitChange,
+			clearFilters,
+		}),
+		[
+			archive,
+			archiveSelect,
+			clearFilters,
+			columnVisibility,
+			filters,
+			formCreate,
+			handleDeleteArchive,
+			handleLimitChange,
+			handlePageChange,
+			handleRebuildFolio,
+			handleSubmitCreate,
+			hasActiveFilters,
+			loadListArchive,
+			loading,
+			openDialog,
+			paginationArchive,
+			refreshArchive,
+			setAllColumns,
+			toggleColumn,
+		],
+	);
 };

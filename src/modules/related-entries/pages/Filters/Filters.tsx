@@ -121,7 +121,7 @@ export const FiltersApp = () => {
 							<Button
 								variant="outline"
 								id="date"
-								className="justify-between font-normal"
+								className="justify-between font-normal cursor-pointer"
 							>
 								{filters.event_date || "Selecciona una fecha"}
 								<Icons.ChevronDownIcon />

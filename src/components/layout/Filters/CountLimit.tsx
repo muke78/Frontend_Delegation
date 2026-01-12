@@ -59,7 +59,7 @@ export const CountLimit = ({
 							>
 								<SelectTrigger
 									id="page-limit"
-									className="w-24"
+									className="w-24 cursor-pointer"
 									aria-label="Seleccionar cantidad de registros a mostrar"
 									aria-disabled={isDisabled}
 								>
