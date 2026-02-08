@@ -63,7 +63,7 @@ export const updateRelated = (
 
 // Delete a related
 export const deleteRelated = (archiveId: UUID, related_entries_id: UUID) => {
-	return apiFetch(`/archives/${archiveId}/related/${related_entries_id}`, {
+	return apiFetch<ApiSuccessResponse>(`/archives/${archiveId}/related/${related_entries_id}`, {
 		method: "DELETE",
 	});
 };

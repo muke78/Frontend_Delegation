@@ -188,7 +188,7 @@ export const EditArchiveDialog = ({
 
 						<DialogFooter className="flex gap-2">
 							<DialogClose asChild>
-								<Button variant="outline" type="button">
+								<Button variant="outline" type="button" onClick={onClose}>
 									Cancelar
 								</Button>
 							</DialogClose>

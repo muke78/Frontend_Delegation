@@ -58,3 +58,11 @@ export type ColumnVisibilityRelated = {
 	notas: boolean;
 	actions: boolean;
 };
+
+export type RelatedActionsType = {
+    open: boolean
+	archiveId: string
+	relatedId: string
+	relatedDescription: string
+    onClose: () => void
+}

@@ -6,6 +6,7 @@ import type {
 	RelatedQueryParams,
 } from "@/modules/related-entries/types.ts";
 import type { Pagination } from "@/services/api/types";
+import type { UUID } from "@/types";
 
 export interface RelatedContextType {
 	related: RelatedEntry[];
@@ -24,6 +25,7 @@ export interface RelatedContextType {
 	loadListRelated: (filters: RelatedQueryParams) => Promise<void>;
 	refreshRelated: () => void;
 	handleSubmitCreate: () => Promise<void>;
+	handleDeleteReleated: (archiveId: UUID, relatedId: UUID) => Promise<boolean>
 	handlePageChange: (page: number) => void;
 	handleLimitChange: (limit: number) => void;
 	clearFilters: () => void;

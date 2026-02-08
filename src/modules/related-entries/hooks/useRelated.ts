@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import {
@@ -10,6 +10,7 @@ import {
 } from "@/hooks/useEnviromentArchives.ts";
 import {
 	createRelated,
+	deleteRelated,
 	listRelated,
 } from "@/modules/related-entries/services/related.services.ts";
 import type {
@@ -20,6 +21,7 @@ import type {
 } from "@/modules/related-entries/types.ts";
 import type { Pagination } from "@/services/api/types";
 import { ErrorCollector } from "@/utils/ErrorCollector";
+import type { UUID } from "@/types";
 
 // Utilidades (Conseguir la visibilidad de columnas)
 const getStoredColumnVisibility = (): ColumnVisibilityRelated => {
@@ -70,14 +72,14 @@ export const useRelated = () => {
 	}, []);
 
 	// Mostrar todas las columnas o desaparecer todas
-	const setAllColumns = (value: boolean) => {
+	const setAllColumns = useCallback((value: boolean) => {
 		setColumnVisibility(
 			(prev) =>
 				Object.fromEntries(
 					Object.keys(prev).map((key) => [key, value]),
 				) as typeof prev,
 		);
-	};
+	}, []);
 
 	// Función de cambio de página
 	const handlePageChange = useCallback((page: number) => {
@@ -105,7 +107,7 @@ export const useRelated = () => {
 	});
 
 	// Limpieza de filtros
-	const clearFilters = () => {
+	const clearFilters = useCallback(() => {
 		if (!hasActiveFilters) return;
 		setFilters((prev) => ({
 			...prev,
@@ -115,7 +117,7 @@ export const useRelated = () => {
 			responsible_person: "",
 			page: "1",
 		}));
-	};
+	}, [hasActiveFilters]);
 
 	// Funciones de API
 	const loadListRelated = useCallback(
@@ -161,6 +163,25 @@ export const useRelated = () => {
 		}
 	}, [formCreate, handleApiError, refreshRelated]);
 
+	const handleDeleteReleated = useCallback(
+		async (archiveId: UUID, relatedId: UUID): Promise<boolean> => {
+			try {
+				const res = await deleteRelated(archiveId, relatedId);
+				toast.success(res.message);
+				setRelated((prev) =>
+					prev.filter((a) => a.related_entries_id !== relatedId),
+				);
+				await refreshRelated();
+				return true;
+			} catch (error) {
+				handleApiError(error);
+				await refreshRelated();
+				return false;
+			}
+		},
+		[handleApiError, refreshRelated],
+	);
+
 	// Efectos (Debounce para carga lenta en filtros)
 	useEffect(() => {
 		if (debounceTimeoutRef.current) {
@@ -200,25 +221,47 @@ export const useRelated = () => {
 		localStorage.setItem(STORAGE_KEY_RELATED, JSON.stringify(columnVisibility));
 	}, [columnVisibility]);
 
-	return {
-		related,
-		loading,
-		paginationRelated,
-		columnVisibility,
-		openDialog,
-		formCreate,
-		filters,
-		hasActiveFilters,
-		setOpenDialog,
-		setFormCreate,
-		setFilters,
-		toggleColumn,
-		setAllColumns,
-		loadListRelated,
-		refreshRelated,
-		handleSubmitCreate,
-		handlePageChange,
-		handleLimitChange,
-		clearFilters,
-	};
+	return useMemo(
+		() => ({
+			related,
+			loading,
+			paginationRelated,
+			columnVisibility,
+			openDialog,
+			formCreate,
+			filters,
+			hasActiveFilters,
+			setOpenDialog,
+			setFormCreate,
+			setFilters,
+			toggleColumn,
+			setAllColumns,
+			loadListRelated,
+			refreshRelated,
+			handleSubmitCreate,
+			handleDeleteReleated,
+			handlePageChange,
+			handleLimitChange,
+			clearFilters,
+		}),
+		[
+			related,
+			loading,
+			paginationRelated,
+			columnVisibility,
+			openDialog,
+			formCreate,
+			filters,
+			hasActiveFilters,
+			toggleColumn,
+			setAllColumns,
+			loadListRelated,
+			refreshRelated,
+			handleSubmitCreate,
+			handleDeleteReleated,
+			handlePageChange,
+			handleLimitChange,
+			clearFilters,
+		],
+	);
 };
