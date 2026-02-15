@@ -10,8 +10,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { useRelatedContext } from '@/modules/related-entries/context/useRelatedContext';
-import { RelatedActions } from '@/modules/related-entries/components/RelatedActions';
+import { useRelatedContext } from "@/modules/related-entries/context/useRelatedContext";
+import { RelatedActions } from "@/modules/related-entries/components/RelatedActions";
 
 export const TableApp = () => {
 	const {
@@ -129,7 +129,7 @@ export const TableApp = () => {
 										)}
 										{columnVisibility.actions && (
 											<TableCell>
-												<RelatedActions related={rltd}/>
+												<RelatedActions related={rltd} />
 											</TableCell>
 										)}
 									</TableRow>

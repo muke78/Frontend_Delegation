@@ -14,7 +14,7 @@ export const ArchiveActions = ({ archive }: { archive: ArchiveBase }) => {
 	const location = useLocation();
 
 	const [action, setAction] = useState<"dialog" | "edit" | "delete" | null>(
-		null
+		null,
 	);
 
 	const params = new URLSearchParams(location.search);

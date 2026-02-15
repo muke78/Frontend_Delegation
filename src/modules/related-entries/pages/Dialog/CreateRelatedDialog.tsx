@@ -49,7 +49,7 @@ export const CreateRelatedDialog = () => {
 	};
 
 	const selectedDate = formCreate.event_date
-		? new Date(`${formCreate.event_date}T00:00:00`)
+		? new Date(formCreate.event_date + "T00:00:00")
 		: undefined;
 
 	return (
@@ -219,7 +219,6 @@ export const CreateRelatedDialog = () => {
 										<Calendar
 											mode="single"
 											selected={selectedDate}
-											month={selectedDate}
 											captionLayout="dropdown"
 											onSelect={(selectedDate) => {
 												if (!selectedDate) return;

@@ -1,11 +1,15 @@
 import type {
 	CreateRelatedPayload,
 	RelatedEntry,
+	RelatedFormState,
 	RelatedQueryParams,
 	UpdateRelatedPayload,
 } from "@/modules/related-entries/types.ts";
 import { apiFetch } from "@/services/api/api";
-import type { ApiSuccessResponse } from "@/services/api/types";
+import type {
+	ApiSingleResponse,
+	ApiSuccessResponse,
+} from "@/services/api/types";
 import type { UUID } from "@/types";
 
 // List related query params
@@ -33,9 +37,12 @@ export const listRelatedSpecify = (
 	archiveId: UUID,
 	related_entries_id: UUID,
 ) => {
-	return apiFetch(`/archives/${archiveId}/related/${related_entries_id}`, {
-		method: "GET",
-	});
+	return apiFetch<ApiSingleResponse<RelatedFormState>>(
+		`/archives/${archiveId}/related/${related_entries_id}`,
+		{
+			method: "GET",
+		},
+	);
 };
 
 // Create a new related
@@ -55,15 +62,21 @@ export const updateRelated = (
 	related_entries_id: UUID,
 	payload: UpdateRelatedPayload,
 ) => {
-	return apiFetch(`/archives/${archiveId}/related/${related_entries_id}`, {
-		method: "PUT",
-		body: JSON.stringify(payload),
-	});
+	return apiFetch<ApiSuccessResponse>(
+		`/archives/${archiveId}/related/${related_entries_id}`,
+		{
+			method: "PUT",
+			body: JSON.stringify(payload),
+		},
+	);
 };
 
 // Delete a related
 export const deleteRelated = (archiveId: UUID, related_entries_id: UUID) => {
-	return apiFetch<ApiSuccessResponse>(`/archives/${archiveId}/related/${related_entries_id}`, {
-		method: "DELETE",
-	});
+	return apiFetch<ApiSuccessResponse>(
+		`/archives/${archiveId}/related/${related_entries_id}`,
+		{
+			method: "DELETE",
+		},
+	);
 };

@@ -46,6 +46,8 @@ export type CreateRelatedPayload = Omit<
 	| "updated"
 >;
 
+export type RelatedFormState = CreateRelatedPayload;
+
 export type UpdateRelatedPayload = Partial<CreateRelatedPayload>;
 
 export type ColumnVisibilityRelated = {
@@ -60,9 +62,9 @@ export type ColumnVisibilityRelated = {
 };
 
 export type RelatedActionsType = {
-    open: boolean
-	archiveId: string
-	relatedId: string
-	relatedDescription: string
-    onClose: () => void
-}
+	open: boolean;
+	archiveId: string;
+	relatedId: string;
+	relatedDescription: string;
+	onClose: () => void;
+};
