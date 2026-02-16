@@ -1,7 +1,4 @@
-import { Popover } from "@radix-ui/react-popover";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import {
 	Dialog,
 	DialogClose,
@@ -11,11 +8,17 @@ import {
 	DialogHeader,
 	DialogOverlay,
 	DialogTitle,
-	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Icons } from "@/styles/Icons";
+import type { RelatedActionsType } from "../../types";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
+
 import {
 	Select,
 	SelectContent,
@@ -26,55 +29,56 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
-import { Icons } from "@/styles/Icons";
+import { useArchiveContext } from "@/modules/archives/context/useArchiveContext";
+
 import { formatDateToISO } from "@/utils/FormatDate";
-import { useRelatedContext } from "../../context/useRelatedContext";
+import { Calendar } from "@/components/ui/calendar";
+import { useRelatedEdit } from "../../hooks/useRelatedEdit";
 
-export const CreateRelatedDialog = () => {
-	const [open, setOpen] = useState(false);
-
+export const EditRelatedDialog = ({
+	open,
+	archiveId,
+	relatedDescription,
+	relatedId,
+	onClose,
+}: RelatedActionsType) => {
 	const { archiveSelect } = useArchiveContext();
+
 	const {
-		formCreate,
-		setFormCreate,
-		openDialog,
-		setOpenDialog,
-		handleSubmitCreate,
-	} = useRelatedContext();
+		formEdit,
+		handleSubmitEdit,
+		month,
+		openCalendar,
+		selectedArchiveId,
+		selectedDate,
+		setFormEdit,
+		setMonth,
+		setOpenCalendar,
+		setSelectedArchiveId,
+	} = useRelatedEdit({ open, archiveId, relatedId, onClose });
 
-	const onSubmitCreate = async (e: React.FormEvent<HTMLFormElement>) => {
+	const onSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		await handleSubmitCreate();
+		await handleSubmitEdit();
 	};
-
-	const selectedDate = formCreate.event_date
-		? new Date(formCreate.event_date + "T00:00:00")
-		: undefined;
 
 	return (
 		<>
-			{/* Dialogo para agrerar una relacion */}
-			<Dialog open={openDialog} onOpenChange={setOpenDialog}>
-				<DialogTrigger asChild>
-					<Button className="gap-2 cursor-pointer">
-						<Icons.Plus className="h-4 w-4" />
-						Agregar relacion
-					</Button>
-				</DialogTrigger>
+			{/* Dialog para editar una relacion */}
+			<Dialog open={open} onOpenChange={(v) => !v && onClose()}>
 				<DialogOverlay />
 				<DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
 					<DialogHeader>
 						<DialogTitle className="text-2xl">
-							Agregar nueva relacion
+							Editar la relacion {relatedDescription}
 						</DialogTitle>
 						<DialogDescription>
-							Complete la información de la relacion. Los campos marcados con{" "}
-							<span className="text-destructive">*</span> son obligatorios.
+							Edite la informacion de la relacion, los campos se pueden cambiar
+							o dejarse asi, solo no deben de quedar vacios
 						</DialogDescription>
 					</DialogHeader>
 
-					<form onSubmit={onSubmitCreate} className="space-y-6 py-4">
+					<form onSubmit={onSubmitEdit} className="space-y-6 py-4">
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 							<div className="space-y-2 col-span-2">
 								<Label
@@ -82,15 +86,15 @@ export const CreateRelatedDialog = () => {
 									className="text-sm font-medium"
 									id="description-by-label"
 								>
-									Descripcion <span className="text-destructive">*</span>
+									Descripcion
 								</Label>
 								<Input
 									id="description"
 									type="text"
 									aria-labelledby="description-by-label"
-									value={formCreate.description}
+									value={formEdit.description}
 									onChange={(e) =>
-										setFormCreate((prev) => ({
+										setFormEdit((prev) => ({
 											...prev,
 											description: e.target.value.toUpperCase(),
 										}))
@@ -106,14 +110,11 @@ export const CreateRelatedDialog = () => {
 									className="text-sm font-medium"
 									id="archive-by-label"
 								>
-									Archivo a relacionar{" "}
-									<span className="text-destructive">*</span>
+									Archivo a relacionar
 								</Label>
 								<Select
-									value={formCreate.archive_id}
-									onValueChange={(value) =>
-										setFormCreate((prev) => ({ ...prev, archive_id: value }))
-									}
+									value={selectedArchiveId}
+									onValueChange={(value) => setSelectedArchiveId(value)}
 									required
 								>
 									<SelectTrigger
@@ -141,15 +142,14 @@ export const CreateRelatedDialog = () => {
 									htmlFor="responsible_person"
 									className="text-sm font-medium"
 								>
-									Persona responsable{" "}
-									<span className="text-destructive">*</span>
+									Persona responsable
 								</Label>
 								<Input
 									id="responsible_person"
 									type="text"
-									value={formCreate.responsible_person}
+									value={formEdit.responsible_person}
 									onChange={(e) =>
-										setFormCreate((prev) => ({
+										setFormEdit((prev) => ({
 											...prev,
 											responsible_person: e.target.value.toUpperCase(),
 										}))
@@ -168,9 +168,9 @@ export const CreateRelatedDialog = () => {
 									Persona a cargo
 								</Label>
 								<Select
-									value={formCreate.responsible_role}
+									value={formEdit.responsible_role}
 									onValueChange={(value) =>
-										setFormCreate((prev) => ({
+										setFormEdit((prev) => ({
 											...prev,
 											responsible_role: value,
 										}))
@@ -201,14 +201,14 @@ export const CreateRelatedDialog = () => {
 								<Label htmlFor="event_date" className="text-sm font-medium">
 									Fecha de evento
 								</Label>
-								<Popover open={open} onOpenChange={setOpen}>
+								<Popover open={openCalendar} onOpenChange={setOpenCalendar}>
 									<PopoverTrigger asChild className="w-full">
 										<Button
 											variant="outline"
 											id="date"
 											className="justify-between font-normal"
 										>
-											{formCreate.event_date || "Selecciona una fecha"}
+											{formEdit.event_date || "Selecciona una fecha"}
 											<Icons.ChevronDownIcon />
 										</Button>
 									</PopoverTrigger>
@@ -219,15 +219,17 @@ export const CreateRelatedDialog = () => {
 										<Calendar
 											mode="single"
 											selected={selectedDate}
+											month={month}
+											onMonthChange={setMonth}
 											captionLayout="dropdown"
 											onSelect={(selectedDate) => {
 												if (!selectedDate) return;
-												setFormCreate((prev) => ({
+												setFormEdit((prev) => ({
 													...prev,
 													event_date: formatDateToISO(selectedDate),
 												}));
 
-												setOpen(false);
+												setOpenCalendar(false);
 											}}
 										/>
 									</PopoverContent>
@@ -240,9 +242,9 @@ export const CreateRelatedDialog = () => {
 								</Label>
 								<Textarea
 									id="notas"
-									value={formCreate.notas}
+									value={formEdit.notas}
 									onChange={(e) =>
-										setFormCreate((prev) => ({
+										setFormEdit((prev) => ({
 											...prev,
 											notas: e.target.value.toUpperCase(),
 										}))
@@ -254,13 +256,17 @@ export const CreateRelatedDialog = () => {
 
 						<DialogFooter className="flex gap-2">
 							<DialogClose asChild>
-								<Button variant="outline" type="button">
+								<Button
+									variant="outline"
+									type="button"
+									className="cursor-pointer"
+								>
 									Cancelar
 								</Button>
 							</DialogClose>
-							<Button type="submit">
+							<Button type="submit" className="cursor-pointer">
 								<Icons.Save className="h-4 w-4 mr-2" />
-								Guardar relacion
+								Editar relacion
 							</Button>
 						</DialogFooter>
 					</form>

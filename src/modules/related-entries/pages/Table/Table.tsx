@@ -2,7 +2,6 @@ import { FullScreenLoader } from "@/components/common/FullScreenLoader";
 import { CountLimit } from "@/components/layout/Filters/CountLimit";
 import { NotFoundTable } from "@/components/layout/NotFound/NotFoundTable";
 import { PagintationApp } from "@/components/layout/Pagination/Pagintation";
-import { Button } from "@/components/ui/button";
 import {
 	Table,
 	TableBody,
@@ -11,8 +10,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { Icons } from "@/styles/Icons";
-import { useRelatedContext } from "../../context/useRelatedContext";
+import { useRelatedContext } from "@/modules/related-entries/context/useRelatedContext";
+import { RelatedActions } from "@/modules/related-entries/components/RelatedActions";
 
 export const TableApp = () => {
 	const {
@@ -130,26 +129,7 @@ export const TableApp = () => {
 										)}
 										{columnVisibility.actions && (
 											<TableCell>
-												<div className="flex items-center justify-end gap-1">
-													<Button
-														size={"sm"}
-														variant={"ghost"}
-														className="gap-1.5 cursor-pointer hover:bg-amber-50 hover:text-amber-600"
-														title="Editar relacion"
-													>
-														<Icons.Pencil size={14} />
-														<span className="hidden xl:inline">Editar</span>
-													</Button>
-													<Button
-														size="sm"
-														variant="ghost"
-														className="gap-1.5 cursor-pointer text-destructive hover:bg-destructive/10"
-														title="Eliminar relacion"
-													>
-														<Icons.Trash2 size={14} />
-														<span className="hidden xl:inline">Eliminar</span>
-													</Button>
-												</div>
+												<RelatedActions related={rltd} />
 											</TableCell>
 										)}
 									</TableRow>
