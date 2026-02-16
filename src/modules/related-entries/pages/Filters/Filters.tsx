@@ -11,15 +11,14 @@ import {
 import { Icons } from "@/styles/Icons";
 import { formatDateToISO } from "@/utils/FormatDate";
 import { useRelatedContext } from "../../context/useRelatedContext";
+import { useCalendar } from "@/hooks/useCalendar";
 
 export const FiltersApp = () => {
 	const [open, setOpen] = useState(false);
 
 	const { filters, setFilters } = useRelatedContext();
 
-	const selectedDate = filters.event_date
-		? new Date(`${filters.event_date}T00:00:00`)
-		: undefined;
+	const { month, selectedDate, setMonth } = useCalendar(filters.event_date);
 
 	return (
 		<FieldGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
@@ -134,7 +133,8 @@ export const FiltersApp = () => {
 							<Calendar
 								mode="single"
 								selected={selectedDate}
-								month={selectedDate}
+								month={month}
+								onMonthChange={setMonth}
 								captionLayout="dropdown"
 								onSelect={(selectedDate) => {
 									if (!selectedDate) return;

@@ -65,6 +65,6 @@ export type RelatedActionsType = {
 	open: boolean;
 	archiveId: string;
 	relatedId: string;
-	relatedDescription: string;
+	relatedDescription?: string;
 	onClose: () => void;
 };

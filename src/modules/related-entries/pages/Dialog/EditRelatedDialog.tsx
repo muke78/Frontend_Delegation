@@ -12,13 +12,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Icons } from "@/styles/Icons";
-import type { RelatedActionsType, RelatedFormState } from "../../types";
+import type { RelatedActionsType } from "../../types";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import { useEffect, useMemo, useState } from "react";
+
 import {
 	Select,
 	SelectContent,
@@ -30,16 +30,10 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useArchiveContext } from "@/modules/archives/context/useArchiveContext";
-import { DEFAULT_FORM_STATE_RELATED } from "@/hooks/useEnviromentArchives";
-import { ErrorCollector } from "@/utils/ErrorCollector";
-import { toast } from "sonner";
-import {
-	listRelatedSpecify,
-	updateRelated,
-} from "../../services/related.services";
-import { useRelated } from "../../hooks/useRelated";
+
 import { formatDateToISO } from "@/utils/FormatDate";
 import { Calendar } from "@/components/ui/calendar";
+import { useRelatedEdit } from "../../hooks/useRelatedEdit";
 
 export const EditRelatedDialog = ({
 	open,
@@ -48,95 +42,25 @@ export const EditRelatedDialog = ({
 	relatedId,
 	onClose,
 }: RelatedActionsType) => {
-	const [openCalendar, setOpenCalendar] = useState(false);
-	const [selectedArchiveId, setSelectedArchiveId] = useState(archiveId);
-
 	const { archiveSelect } = useArchiveContext();
 
-	const { refreshRelated } = useRelated();
-
-	const [formEdit, setFormEdit] = useState<RelatedFormState>(
-		DEFAULT_FORM_STATE_RELATED,
-	);
-
-	// Recolector de errores
-	const { handleApiError } = ErrorCollector();
-
-	// Funcion que manda a editar un archivo
-	const handleSubmitEdit = async () => {
-		try {
-			const payload = {
-				description: formEdit.description,
-				event_date: formEdit.event_date,
-				responsible_person: formEdit.responsible_person,
-				responsible_role: formEdit.responsible_role,
-				notas: formEdit.notas,
-			};
-
-			const res = await updateRelated(selectedArchiveId, relatedId, payload);
-			await refreshRelated();
-			toast.success(res.message);
-			onClose();
-		} catch (error) {
-			handleApiError(error);
-		}
-	};
+	const {
+		formEdit,
+		handleSubmitEdit,
+		month,
+		openCalendar,
+		selectedArchiveId,
+		selectedDate,
+		setFormEdit,
+		setMonth,
+		setOpenCalendar,
+		setSelectedArchiveId,
+	} = useRelatedEdit({ open, archiveId, relatedId, onClose });
 
 	const onSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		await handleSubmitEdit();
 	};
-
-	const selectedDate = useMemo(
-		() =>
-			formEdit.event_date
-				? new Date(formEdit.event_date + "T00:00:00")
-				: undefined,
-		[formEdit.event_date],
-	);
-
-	const [currentMonth, setCurrentMonth] = useState<Date | undefined>(
-		selectedDate,
-	);
-
-	// Efectos (Conseguir el registro que se le dio clic y sobnecargarlo al Dialog para editar)
-	useEffect(() => {
-		if (!open || !archiveId) return;
-
-		if (open && archiveId) {
-			setSelectedArchiveId(archiveId);
-		}
-
-		const getArchiveById = async () => {
-			try {
-				const res = await listRelatedSpecify(archiveId, relatedId);
-				const related = res.data[0];
-
-				if (related) {
-					setFormEdit({
-						description: related.description ?? "",
-						event_date: related.event_date.split("T")[0] ?? "",
-						responsible_person: related.responsible_person ?? "",
-						responsible_role: related.responsible_role ?? "",
-						notas: related.notas ?? "",
-					});
-				} else {
-					toast.error(`No se encontró el archivo con ID ${archiveId}`);
-					onClose();
-				}
-			} catch (error) {
-				handleApiError(error);
-			}
-		};
-
-		getArchiveById();
-	}, [archiveId, onClose, open, handleApiError, relatedId]);
-
-	useEffect(() => {
-		if (selectedDate) {
-			setCurrentMonth(selectedDate);
-		}
-	}, [selectedDate]);
 
 	return (
 		<>
@@ -295,8 +219,8 @@ export const EditRelatedDialog = ({
 										<Calendar
 											mode="single"
 											selected={selectedDate}
-											month={currentMonth}
-											onMonthChange={setCurrentMonth}
+											month={month}
+											onMonthChange={setMonth}
 											captionLayout="dropdown"
 											onSelect={(selectedDate) => {
 												if (!selectedDate) return;
