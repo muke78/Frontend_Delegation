@@ -1,0 +1,71 @@
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogOverlay,
+	DialogTitle,
+} from "@/components/ui/dialog";
+import { useArchiveContext } from "@/modules/archives/context/useArchiveContext.ts";
+import type { ArchiveActionsType } from "@/modules/archives/types.ts";
+import { useArchiveActions } from "@/hooks/useArchiveActions";
+
+export const DeleteArchiveDialog = ({
+	open,
+	archiveId,
+	archiveName,
+	onClose,
+}: ArchiveActionsType) => {
+	const { handleDeleteArchive } = useArchiveContext();
+	const { syncAfterArchiveDelete } = useArchiveActions();
+
+	const onDelete = async () => {
+		if (!archiveId) {
+			toast.error("ID del archivo no válido");
+			return;
+		}
+		const ok = await handleDeleteArchive(archiveId);
+		if (ok) {
+			await syncAfterArchiveDelete();
+			onClose();
+		}
+	};
+
+	return (
+		<Dialog open={open} onOpenChange={(v) => !v && onClose()}>
+			<DialogOverlay />
+			<DialogContent className="w-md">
+				<DialogHeader>
+					<DialogTitle>Desea Borrar este registro?</DialogTitle>
+					<DialogDescription>
+						Al dar clic en aceptar, el registro {archiveName} sera eliminado de
+						forma definitiva
+					</DialogDescription>
+				</DialogHeader>
+				<DialogFooter>
+					<DialogClose asChild>
+						<Button
+							variant="outline"
+							onClick={onClose}
+							className="cursor-pointer"
+						>
+							Cancelar
+						</Button>
+					</DialogClose>
+					<Button
+						type="submit"
+						variant={"destructive"}
+						className="cursor-pointer"
+						onClick={onDelete}
+					>
+						Aceptar
+					</Button>
+				</DialogFooter>
+			</DialogContent>
+		</Dialog>
+	);
+};
