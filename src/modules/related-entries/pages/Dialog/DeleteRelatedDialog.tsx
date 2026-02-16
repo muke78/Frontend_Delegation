@@ -20,14 +20,14 @@ export const DeleteRelatedDialog = ({
 	relatedDescription,
 	onClose,
 }: RelatedActionsType) => {
-	const { handleDeleteReleated } = useRelatedContext();
+	const { handleDeleteRelated } = useRelatedContext();
 
 	const onDelete = async () => {
-		if (!archiveId && !relatedId) {
+		if (!archiveId || !relatedId) {
 			toast.error("Los ID's no son validos");
 			return;
 		}
-		await handleDeleteReleated(archiveId, relatedId);
+		await handleDeleteRelated(archiveId, relatedId);
 	};
 
 	return (

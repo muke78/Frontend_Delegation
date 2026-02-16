@@ -25,7 +25,7 @@ export interface RelatedContextType {
 	loadListRelated: (filters: RelatedQueryParams) => Promise<void>;
 	refreshRelated: () => void;
 	handleSubmitCreate: () => Promise<void>;
-	handleDeleteReleated: (archiveId: UUID, relatedId: UUID) => Promise<boolean>;
+	handleDeleteRelated: (archiveId: UUID, relatedId: UUID) => Promise<boolean>;
 	handlePageChange: (page: number) => void;
 	handleLimitChange: (limit: number) => void;
 	clearFilters: () => void;

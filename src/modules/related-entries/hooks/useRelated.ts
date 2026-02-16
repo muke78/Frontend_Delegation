@@ -163,7 +163,7 @@ export const useRelated = () => {
 		}
 	}, [formCreate, handleApiError, refreshRelated]);
 
-	const handleDeleteReleated = useCallback(
+	const handleDeleteRelated = useCallback(
 		async (archiveId: UUID, relatedId: UUID): Promise<boolean> => {
 			try {
 				const res = await deleteRelated(archiveId, relatedId);
@@ -239,7 +239,7 @@ export const useRelated = () => {
 			loadListRelated,
 			refreshRelated,
 			handleSubmitCreate,
-			handleDeleteReleated,
+			handleDeleteRelated,
 			handlePageChange,
 			handleLimitChange,
 			clearFilters,
@@ -258,7 +258,7 @@ export const useRelated = () => {
 			loadListRelated,
 			refreshRelated,
 			handleSubmitCreate,
-			handleDeleteReleated,
+			handleDeleteRelated,
 			handlePageChange,
 			handleLimitChange,
 			clearFilters,

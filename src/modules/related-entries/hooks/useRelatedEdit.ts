@@ -60,7 +60,7 @@ export const useRelatedEdit = ({open, archiveId, relatedId, onClose}: RelatedAct
 				if (related) {
 					setFormEdit({
 						description: related.description ?? "",
-						event_date: related.event_date.split("T")[0] ?? "",
+						event_date: related.event_date?.split("T")[0] ?? "",
 						responsible_person: related.responsible_person ?? "",
 						responsible_role: related.responsible_role ?? "",
 						notas: related.notas ?? "",
